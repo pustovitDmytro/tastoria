@@ -1,0 +1,28 @@
+.component {
+  background-color: #bbc4c3;
+  font-size: 0.8rem;
+  line-height: 2;
+  margin: 5px 5px 5px 5px;
+  width: 250px; 
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.component h3 {
+  color: #2e2d32;
+  font-size: 1.5rem;
+  margin: 0 0 15px;
+  padding: 0;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;    
+  font-family: 'Playfair Display', serif;
+}
+
+.bigTitle h3 {
+  height: 100px;
+}

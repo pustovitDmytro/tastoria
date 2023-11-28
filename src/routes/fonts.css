@@ -1,0 +1,8 @@
+
+@font-face {
+    font-family: Playfair Display;
+    font-display: swap;
+    src: url("/fonts/PlayfairDisplay-ExtraBoldItalic.ttf") format("woff2");
+    font-weight: 800;
+    font-style: italic;
+  }

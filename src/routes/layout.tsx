@@ -1,38 +1,49 @@
-import { component$, Slot, useStyles$ } from "@builder.io/qwik";
-import { routeLoader$ } from "@builder.io/qwik-city";
-import type { RequestHandler } from "@builder.io/qwik-city";
+import { component$, Slot, useStyles$, useStore, useContextProvider } from '@builder.io/qwik';
+import { routeLoader$ } from '@builder.io/qwik-city';
+import type { RequestHandler } from '@builder.io/qwik-city';
+import styles from './fonts.css?inline';
+import Header from '~/components/Header/header';
+import Footer from '~/components/Footer/footer';
+import type { SessionStore } from '~/stores/session';
+import { sessionContext } from '~/stores/session';
 
-import Header from "~/components/starter/header/header";
-import Footer from "~/components/starter/footer/footer";
-
-import styles from "./styles.css?inline";
-
-export const onGet: RequestHandler = async ({ cacheControl }) => {
-  // Control caching for this request for best performance and to reduce hosting costs:
-  // https://qwik.builder.io/docs/caching/
-  cacheControl({
-    // Always serve a cached response by default, up to a week stale
-    staleWhileRevalidate: 60 * 60 * 24 * 7,
-    // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
-    maxAge: 5,
-  });
+export const onGet: RequestHandler = async ({ cacheControl, cookie }) => {
+    // cacheControl({ // https://qwik.builder.io/docs/caching/
+    //     staleWhileRevalidate : 60 * 60 * 24 * 7, // Always serve a cached response by default, up to a week stale
+    //     maxAge               : 5
+    //     // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
+    // });
 };
 
+export const useSession = routeLoader$(async ({ cookie }) => {
+    const session = cookie.get('tastoria.session');
+
+    return session?.json();
+});
+
 export const useServerTimeLoader = routeLoader$(() => {
-  return {
-    date: new Date().toISOString(),
-  };
+    return {
+        date : new Date().toISOString()
+    };
 });
 
 export default component$(() => {
-  useStyles$(styles);
-  return (
-    <>
-      <Header />
-      <main>
-        <Slot />
-      </main>
-      <Footer />
-    </>
-  );
+    useStyles$(styles);
+    const session = useSession();
+    const store = useStore({ user: session });
+
+    useContextProvider(
+        sessionContext,
+        store
+    );
+
+    return (
+        <>
+            <main>
+                <Header />
+                <Slot />
+                <Footer />
+            </main>
+        </>
+    );
 });

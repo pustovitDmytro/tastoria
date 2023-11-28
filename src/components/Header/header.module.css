@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 40px;
+}
+
+.avatar {
+  height: 35px;
+  width: 35px;
+  object-fit: contain;
+  border-radius: 50%;
+  margin: 0 5px;
+}

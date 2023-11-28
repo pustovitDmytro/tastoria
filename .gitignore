@@ -5,3 +5,5 @@ tmp/*
 .netlify
 
 # Netlify
+
+.env

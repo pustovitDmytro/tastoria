@@ -16,11 +16,13 @@
     "isolatedModules": true,
     "outDir": "tmp",
     "noEmit": true,
+    "noImplicitAny": false,
     "types": ["node", "vite/client"],
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      // "@cottus/*": ["./node_modules/cottus/lib/*"]
     }
   },
   "files": ["./.eslintrc.cjs"],
-  "include": ["src", "./*.d.ts", "./*.config.ts"]
+  "include": ["src", "./*.d.ts", "./*.config.ts", "bin"]
 }
