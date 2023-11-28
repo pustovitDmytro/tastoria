@@ -1,0 +1,134 @@
+defaults: &defaults
+  resource_class: small
+  docker:
+    - image: cimg/node:20.9.0
+cache-npm: &cache-npm
+  keys:
+    - -{{ checksum "package-lock.json" }}
+cache-build: &cache-build
+  keys:
+    - -dist_{{ .Revision }}
+
+parameters:
+  skip-coveralls:
+    type: boolean
+    default: false
+  skip-security:
+    type: boolean
+    default: false
+  skip-leaks:
+    type: boolean
+    default: false
+  skip-deploy:
+    type: boolean
+    default: false
+
+aliases:
+  - &set-github-read-token
+    name: Set Danger Token
+    command: |
+            echo 'export DANGER_GITHUB_API_TOKEN=$(echo Z2hwXzFldFVxODNZTUhCa0ZQUjk0WVV1blFXZTFCVmkzajRSOEpxRQo= | base64 --decode)' >> $BASH_ENV
+            source $BASH_ENV
+  - &danger-pr
+    name: Run danger
+    command: npx danger ci -d .dangerfile.js
+  - &build
+    name: Build
+    command: npm run build
+  - &install
+    name: Installing Dependencies
+    command: npm ci
+  - &cache-modules
+    key: -{{ checksum "package-lock.json" }}
+    paths:
+      - ~/.npm
+      - node_modules
+  - &cache-build
+    key: -dist_{{ .Revision }}
+    paths:
+      - dist
+
+version: 2.1
+debug: true
+jobs:
+  danger-pr:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *install
+      - run: *set-github-read-token
+      - run: *danger-pr
+      
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: *install
+      - run: *build
+      - run: *danger-pr
+      - save_cache: *cache-modules
+      - save_cache: *cache-build
+  test-lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          <<: *cache-npm
+      - run:
+          name: Run Lint
+          command: "npm run test:lint"
+  test-leaks:
+    resource_class: small
+    docker:
+      - image: zricethezav/gitleaks:v7.6.1
+    steps:
+      - checkout
+      - when:
+          condition:
+            not: << pipeline.parameters.skip-leaks >>
+          steps:
+            - run:
+                name: Run gitleaks
+                command: "gitleaks -v --path . --config-path .gitleaks.toml"
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+      - when:
+          condition:
+            not: << pipeline.parameters.skip-deploy >>
+          steps:
+            - restore_cache:
+                <<: *cache-npm     
+            - restore_cache:
+                <<: *cache-build
+            - run:
+                name: Create Release
+                command: if [ -z ${CIRCLE_SKIP_DEPLOY+x} ]; then npm run semantic-release;else echo 'job skipped';fi
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - install:
+          context: branches
+      - test-leaks:
+          requires:
+            - install
+      - test-lint:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - install
+            - test-lint
+          context: npm-packages
+          filters:
+            branches:
+                only: master
+  pr:
+    jobs:
+      - danger-pr:
+          filters:
+            branches:
+              only: /pull\/[0-9]+/

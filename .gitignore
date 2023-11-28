@@ -6,4 +6,5 @@ tmp/*
 
 # Netlify
 
-.env
+.env.production
+.env.local
