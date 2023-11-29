@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/pustovitDmytro/tastoria/compare/v1.1.0...v1.1.1) (2023-11-29)
+
+
+### Fix
+
+* redirect 404 to / ([febc9b8](https://github.com/pustovitDmytro/tastoria/commit/febc9b893bc4be07b33b6d105fba2db38812822d))
+
 # [1.1.0](https://github.com/pustovitDmytro/tastoria/compare/v1.0.0...v1.1.0) (2023-11-29)
 
 
