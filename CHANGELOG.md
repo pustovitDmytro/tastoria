@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/pustovitDmytro/tastoria/compare/v1.0.0...v1.1.0) (2023-11-29)
+
+
+### New
+
+* adds about page ([1b68adb](https://github.com/pustovitDmytro/tastoria/commit/1b68adb5b5d46133b07d0c4372b05629487ce3c4))
+
 # 1.0.0 (2023-11-29)
 
 
