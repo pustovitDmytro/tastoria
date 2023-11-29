@@ -19,6 +19,7 @@
         ],
         [
             "@semantic-release/exec", {
+                "prepareCmd": "zip -r build.zip dist",
                 "publishCmd": "npx netlify deploy --prod"
             }
         ],
@@ -36,7 +37,7 @@
         [
             "@semantic-release/github", {
                 "assets": [
-                    { "path": "dist", "label": "Build" }
+                    { "path": "build*.zip", "label": "Build" }
                 ]
             }
         ],

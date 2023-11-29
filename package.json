@@ -19,9 +19,9 @@
     "semantic-release": "npx semantic-release"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "engines": {
-    "node": ">=14"
+    "node": ">=20"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.2.18",

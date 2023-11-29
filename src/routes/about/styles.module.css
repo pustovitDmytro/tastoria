@@ -1,0 +1,110 @@
+.page {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+    background-color: #bbc4c3;
+}
+
+.image {
+    width: 100%;
+    height: 600px;
+    display: block;
+    object-fit: contain;
+    z-index: 2;
+}
+
+.paper {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+
+    border-radius: 5px 5px 40px 25px;
+    
+    height: 440px;
+    width: 165px;
+    left: calc(50% - 95px);
+    top: calc(50% - 180px);
+
+    padding: 10px 25px 10px 20px;
+    z-index: 1;
+}
+
+@media screen and (min-width: 600px) and (max-width: 625px) {
+    .paper {
+        height: 410px;
+        width: 150px;
+        left: calc(50% - 95px);
+        top: calc(50% - 170px);
+    }
+}
+
+@media screen and (min-width: 550px)  and (max-width: 599px) {
+    .paper {
+        height: 385px;
+        width: 130px;
+        left: calc(50% - 80px);
+        top: calc(50% - 158px);
+    }
+}
+  
+@media screen and (min-width: 500px)  and (max-width: 549px) {
+    .paper {
+        height: 360px;
+        width: 130px;
+        left: calc(50% - 80px);
+        top: calc(50% - 150px);
+    }
+}
+
+@media screen and (min-width: 450px)  and (max-width: 499px) {
+    .paper {
+        height: 320px;
+        width: 110px;
+        padding-left: 12px;
+        left: calc(50% - 70px);
+        top: calc(50% - 135px);
+    }
+}
+
+@media screen and (min-width: 400px)  and (max-width: 449px) {
+    .paper {
+        height: 285px;
+        width: 100px;
+        padding-left: 7px;
+        left: calc(50% - 60px);
+        top: calc(50% - 120px);
+    }
+}
+
+@media screen and (max-width: 399px) {
+    .paper {
+        height: 250px;
+        width: 80px;
+        padding-left: 5px;
+        left: calc(50% - 50px);
+        top: calc(50% - 105px);
+    }
+}
+
+.header{
+    height: 40px;
+    width: 50%;
+}
+
+.content{
+    flex: 1;
+    width: 50%;
+}
+
+.footer{
+    height: 20px;
+    text-align: right;
+    margin-right: 20px;
+    font-size: 0.6rem;
+    line-height: 20px;
+}

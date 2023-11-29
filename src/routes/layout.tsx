@@ -1,7 +1,8 @@
 import { component$, Slot, useStyles$, useStore, useContextProvider } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import type { RequestHandler } from '@builder.io/qwik-city';
-import styles from './fonts.css?inline';
+import fonts from './fonts.css?inline';
+import styles from './styles.module.css';
 import Header from '~/components/Header/header';
 import Footer from '~/components/Footer/footer';
 import type { SessionStore } from '~/stores/session';
@@ -28,7 +29,7 @@ export const useServerTimeLoader = routeLoader$(() => {
 });
 
 export default component$(() => {
-    useStyles$(styles);
+    useStyles$(fonts);
     const session = useSession();
     const store = useStore({ user: session });
 
@@ -39,9 +40,11 @@ export default component$(() => {
 
     return (
         <>
-            <main>
+            <main class={styles.page}>
                 <Header />
-                <Slot />
+                <div class={styles.content}>
+                    <Slot/>
+                </div>
                 <Footer />
             </main>
         </>
