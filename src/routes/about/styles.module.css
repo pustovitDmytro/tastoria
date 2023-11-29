@@ -20,16 +20,12 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-
     background-color: white;
-
     border-radius: 5px 5px 40px 25px;
-    
     height: 440px;
     width: 165px;
     left: calc(50% - 95px);
     top: calc(50% - 180px);
-
     padding: 10px 25px 10px 20px;
     z-index: 1;
 }
