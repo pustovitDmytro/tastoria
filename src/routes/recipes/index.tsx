@@ -1,5 +1,5 @@
 import { component$, useContext  } from '@builder.io/qwik';
-import type { DocumentHead, RequestHandler } from '@builder.io/qwik-city';
+import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import type { Receipt } from '~/components/RecipesList/RecipesList';
 import List from '~/components/RecipesList/RecipesList';

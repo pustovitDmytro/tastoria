@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: flex-end;
   height: 40px;
+  position: relative;
 }
 
 .avatar {
@@ -11,4 +12,14 @@
   object-fit: contain;
   border-radius: 50%;
   margin: 0 5px;
+}
+
+.menu {
+  position: absolute;
+  z-index: 6;
+  top: 10px;
+  left: 10px;
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
 }

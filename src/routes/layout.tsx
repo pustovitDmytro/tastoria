@@ -7,6 +7,8 @@ import Header from '~/components/Header/header';
 import Footer from '~/components/Footer/footer';
 import type { SessionStore } from '~/stores/session';
 import { sessionContext } from '~/stores/session';
+import { appContext } from '~/stores/app';
+import Menu from '~/components/Menu/menu';
 
 export const onGet: RequestHandler = async ({ cacheControl, cookie }) => {
     // cacheControl({ // https://qwik.builder.io/docs/caching/
@@ -22,26 +24,20 @@ export const useSession = routeLoader$(async ({ cookie }) => {
     return session?.json();
 });
 
-export const useServerTimeLoader = routeLoader$(() => {
-    return {
-        date : new Date().toISOString()
-    };
-});
-
 export default component$(() => {
     useStyles$(fonts);
     const session = useSession();
-    const store = useStore({ user: session });
+    const sessionStore = useStore({ user: session });
+    const appStore = useStore({ isMenuOpened: false });
 
-    useContextProvider(
-        sessionContext,
-        store
-    );
+    useContextProvider(sessionContext, sessionStore);
+    useContextProvider(appContext, appStore);
 
     return (
         <>
             <main class={styles.page}>
                 <Header />
+                <Menu/>
                 <div class={styles.content}>
                     <Slot/>
                 </div>
