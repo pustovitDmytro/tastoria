@@ -1,0 +1,20 @@
+{
+	"siteId": "e3d57ed0-6ef5-4185-959d-4d8f158ba7b6",
+	"geolocation": {
+		"data": {
+			"city": "Kyiv",
+			"country": {
+				"code": "UA",
+				"name": "Ukraine"
+			},
+			"subdivision": {
+				"code": "30",
+				"name": "Kyiv City"
+			},
+			"timezone": "Europe/Kyiv",
+			"latitude": 50.458,
+			"longitude": 30.5303
+		},
+		"timestamp": 1701294080610
+	}
+}

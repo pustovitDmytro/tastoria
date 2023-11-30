@@ -2,9 +2,8 @@ dist/*
 node_modules/*
 tmp/*
 # Local Netlify folder
-.netlify
+.netlify/*
 !.netlify/state.json
-# Netlify
 
 .env.production
 .env.local

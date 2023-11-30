@@ -20,7 +20,7 @@
         [
             "@semantic-release/exec", {
                 "prepareCmd": "zip -r build.zip dist",
-                "publishCmd": "npx netlify deploy --prod"
+                "publishCmd": "npm run deploy -- --prod"
             }
         ],
         [
