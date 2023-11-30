@@ -70,6 +70,7 @@
     "cottus": "1.11.0",
     "firebase": "10.6.0",
     "myrmidon": "1.9.0",
+    "ua-parser-js": "^1.0.37",
     "uuid": "9.0.1",
     "workbox-precaching": "7.0.0",
     "workbox-routing": "7.0.0",
