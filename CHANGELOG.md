@@ -1,3 +1,14 @@
+## [1.2.1](https://github.com/pustovitDmytro/tastoria/compare/v1.2.0...v1.2.1) (2023-11-30)
+
+
+### Chore
+
+* fix build ([90b1441](https://github.com/pustovitDmytro/tastoria/commit/90b14411c2636d408a5a0caccbe0ad6dbc9083cf))
+
+### Fix
+
+* drop redunant checks ([da1064b](https://github.com/pustovitDmytro/tastoria/commit/da1064b4848994208aab119ec121ad7d721ee15e))
+
 # [1.2.0](https://github.com/pustovitDmytro/tastoria/compare/v1.1.1...v1.2.0) (2023-11-30)
 
 
