@@ -7,7 +7,7 @@ cache-npm: &cache-npm
     - -{{ checksum "package-lock.json" }}
 cache-build: &cache-build
   keys:
-    - -dist_{{ .Revision }}
+    - -build_{{ .Revision }}
 
 parameters:
   skip-coveralls:
@@ -34,7 +34,7 @@ aliases:
     command: npx danger ci -d .dangerfile.js
   - &build
     name: Build
-    command: npm run build
+    command: npx netlify build
   - &install
     name: Installing Dependencies
     command: npm ci
@@ -44,9 +44,10 @@ aliases:
       - ~/.npm
       - node_modules
   - &cache-build
-    key: -dist_{{ .Revision }}
+    key: -build_{{ .Revision }}
     paths:
       - dist
+      - .netlify
 
 version: 2.1
 debug: true

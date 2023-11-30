@@ -6,21 +6,16 @@
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
         [
-            "@google/semantic-release-replace-plugin",
+            "semantic-release-bundle",
             {
-              "replacements": [
-                {
-                  "files": ["package.json"],
-                  "from": "\"version\":\\s*\".*\"",
-                  "to": "\"version\": \"${nextRelease.version}\""
-                }
-              ]
+              "type": "q-manifest",
+              "updatePackageJSON": true
             }
         ],
         [
             "@semantic-release/exec", {
-                "prepareCmd": "zip -r build.zip dist",
-                "publishCmd": "npm run deploy -- --prod"
+                "prepareCmd": "zip -r build.v${nextRelease.version}.zip dist .netlify",
+                "publishCmd": "npx netlify deploy --prod"
             }
         ],
         [

@@ -26,7 +26,6 @@
   "devDependencies": {
     "@builder.io/qwik": "^1.2.18",
     "@builder.io/qwik-city": "^1.2.18",
-    "@google/semantic-release-replace-plugin": "1.1.0",
     "@netlify/edge-functions": "^2.0.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.3",
@@ -58,6 +57,7 @@
     "netlify-cli": "^15.0.0",
     "prettier": "^3.0.3",
     "semantic-release": "^19.0.3",
+    "semantic-release-bundle": "^1.0.0",
     "semantic-release-telegram": "^1.0.5",
     "typescript": "^5.2.2",
     "unzipper": "^0.10.14",
