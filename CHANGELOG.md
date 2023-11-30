@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/pustovitDmytro/tastoria/compare/v1.1.1...v1.2.0) (2023-11-30)
+
+
+### New
+
+* adds basic menu navigation ([23fb5e9](https://github.com/pustovitDmytro/tastoria/commit/23fb5e99fa95711e65ae0cfb1ea354b12e30d0f2))
+
 ## [1.1.1](https://github.com/pustovitDmytro/tastoria/compare/v1.1.0...v1.1.1) (2023-11-29)
 
 
