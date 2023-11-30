@@ -1,3 +1,14 @@
+# [1.3.0](https://github.com/pustovitDmytro/tastoria/compare/v1.2.1...v1.3.0) (2023-11-30)
+
+
+### Chore
+
+* update build generation ([228567d](https://github.com/pustovitDmytro/tastoria/commit/228567d9f32bc3066fe45e595b736064a2aa2a11))
+
+### Update
+
+* adds device info to about page ([961f622](https://github.com/pustovitDmytro/tastoria/commit/961f6229a20d8686bfc77a77345840b28681bcb0))
+
 ## [1.2.1](https://github.com/pustovitDmytro/tastoria/compare/v1.2.0...v1.2.1) (2023-11-30)
 
 
