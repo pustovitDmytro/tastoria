@@ -1,0 +1,17 @@
+.container {
+  border-style: dashed;
+  border-width: 3px;
+  border-radius: 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}

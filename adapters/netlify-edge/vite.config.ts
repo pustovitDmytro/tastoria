@@ -2,7 +2,7 @@ import { netlifyEdgeAdapter } from "@builder.io/qwik-city/adapters/netlify-edge/
 import { extendConfig } from "@builder.io/qwik-city/vite";
 import baseConfig from "../../vite.config";
 
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+// import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 // const replacePlugin = {
 //         {
@@ -20,7 +20,6 @@ export default extendConfig(baseConfig, () => {
   return {
     // ssr : {
     //   external   : [ 'stream' ],
-    //   noExternal : 'ANANANANA'
     // },
     build: {
       ssr: true,
@@ -29,7 +28,7 @@ export default extendConfig(baseConfig, () => {
       },
       // commonjsOptions: {
       //   esmExternals: true,
-      //   ignore: ['stream']
+      //   ignore: ['stream', 'util', 'zlib', 'path', 'events', 'fs', 'assert', 'constants']
       // },
       outDir: ".netlify/edge-functions/entry.netlify-edge",
     },

@@ -1,9 +1,11 @@
 import type { FirebaseApp } from 'firebase/app';
 import { initializeApp } from 'firebase/app';
 import type { FirebaseStorage } from 'firebase/storage';
-import { getStorage, ref } from 'firebase/storage';
+import { getStorage, ref as refStorage, uploadBytes } from 'firebase/storage';
 import type { User } from 'firebase/auth';
 import  * as firebaseAuth  from 'firebase/auth';
+import { getDatabase, ref as refDB, set, child, get } from 'firebase/database';
+
 
 import config from './config';
 
@@ -65,7 +67,7 @@ class FireBase {
 
     async getImageUrl(imageUrl) {
         const file = `gs://${this._bucketName}/${this._userId}/images/${imageUrl}`;
-        const starsRef = ref(this._storage, file);
+        const starsRef = refStorage(this._storage, file);
 
         return getDownloadURL(starsRef);
     }
@@ -82,7 +84,7 @@ class FireBase {
     async downloadData() {
         const file = `gs://${this._bucketName}/${this._userId}/data.json`;
 
-        const starsRef = ref(this._storage, file);
+        const starsRef = refStorage(this._storage, file);
 
         const url = await getDownloadURL(starsRef);
 
@@ -107,6 +109,33 @@ class FireBase {
         console.error(error);
 
         return null;
+    }
+
+    async saveUserData(user, data) {
+        const db = getDatabase();
+        const userRef = refDB(db, `users/${user.id}`);
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+            console.log('user', snapshot.val());
+        } else {
+            await set(userRef, user);
+        }
+
+        const promises = data.recipes.map(async r => {
+            if (!r.id) return;
+            const recipyRef = refDB(db, `recipes/${user.id}/${r.id}`);
+
+            await set(recipyRef, r);
+        });
+
+        await Promise.all(promises);
+    }
+
+    async saveImage(user, name, blob) {
+        const storageRef = refStorage(this._storage, `${user.id}/${name}`);
+
+        await uploadBytes(storageRef, blob);
     }
 }
 
