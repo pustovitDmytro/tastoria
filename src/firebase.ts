@@ -4,8 +4,7 @@ import type { FirebaseStorage } from 'firebase/storage';
 import { getStorage, ref as refStorage, uploadBytes } from 'firebase/storage';
 import type { User } from 'firebase/auth';
 import  * as firebaseAuth  from 'firebase/auth';
-import { getDatabase, ref as refDB, set, child, get } from 'firebase/database';
-
+import { getDatabase, ref as refDB, set, get } from 'firebase/database';
 
 import config from './config';
 
@@ -56,7 +55,6 @@ class FireBase {
     constructor(firebaseConfig) {
         // super();
         this._app = initializeApp(firebaseConfig);
-        this._userId = import.meta.env.PUBLIC_FIREBASE_USER_ID;
         this._storage = getStorage(this._app);
         this._bucketName = this._app.options.storageBucket || '';
     }
@@ -65,32 +63,28 @@ class FireBase {
         return {};
     }
 
-    async getImageUrl(imageUrl) {
-        const file = `gs://${this._bucketName}/${this._userId}/images/${imageUrl}`;
+    async getImageUrl(userId, imageName) {
+        const file = `gs://${this._bucketName}/${userId}/${imageName}`;
         const starsRef = refStorage(this._storage, file);
 
         return getDownloadURL(starsRef);
     }
 
-    async downloadImage(imageUrl) {
-        const url = await this.getImageUrl(imageUrl);
-
-        // return (this as BaseApi).get(url, undefined, { responseType: 'blob' });
+    async downloadImage(userId, imageName) {
+        const url = await this.getImageUrl(userId, imageName);
         const res = await fetch(url);
 
         return res.blob();
     }
 
-    async downloadData() {
-        const file = `gs://${this._bucketName}/${this._userId}/data.json`;
+    async downloadRecipes(userId) {
+        const db = getDatabase();
+        const ref = refDB(db, `recipes/${userId}`);
+        const snapshot = await get(ref);
 
-        const starsRef = refStorage(this._storage, file);
+        if (!snapshot.exists()) return;
 
-        const url = await getDownloadURL(starsRef);
-
-        const res = await fetch(url);
-
-        return res.json();
+        return Object.values(snapshot.val());
     }
 
     async signIn() {

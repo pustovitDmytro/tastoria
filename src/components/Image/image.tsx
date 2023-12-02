@@ -1,10 +1,11 @@
-import { component$, useSignal, useVisibleTask$,
+import { component$, useContext, useVisibleTask$,
     useResource$,
     Resource } from '@builder.io/qwik';
 import { isServer } from '@builder.io/qwik/build';
 import styles from './image.module.css';
 import Image from '~/media/placeholder.png?jsx';
 import firebase from '~/firebase';
+import { sessionContext } from '~/stores/session';
 
 interface ItemProps {
     src?:string;
@@ -18,14 +19,17 @@ export const loader = <div class={styles.component}>
 
 export default component$<ItemProps>((props) => {
     if (!props.src) return placeholder;
+    const session = useContext(sessionContext);
 
     const url = useResource$<string>(
         async () => {
+            const userId = session.user.value.id;
+
             if (isServer) {
-                return firebase.getImageUrl(props.src);
+                return firebase.getImageUrl(userId, props.src);
             }
 
-            const blob = await firebase.downloadImage(props.src);
+            const blob = await firebase.downloadImage(userId, props.src);
 
             return URL.createObjectURL(blob);
         }

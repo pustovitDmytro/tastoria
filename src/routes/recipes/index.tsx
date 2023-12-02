@@ -5,10 +5,13 @@ import type { Receipt } from '~/components/RecipesList/RecipesList';
 import List from '~/components/RecipesList/RecipesList';
 import firebase from '~/firebase';
 
-export const useRecipesDetails = routeLoader$(async () => {
-    const res = await firebase.downloadData();
+export const useRecipesDetails = routeLoader$(async ({ cookie }) => {
+    const session = cookie.get('tastoria.session');
+    const user = session?.json() as any;
 
-    return (res.recipes as Receipt[]);
+    const res = await firebase.downloadRecipes(user.id);
+
+    return (res as Receipt[]);
 });
 
 export default component$(() => {
