@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/pustovitDmytro/tastoria/compare/v1.3.0...v1.3.1) (2023-11-30)
+
+
+### Fix
+
+* fixes scroll on about page ([5b48454](https://github.com/pustovitDmytro/tastoria/commit/5b484544939f6bd517a2af299d613415be42cd2b))
+
 # [1.3.0](https://github.com/pustovitDmytro/tastoria/compare/v1.2.1...v1.3.0) (2023-11-30)
 
 
