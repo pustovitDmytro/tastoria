@@ -1,0 +1,36 @@
+.button {
+  cursor: pointer;
+  background-color: #00b27c;
+  border-style: solid;
+  border-color: #1a602e;
+  color: #1a602e;
+  border-radius: 0.5rem;
+  
+  &.disabled {
+      opacity: 0.5;
+      cursor: auto;
+  }
+
+  &.inline {
+    border: none;
+    background-color: unset;
+    border-radius: 0;
+
+    &:hover {
+      border-bottom: 1px solid #1a602e;
+    }
+
+  }
+
+}
+
+
+/* #c00026 */
+/* #00b27c */
+/* #008b5e */
+/* #ffb100 */
+
+/* #217744
+#1a602e
+#227542
+#9abd6d */
