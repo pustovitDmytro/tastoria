@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/pustovitDmytro/tastoria/compare/v1.3.1...v1.4.0) (2023-12-03)
+
+
+### Fix
+
+* adds import page to menu ([389abdc](https://github.com/pustovitDmytro/tastoria/commit/389abdc5cd48b1e0bc0f4b89d80f6b2c7efa8ad4))
+
+### New
+
+* adds import functionality ([08ad4f3](https://github.com/pustovitDmytro/tastoria/commit/08ad4f31e437583427f59b729ef0d37543ab8119))
+* adds login page ([435b211](https://github.com/pustovitDmytro/tastoria/commit/435b2112c732b026b396c64143a058702a2069ba))
+* load personal data ([2285fa1](https://github.com/pustovitDmytro/tastoria/commit/2285fa17ee7633a70837c13d0e13063a6ffbbad3))
+
 ## [1.3.1](https://github.com/pustovitDmytro/tastoria/compare/v1.3.0...v1.3.1) (2023-11-30)
 
 
