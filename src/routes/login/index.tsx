@@ -54,12 +54,6 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-    title : 'Tastoria',
-    meta  : [
-        {
-            name    : 'description',
-            content : 'Main page'
-        }
-    ]
+    title : 'Log In'
 };
 

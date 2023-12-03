@@ -25,12 +25,6 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-    title : 'Tastoria Recipes',
-    meta  : [
-        {
-            name    : 'description',
-            content : 'Main page'
-        }
-    ]
+    title : 'Recipes'
 };
 

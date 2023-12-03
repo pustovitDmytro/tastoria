@@ -62,9 +62,6 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-    title : 'Import Recipes',
-    meta  : [
-        { name: 'import' }
-    ]
+    title : 'Import Recipes'
 };
 

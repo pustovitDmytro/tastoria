@@ -82,9 +82,19 @@ class FireBase {
         const ref = refDB(db, `recipes/${userId}`);
         const snapshot = await get(ref);
 
-        if (!snapshot.exists()) return;
+        if (!snapshot.exists()) return [];
 
         return Object.values(snapshot.val());
+    }
+
+    async downloadRecipy(userId, recipyId) {
+        const db = getDatabase();
+        const ref = refDB(db, `recipes/${userId}/${recipyId}`);
+        const snapshot = await get(ref);
+
+        if (!snapshot.exists()) return null;
+
+        return snapshot.val();
     }
 
     async signIn() {

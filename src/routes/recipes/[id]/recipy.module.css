@@ -1,0 +1,20 @@
+.component {
+
+}
+
+
+.preview {
+    display: flex;
+    
+    .content{
+        width: 50%
+    }
+}
+
+.ingredients {
+
+}
+
+.steps {
+
+}

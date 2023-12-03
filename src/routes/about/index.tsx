@@ -83,12 +83,6 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-    title : 'About Tastoria',
-    meta  : [
-        {
-            name    : 'about',
-            content : 'About page'
-        }
-    ]
+    title : 'About'
 };
 
