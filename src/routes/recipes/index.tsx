@@ -9,6 +9,8 @@ export const useRecipesDetails = routeLoader$(async ({ cookie }) => {
     const session = cookie.get('tastoria.session');
     const user = session?.json() as any;
 
+    if (!user) return [];
+
     const res = await firebase.downloadRecipes(user.id);
 
     return (res as Receipt[]);

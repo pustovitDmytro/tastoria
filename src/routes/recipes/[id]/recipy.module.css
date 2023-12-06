@@ -1,6 +1,6 @@
-.component {
+/* .component {
 
-}
+} */
 
 
 .preview {
@@ -11,10 +11,25 @@
     }
 }
 
-.ingredients {
+/* .ingredients {
 
 }
 
 .steps {
 
+} */
+
+@media screen and (max-width: 700px) {
+    .preview {
+        flex-direction: column;
+        margin-bottom: 10px;
+
+        .content{
+            width: 100%
+        }
+
+        h1 {
+            text-align: center;
+        }
+    }
 }

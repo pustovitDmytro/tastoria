@@ -10,6 +10,8 @@ import Image from '~/components/Image/image';
 export const useRecipesDetails = routeLoader$(async ({ cookie, params }) => {
     const session = cookie.get('tastoria.session');
     const user = session?.json() as any;
+
+    if (!user) return null;
     const recipyId = params.id;
 
     return firebase.downloadRecipy(user.id, recipyId);
@@ -30,6 +32,8 @@ const Source = component$<SourceProps>((props) => {
 export default component$(() => {
     const signal = useRecipesDetails();
 
+    if (!signal.value) return <div>Not Found</div>;
+
     return (
         <>
             <div class={styles.component}>
@@ -42,11 +46,13 @@ export default component$(() => {
                         <Source url={signal.value.url}/>
                     </div>
                 </div >
+                Ingredients:
                 <ul class={styles.ingredients}>
                     {
                         signal.value.ingredients.map(ing => <li>{ing}</li>)
                     }
                 </ul>
+                Steps:
                 <ol class={styles.steps}>
                     {
                         signal.value.steps.map(step => <li>{step}</li>)
