@@ -3,6 +3,8 @@ import { qwikVite } from '@builder.io/qwik/optimizer';
 import { qwikCity } from '@builder.io/qwik-city/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+process.env.PUBLIC_TASTORIA_BUILD_DATE = (new Date()).toISOString();
+
 export default defineConfig(() => {
     return {
         plugins : [

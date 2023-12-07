@@ -2,11 +2,10 @@ import { component$, useStore, useVisibleTask$  } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import uaparser from 'ua-parser-js';
-import { version } from '../../../package.json';
 import styles from './styles.module.css';
 import Image from '~/media/about.png?jsx';
 
-// const version = '123';
+const version = '123';
 const license = 'MIT';
 
 export const useUserAgentDetails = routeLoader$(async (requestEvent) => {

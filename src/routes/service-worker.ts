@@ -9,9 +9,11 @@ import { CacheFirst } from 'workbox-strategies';
 
 import { name, version } from '../../package.json';
 
+const buildDate = import.meta.env.PUBLIC_TASTORIA_BUILD_DATE;
+
 declare const self: ServiceWorkerGlobalScope;
 
-const revision = `v.${version}`;
+const revision = `v.${version} (${buildDate})`;
 const prefix = `${name} ${revision}`;
 
 console.log(prefix, 'service worker');
@@ -42,7 +44,7 @@ try {
         }))
     ]);
 
-    registerRoute(new NavigationRoute(createHandlerBoundToURL('/')));
+    // registerRoute(new NavigationRoute(createHandlerBoundToURL('/')));
     registerRoute(
         ({ request }) => {
             return request.destination === 'image';
