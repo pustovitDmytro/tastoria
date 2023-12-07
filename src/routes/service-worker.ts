@@ -5,7 +5,7 @@ import {
     precacheAndRoute
 } from 'workbox-precaching';
 import { NavigationRoute, registerRoute } from 'workbox-routing';
-import { CacheFirst } from 'workbox-strategies';
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 
 const buildDate = import.meta.env.PUBLIC_TASTORIA_BUILD_DATE;
 const version = import.meta.env.PUBLIC_TASTORIA_VERSION;
@@ -43,7 +43,11 @@ try {
         }))
     ]);
 
-    registerRoute(new NavigationRoute(createHandlerBoundToURL('/')));
+    // registerRoute(
+    //     new NavigationRoute(createHandlerBoundToURL('/')),
+    //     new StaleWhileRevalidate({ cacheName: 'pages' })
+    // );
+
     registerRoute(
         ({ request }) => {
             return request.destination === 'image';
