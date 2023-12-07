@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/pustovitDmytro/tastoria/compare/v1.5.0...v1.5.1) (2023-12-07)
+
+
+### Fix
+
+* drop / cache ([a6538d4](https://github.com/pustovitDmytro/tastoria/commit/a6538d4cf8d30b93c5047de8ea909453b8fd85f2))
+
 # [1.5.0](https://github.com/pustovitDmytro/tastoria/compare/v1.4.0...v1.5.0) (2023-12-07)
 
 
