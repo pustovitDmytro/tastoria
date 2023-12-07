@@ -61,7 +61,9 @@ jobs:
       - run: *danger-pr
       
   install:
-    <<: *defaults
+    docker:
+      - image: cimg/node:20.9.0
+    resource_class: medium
     steps:
       - checkout
       - run: *install
