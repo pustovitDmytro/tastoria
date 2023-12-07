@@ -1,3 +1,21 @@
+# [1.5.0](https://github.com/pustovitDmytro/tastoria/compare/v1.4.0...v1.5.0) (2023-12-07)
+
+
+### Chore
+
+* drop license import from about page ([900b49e](https://github.com/pustovitDmytro/tastoria/commit/900b49eef2a858f769a53f431d242da7eeda40d3))
+* medium resource class for install job ([1602495](https://github.com/pustovitDmytro/tastoria/commit/1602495ba23682e601870d8e7806563972cf8871))
+
+### Fix
+
+* fix recipy mobile ux ([31481de](https://github.com/pustovitDmytro/tastoria/commit/31481deb71366c64c6c97db8c61d84f29d7c236e))
+* load version from env for service worker ([c8bac37](https://github.com/pustovitDmytro/tastoria/commit/c8bac3743538bee536d47cf9a306b6fb91ca6d63))
+* not load package.json in about ([81c856c](https://github.com/pustovitDmytro/tastoria/commit/81c856ce927356cf67cbd0c5983d4bb2ebc6fc42))
+
+### New
+
+* adds receipt page ([d6ee176](https://github.com/pustovitDmytro/tastoria/commit/d6ee176c99a2c00062a40b4e5899d9218ee803fb))
+
 # [1.4.0](https://github.com/pustovitDmytro/tastoria/compare/v1.3.1...v1.4.0) (2023-12-03)
 
 
