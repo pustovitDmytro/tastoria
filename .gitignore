@@ -1,10 +1,12 @@
 dist/*
 node_modules/*
 tmp/*
-# Local Netlify folder
+
 .netlify/*
 !.netlify/state.json
 
 .env.production
 .env.local
 build*.zip
+
+TODO

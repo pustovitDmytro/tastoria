@@ -1,30 +1,32 @@
-import { $, component$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import type {
     Signal,
-    NoSerialize,
     PropFunction
 } from '@builder.io/qwik';
 import styles from './TextInput.module.css';
 
 type InputProps = {
-  value?:string;
-//   value: Signal<string | undefined>;
+  value?:Signal<string>;
   label: string;
   class?: string;
   type: string;
+  onFocus?:PropFunction
+  onBlur?:PropFunction
 };
 
 
 export default component$((props: InputProps) => {
-    const { value, label, type } = props;
+    const { value, label, type, onFocus, onBlur } = props;
 
     return (
         <div class={[ styles.container, props.class ]}>
             <input
-                value={value}
+                bind:value={value}
                 class={styles.input}
                 type={type}
                 placeholder={label}
+                onFocus$={onFocus}
+                onBlur$={onBlur}
             />
         </div>
     );
