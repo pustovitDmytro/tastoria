@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/pustovitDmytro/tastoria/compare/v1.6.0...v1.6.1) (2024-01-13)
+
+
+### Fix
+
+* unify colors ([776fe5c](https://github.com/pustovitDmytro/tastoria/commit/776fe5cf01501ecef1c820ff548325a1ea75ab52))
+
 # [1.6.0](https://github.com/pustovitDmytro/tastoria/compare/v1.5.1...v1.6.0) (2024-01-13)
 
 
