@@ -1,5 +1,5 @@
 @value colors: "../variables.css";
-@value primary_1, primary_2 from colors;
+@value primary_1, primary_2, primary_3 from colors;
 
 .button {
   cursor: pointer;
@@ -12,6 +12,11 @@
   &.disabled {
       opacity: 0.5;
       cursor: auto;
+  }
+
+  &:hover {
+    border-color: primary_3;
+    color: primary_3;
   }
 
   &.inline {
