@@ -1,3 +1,14 @@
+# [1.6.0](https://github.com/pustovitDmytro/tastoria/compare/v1.5.1...v1.6.0) (2024-01-13)
+
+
+### Chore
+
+* fixes types ([91a0787](https://github.com/pustovitDmytro/tastoria/commit/91a0787940db1c7a71cfb71af978cd575e8ff2c9))
+
+### New
+
+* adds recipy filter ([ae1f770](https://github.com/pustovitDmytro/tastoria/commit/ae1f7708a454f1ba6afbfcc4fca71b31b532bc95))
+
 ## [1.5.1](https://github.com/pustovitDmytro/tastoria/compare/v1.5.0...v1.5.1) (2023-12-07)
 
 
