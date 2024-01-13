@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/pustovitDmytro/tastoria/compare/v1.6.1...v1.7.0) (2024-01-13)
+
+
+### New
+
+* adds profile page ([90da55d](https://github.com/pustovitDmytro/tastoria/commit/90da55d198130dd71d124de92a1fa4a8109785ff))
+
 ## [1.6.1](https://github.com/pustovitDmytro/tastoria/compare/v1.6.0...v1.6.1) (2024-01-13)
 
 
