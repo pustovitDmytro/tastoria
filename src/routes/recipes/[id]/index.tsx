@@ -2,7 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import styles from './recipy.module.css';
-import type { Receipt } from '~/components/RecipesList/RecipesList';
+import type { Receipt } from '~/types';
 import List from '~/components/RecipesList/RecipesList';
 import firebase from '~/firebase';
 import Image from '~/components/Image/image';

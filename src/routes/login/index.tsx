@@ -1,4 +1,4 @@
-import { $, component$,  useStore } from '@builder.io/qwik';
+import { $, component$,  useSignal,  useStore } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeAction$ } from '@builder.io/qwik-city';
 import styles from './styles.module.css';
@@ -16,13 +16,11 @@ export const useRedirect = routeAction$(async (user, { cookie, redirect }) => {
 
 export default component$(() => {
     const action = useRedirect();
-    const credentials = useStore({
-        email    : '',
-        password : ''
-    });
+    const email = useSignal('');
+    const password = useSignal('');
 
     const handleLoginClick = $(async () => {
-        console.log('credentials:', credentials);
+        console.log('credentials:', email.value, password.value);
     });
 
     const googleLogin = $(async () => {
@@ -39,8 +37,8 @@ export default component$(() => {
                     <h2>Please login to using app</h2>
                 </div>
                 <div class={styles.content}>
-                    <TextInput type='email' value={credentials.email} label='Email' class={styles.input}/>
-                    <TextInput type='password' value={credentials.password} label='Password' class={styles.input}/>
+                    <TextInput type='email' value={email} label='Email' class={styles.input}/>
+                    <TextInput type='password' value={password} label='Password' class={styles.input}/>
                     <div class={styles.hints}><Button inline={true}>forgot password?</Button></div>
                     <Button class={styles.loginBtn} onClick={handleLoginClick}>Log In</Button>
                     <div class={styles.providers}>

@@ -5,8 +5,8 @@ import { getStorage, ref as refStorage, uploadBytes } from 'firebase/storage';
 import type { User } from 'firebase/auth';
 import  * as firebaseAuth  from 'firebase/auth';
 import { getDatabase, ref as refDB, set, get } from 'firebase/database';
-
 import config from './config';
+import type { Receipt } from '~/types';
 
 const { GoogleAuthProvider, getAuth, signInWithPopup } = firebaseAuth;
 
@@ -84,7 +84,7 @@ class FireBase {
 
         if (!snapshot.exists()) return [];
 
-        return Object.values(snapshot.val());
+        return (Object.values(snapshot.val()) as Receipt[]);
     }
 
     async downloadRecipy(userId, recipyId) {
