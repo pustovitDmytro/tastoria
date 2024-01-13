@@ -1,5 +1,8 @@
+@value colors: "../../variables.css";
+@value background_2, text_1 from colors;
+
 .component {
-  background-color: #bbc4c3;
+  background-color: background_2;
   font-size: 0.8rem;
   line-height: 2;
   margin: 5px 5px 5px 5px;
@@ -13,7 +16,7 @@
 }
 
 .component h3 {
-  color: #2e2d32;
+  color: text_1;
   font-size: 1.5rem;
   margin: 0 0 15px;
   padding: 0;

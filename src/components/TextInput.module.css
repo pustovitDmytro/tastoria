@@ -1,3 +1,6 @@
+@value colors: "../variables.css";
+@value primary_2, error_1 from colors;
+
 .container {
   width   : 100%;
 
@@ -6,7 +9,7 @@
 
     & > input,
     & > textarea {
-        color: rgba(18, 23, 35, 0.5);
+        color: primary_2;
     }
   }
 }
@@ -14,24 +17,23 @@
 .input {
   width        : 100%;
   height       : 100%;
-  border       : 1px solid #DBE2E8;
+  border       : 1px solid primary_2;
   border-radius: 0.5rem;
   outline      : none;
   transition   : border-color 0.3s ease;
   background-color: unset;
-  border-color: #1a602e;
 
   &:focus {
-      border-color: #1a602e;
+      border-color: primary_2;
   }
 
   &::placeholder {
-      color: #1a602e;
+      color: primary_2;
       text-transform: capitalize;
   }
 
   &.error {
-      border-color: #c00026;
+      border-color: error_1;
   }
 }
 

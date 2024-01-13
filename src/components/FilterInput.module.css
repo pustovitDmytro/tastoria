@@ -1,3 +1,6 @@
+@value colors: "../variables.css";
+@value alt_1 from colors;
+
 .container {
   position: relative;
   display: flex;
@@ -15,7 +18,7 @@
 }
 
 .arrow {
-  border: solid #ffb100;
+  border: solid alt_1;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;

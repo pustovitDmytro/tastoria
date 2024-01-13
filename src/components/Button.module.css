@@ -1,9 +1,12 @@
+@value colors: "../variables.css";
+@value primary_1, primary_2 from colors;
+
 .button {
   cursor: pointer;
-  background-color: #00b27c;
+  background-color: primary_1;
   border-style: solid;
-  border-color: #1a602e;
-  color: #1a602e;
+  border-color: primary_2;
+  color: primary_2;
   border-radius: 0.5rem;
   
   &.disabled {
@@ -17,20 +20,8 @@
     border-radius: 0;
 
     &:hover {
-      border-bottom: 1px solid #1a602e;
+      border-bottom: 1px solid primary_2;
     }
 
   }
-
 }
-
-
-/* #c00026 */
-/* #00b27c */
-/* #008b5e */
-/* #ffb100 */
-
-/* #217744
-#1a602e
-#227542
-#9abd6d */

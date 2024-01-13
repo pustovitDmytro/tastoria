@@ -1,8 +1,11 @@
+@value colors: "../variables.css";
+@value background_1 from colors;
+
 .page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #c5c5c3;
+  background-color: background_1;
 }
 
 .content {

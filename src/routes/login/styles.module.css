@@ -1,3 +1,6 @@
+@value colors: "../../variables.css";
+@value primary_2 from colors;
+
 .page {
     height: 100%;
     width: 100%;
@@ -9,7 +12,7 @@
 
 .header{
     height: 30%;
-    color: #008b5e;
+    color: primary_2;
 }
 
 .content {

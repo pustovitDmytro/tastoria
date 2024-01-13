@@ -10,6 +10,27 @@ import type { Receipt } from '~/types';
 
 const { GoogleAuthProvider, getAuth, signInWithPopup } = firebaseAuth;
 
+function dumpReceipt(r: any): Receipt {
+    return {
+        id         : r.id,
+        title      : r.title,
+        image      : r.image,
+        categories : r.categories || [],
+        tags       : r.tags || [],
+
+        description : r.description,
+        ingredients : r.ingredients || [],
+        steps       : r.steps || [],
+        url         : r.url,
+        time        : r.time || {},
+        quantity    : r.quantity,
+        comment     : r.comment,
+        language    : r.language,
+        version     : r.version,
+        createdAt   : r.createdAt
+    };
+}
+
 async function getDownloadURL(reference) {
     const service = reference.storage;
     const location = reference._location;
@@ -84,7 +105,7 @@ class FireBase {
 
         if (!snapshot.exists()) return [];
 
-        return (Object.values(snapshot.val()) as Receipt[]);
+        return Object.values(snapshot.val()).map(r => dumpReceipt(r));
     }
 
     async downloadRecipy(userId, recipyId) {
@@ -94,7 +115,7 @@ class FireBase {
 
         if (!snapshot.exists()) return null;
 
-        return snapshot.val();
+        return dumpReceipt(snapshot.val());
     }
 
     async signIn() {

@@ -1,0 +1,24 @@
+/* @value colors: "../variables.css";
+@value primary_1, primary_2 from colors; */
+
+@value primary_1: #00b27c;
+@value primary_2: #1a602e;
+
+@value alt_1: #ffb100;
+@value error_1: #c00026;
+
+@value white_1: #FFF;
+@value white_2: #aaa;
+
+@value text_1: #2e2d32;
+
+@value background_1: #c5c5c3;
+@value background_2: #bbc4c3;
+
+
+/* 
+#008b5e
+#217744
+#227542
+#9abd6d 
+*/
