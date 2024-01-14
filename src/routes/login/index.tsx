@@ -39,25 +39,25 @@ export default component$(() => {
         <>
             <div class={styles.page}>
                 <div class={styles.header}>
-                    <h1>{$localize `pages.login.header.title`}</h1>
-                    <h2>Please login to using app</h2>
+                    <h1>{$localize `pages.login.title`}</h1>
+                    <h2>{$localize `pages.login.subtitle`}</h2>
                 </div>
                 <div class={styles.content}>
-                    <TextInput type='email' value={email} label='Email' class={styles.input}/>
-                    <TextInput type='password' value={password} label='Password' class={styles.input}/>
-                    <div class={styles.hints}><Button inline={true}>forgot password?</Button></div>
-                    <Button class={styles.loginBtn} onClick={handleLoginClick}>Log In</Button>
+                    <TextInput type='email' value={email} label={$localize `pages.login.email_key`} class={styles.input}/>
+                    <TextInput type='password' value={password} label={$localize `pages.login.password_key`} class={styles.input}/>
+                    <div class={styles.hints}><Button inline={true}>{$localize `pages.login.forgot_password`}</Button></div>
+                    <Button class={styles.loginBtn} onClick={handleLoginClick}>{$localize `pages.login.logIn_btn`}</Button>
                     <div class={styles.providers}>
                         <Glogo onClick$={googleLogin}/>
                     </div>
                 </div>
-                <div class={styles.footer}>Dont have an account? <Button inline={true}>Sign Up</Button></div>
+                <div class={styles.footer}>{$localize `pages.login.signUp_text`}<Button inline={true}>{$localize `pages.login.signUp_btn`}</Button></div>
             </div>
         </>
     );
 });
 
 export const head: DocumentHead = {
-    title : 'Log In'
+    title : $localize `pages.login.head_title`
 };
 

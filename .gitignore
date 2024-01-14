@@ -10,3 +10,6 @@ tmp/*
 build*.zip
 
 TODO
+src/locales/*
+!src/locales/*.csv
+!src/locales/message.key.json

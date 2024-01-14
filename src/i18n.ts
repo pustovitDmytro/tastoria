@@ -7,8 +7,13 @@ import type { RenderOptions } from '@builder.io/qwik/server';
 import EN from './locales/message.en.json';
 import UA from './locales/message.ua.json';
 
-// Make sure it's obvious when the default locale was selected
-const DEFAULT_LOCALE = 'en';
+
+export const languages = [
+    { id: 'en', label: 'English', default: true },
+    { id: 'ua', label: 'Українська' }
+];
+const defaultLang = languages.find(l => l.default) || languages[0];
+const translations = [ EN, UA ];
 
 /**
  * This file is left for the developer to customize to get the behavior they want for localization.
@@ -31,7 +36,7 @@ if (!$localizeFn.TRANSLATION_BY_LOCALE) {
     $localizeFn.TRANSLATION_BY_LOCALE = new Map([ [ '', {} ] ]);
     Object.defineProperty($localize, 'TRANSLATIONS', {
         get() {
-            const locale = getLocale(DEFAULT_LOCALE);
+            const locale = getLocale(defaultLang.id);
 
             let translations = $localizeFn.TRANSLATION_BY_LOCALE.get(locale);
 
@@ -48,7 +53,7 @@ if (!$localizeFn.TRANSLATION_BY_LOCALE) {
  * Function used to load all translations variants.
  */
 export function initTranslations() {
-    [ EN, UA ].forEach(({ translations, locale }) => {
+    translations.forEach(({ translations, locale }) => {
         withLocale(locale, () => loadTranslations(translations));
     });
 }
@@ -63,7 +68,7 @@ export function initTranslations() {
 export function extractLang(locale: string): string {
     return locale && $localizeFn.TRANSLATION_BY_LOCALE.has(locale)
         ? locale
-        : DEFAULT_LOCALE;
+        : defaultLang.id;
 }
 
 /**
@@ -80,8 +85,7 @@ export function extractBase({ serverData }: RenderOptions): string {
         return '/build';
     }
 
-
-    return `/build/${  serverData!.locale}`;
+    return `/build/${serverData!.locale}`;
 }
 
 export function useI18n() {

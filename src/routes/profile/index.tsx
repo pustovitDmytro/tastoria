@@ -1,11 +1,12 @@
 import { $, component$,  useContext,  useSignal,  useStore, useTask$, useVisibleTask$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { routeAction$, useNavigate } from '@builder.io/qwik-city';
+import { routeAction$ } from '@builder.io/qwik-city';
 import styles from './styles.module.css';
 import Button from '~/components/Button';
 import Select from '~/components/Select';
 import { sessionContext } from '~/stores/session';
 import { appContext } from '~/stores/app';
+import { languages } from '~/i18n';
 
 export const useSignOut = routeAction$((a, { cookie, redirect }) => {
     cookie.delete('tastoria.session', { path: '/' });
@@ -14,8 +15,8 @@ export const useSignOut = routeAction$((a, { cookie, redirect }) => {
     throw redirect(302, '/login');
 });
 
-export const useChangeLanguage = routeAction$(({ language }, { cookie }) => {
-    cookie.set(
+export const useChangeLanguage = routeAction$(async ({ language }, { cookie }) => {
+    await cookie.set(
         'tastoria.app',
         { language },
         {
@@ -28,19 +29,14 @@ export const useChangeLanguage = routeAction$(({ language }, { cookie }) => {
 export default component$(() => {
     const session = useContext(sessionContext);
     const app = useContext(appContext);
-    const nav = useNavigate();
 
     const { email, fullName, lastLoginAt } = session.user.value;
     const info = [
-        { label: 'Email address', value: email },
-        { label: 'Full Name', value: fullName },
-        { label: 'Last Login', value: lastLoginAt }
+        { label: $localize `pages.profile.email_key`, value: email },
+        { label: $localize `pages.profile.fullName_key`, value: fullName },
+        { label: $localize `pages.profile.lastLoginAt_key`, value: lastLoginAt }
     ];
 
-    const languages = [
-        { id: 'en', label: 'English' },
-        { id: 'ua', label: 'Українська' }
-    ];
 
     const language = useSignal(app.language);
 
@@ -55,38 +51,37 @@ export default component$(() => {
         track(() => language.value);
         if (language.value !== app.language) {
             await changeLanguageAction.submit({ language: language.value });
-            nav();
         }
     });
 
     return (
         <div class={styles.page}>
             <div class={styles.header}>
-                <h1>Profile</h1>
+                <h1>{$localize `pages.profile.title`}</h1>
             </div>
             <div class={styles.content}>
-                <h2>Personal Information</h2>
+                <h2>{$localize `pages.profile.personal_info_title`}</h2>
                     {
                         ...info.map(i => <div class={styles.infoBox} key={i.label}>
                             <span class={styles.infoLabel}>{i.label}</span>
                             <span class={styles.infoValue}>{i.value}</span>
                         </div>)
                     }
-                    <h2>{$localize `pages.profile.content.settings_title`}</h2>
+                    <h2>{$localize `pages.profile.settings_title`}</h2>
                     <div class={styles.infoBox}>
-                        <span class={styles.infoLabel}>Language</span>
+                        <span class={styles.infoLabel}>{$localize `pages.profile.language_key`}</span>
                         <Select class={styles.infoValue} value={language} options={languages}/>
                     </div>
 
             </div>
             <div class={styles.footer}>
-                <Button class={styles.button} onClick={handleSignOut}>Sign out</Button>
+                <Button class={styles.button} onClick={handleSignOut}>{$localize `pages.profile.sign_out_btn`}</Button>
             </div>
         </div>
     );
 });
 
 export const head: DocumentHead = {
-    title : $localize `pages.profile.head.title`
+    title : $localize `pages.profile.head_title`
 };
 

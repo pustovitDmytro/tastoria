@@ -1,0 +1,19 @@
+id,key,en,ua
+6613832474988089359,pages.profile.head_title,Profile,Профіль
+5433578825624245250,pages.profile.email_key,Email address,Електронна скринька
+6372840712435657545,pages.profile.fullName_key,Full Name,Ім'я
+7858988313881362203,pages.profile.lastLoginAt_key,Last login,Останній вхід
+1816896085722253318,pages.profile.title,Profile,Профіль
+4977660148846081836,pages.profile.personal_info_title,Personal Information,Персональні дані
+5178814728918508488,pages.profile.settings_title,Settings,Налаштування
+8534426176771316877,pages.profile.language_key,Language,Мова
+5730284166112008943,pages.profile.sign_out_btn,Sign Out,Вийти
+9102807079407818595,pages.login.head_title,Log In,Вхід
+6271147126785959794,pages.login.title,Log In,Увійти
+8.06598E+16,pages.login.subtitle,Please login to using app,Будь ласка увійдіть в свій аккаунт
+3386771653296544465,pages.login.email_key,Email,Електронна скринька
+3600505066039878153,pages.login.password_key,Password,Пароль
+2405063527433899529,pages.login.forgot_password,forgot password?,нагадати пароль
+1975137463963122681,pages.login.logIn_btn,Log In,Увійти
+6587778258360430022,pages.login.signUp_text,Dont have an account?,Поки без аккаунта?
+1828433699778992027,pages.login.signUp_btn,Sign Up,Зареєструватись
