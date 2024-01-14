@@ -1,3 +1,14 @@
+# [1.8.0](https://github.com/pustovitDmytro/tastoria/compare/v1.7.0...v1.8.0) (2024-01-14)
+
+
+### Chore
+
+* fixes lint ([a7c5d69](https://github.com/pustovitDmytro/tastoria/commit/a7c5d699d0f7a778f627a25b72a0bb8949ebeae8))
+
+### New
+
+* adds localization ([5c39dc3](https://github.com/pustovitDmytro/tastoria/commit/5c39dc3a724b9f559b8c415f5111294d6fe3ff6b))
+
 # [1.7.0](https://github.com/pustovitDmytro/tastoria/compare/v1.6.1...v1.7.0) (2024-01-13)
 
 
