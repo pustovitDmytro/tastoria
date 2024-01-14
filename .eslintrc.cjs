@@ -48,5 +48,8 @@ module.exports = {
         'import/no-unresolved'                              : 0,
         'no-magic-numbers'                                  : 0,
         'qwik/jsx-img'                                      : 0
+    },
+    'globals' : {
+        $localize : 'writable'
     }
 };

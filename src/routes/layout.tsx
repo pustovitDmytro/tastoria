@@ -9,6 +9,7 @@ import type { SessionStore } from '~/stores/session';
 import { sessionContext } from '~/stores/session';
 import { appContext } from '~/stores/app';
 import Menu from '~/components/Menu/menu';
+import { extractLang, useI18n } from '~/i18n';
 
 export const onGet: RequestHandler = async ({ cacheControl, cookie }) => {
     // cacheControl({ // https://qwik.builder.io/docs/caching/
@@ -24,11 +25,24 @@ export const useSession = routeLoader$(async ({ cookie }) => {
     return session?.json();
 });
 
+export const useSettings = routeLoader$(async ({ locale, cookie }) => {
+    const app = cookie.get('tastoria.app');
+
+    const language = app ? (app.json() as any).language : 'en';
+
+    locale(extractLang(language));
+
+    return { language };
+});
+
 export default component$(() => {
+    useI18n();
     useStyles$(fonts);
     const session = useSession();
+    const settings = useSettings();
+
     const sessionStore = useStore({ user: session });
-    const appStore = useStore({ isMenuOpened: false });
+    const appStore = useStore({ isMenuOpened: false, language: settings.value.language });
 
     useContextProvider(sessionContext, sessionStore);
     useContextProvider(appContext, appStore);

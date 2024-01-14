@@ -38,6 +38,7 @@ h2 {
 
     .infoBox {
         margin-bottom: 0.5rem;
+        display: flex;
 
         .infoLabel {
             font-weight: bold;

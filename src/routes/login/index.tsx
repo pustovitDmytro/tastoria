@@ -8,7 +8,11 @@ import Button from '~/components/Button';
 import Glogo from '~/media/google-logo.png?jsx';
 
 export const useRedirect = routeAction$(async (user, { cookie, redirect }) => {
-    cookie.set('tastoria.session', user, { path: '/', maxAge: [ 365, 'days' ] });
+    cookie.set('tastoria.session', user, {
+        path     : '/',
+        maxAge   : [ 365, 'days' ],
+        sameSite : 'strict'
+    });
 
     throw redirect(302, '/recipes');
 });
@@ -26,6 +30,8 @@ export default component$(() => {
     const googleLogin = $(async () => {
         const authorized = await firebase.signIn();
 
+        console.log(`Signed In as ${authorized.email}`);
+
         action.submit(authorized);
     });
 
@@ -33,7 +39,7 @@ export default component$(() => {
         <>
             <div class={styles.page}>
                 <div class={styles.header}>
-                    <h1>Log in</h1>
+                    <h1>{$localize `pages.login.header.title`}</h1>
                     <h2>Please login to using app</h2>
                 </div>
                 <div class={styles.content}>

@@ -1,0 +1,32 @@
+@value colors: "../variables.css";
+@value error_1, primary_1, background_1 from colors;
+
+.container {
+  width   : 100%;
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+select {
+  appearance: none;
+  outline: 10px error_1;
+  border: 0;
+  box-shadow: none;
+
+  flex: 1;
+  padding: 0 1em;
+  color: primary_2;
+  background-color: background_1;
+  background-image: none;
+  cursor: pointer;
+
+  &:focus {
+    border-color: primary_3;
+  }
+
+  &.error {
+    border-color: error_1;
+  }
+}
