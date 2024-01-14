@@ -87,8 +87,8 @@ export function extractBase({ serverData }: RenderOptions): string {
 export function useI18n() {
     if (import.meta.env.DEV) {
     // During development only, load all translations in memory when the app starts on the client.
-    // eslint-disable-next-line
-    useOnDocument("qinit", $(initTranslations));
+        // eslint-disable-next-line qwik/use-method-usage
+        useOnDocument('qinit', $(initTranslations));
     }
 }
 

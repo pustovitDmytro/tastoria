@@ -14,7 +14,7 @@ type InputProps = {
   onBlur?:PropFunction
 };
 
-
+/* eslint-disable qwik/valid-lexical-scope*/
 export default component$((props: InputProps) => {
     const { value, label, type, onFocus, onBlur } = props;
 
