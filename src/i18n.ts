@@ -13,7 +13,7 @@ export const languages = [
     { id: 'ua', label: 'Українська' }
 ];
 const defaultLang = languages.find(l => l.default) || languages[0];
-const translations = [ EN, UA ];
+const TRANSLATIONS = [ EN, UA ];
 
 /**
  * This file is left for the developer to customize to get the behavior they want for localization.
@@ -53,7 +53,7 @@ if (!$localizeFn.TRANSLATION_BY_LOCALE) {
  * Function used to load all translations variants.
  */
 export function initTranslations() {
-    translations.forEach(({ translations, locale }) => {
+    TRANSLATIONS.forEach(({ translations, locale }) => {
         withLocale(locale, () => loadTranslations(translations));
     });
 }
