@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/pustovitDmytro/tastoria/compare/v1.9.0...v1.9.1) (2024-01-15)
+
+
+### Fix
+
+* impove styles ([6542f7f](https://github.com/pustovitDmytro/tastoria/commit/6542f7fca914ea64c325da4d2ae7aaecd4af5164))
+
 # [1.9.0](https://github.com/pustovitDmytro/tastoria/compare/v1.8.0...v1.9.0) (2024-01-14)
 
 
