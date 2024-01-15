@@ -8,6 +8,7 @@
   border-color: primary_2;
   color: primary_2;
   border-radius: 0.5rem;
+  height: 2.5rem;
   
   &.disabled {
       opacity: 0.5;

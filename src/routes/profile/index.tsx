@@ -15,8 +15,8 @@ export const useSignOut = routeAction$((a, { cookie, redirect }) => {
     throw redirect(302, '/login');
 });
 
-export const useChangeLanguage = routeAction$(async ({ language }, { cookie }) => {
-    await cookie.set(
+export const useChangeLanguage = routeAction$(({ language }, { cookie }) => {
+    cookie.set(
         'tastoria.app',
         { language },
         {

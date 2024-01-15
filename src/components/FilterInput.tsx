@@ -49,6 +49,7 @@ export default component$((props: Props) => {
                         id={o.id}
                         label={o.label}
                         value={o.isSelected}
+                        class={styles.option}
                     />)
                 }
                 </div>

@@ -36,6 +36,7 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@svgx/vite-plugin-qwik": "^1.0.1",
     "@types/eslint": "^8.44.4",
     "@types/node": "^20.8.4",
     "@typescript-eslint/eslint-plugin": "^6.7.5",

@@ -50,12 +50,12 @@ export default component$(() => {
     return (
         <>
             <main class={styles.page}>
-                <Header />
+                <Header class={styles.header}/>
                 <Menu/>
                 <div class={styles.content}>
                     <Slot/>
                 </div>
-                <Footer />
+                <Footer class={styles.footer}/>
             </main>
         </>
     );

@@ -1,17 +1,24 @@
 import { component$, useContext } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import styles from './header.module.css';
+import Hamburger from '~/components/Icons/hamburger';
 
 import { sessionContext } from '~/stores/session';
 import { appContext } from '~/stores/app';
 
-export default component$(() => {
+type Props = {
+    class?: string;
+};
+
+export default component$((props: Props) => {
     const session = useContext(sessionContext);
     const app = useContext(appContext);
 
     return (
-        <header class={styles.header}>
-            <div class={styles.menu} onClick$={e => app.isMenuOpened = !app.isMenuOpened}>☰</div>
+        <header class={[ styles.container, props.class ]}>
+            <div class={styles.menu} onClick$={e => app.isMenuOpened = !app.isMenuOpened}>
+                <Hamburger class={styles.hamburger} isOpened={app.isMenuOpened}/>
+            </div>
             {
                 session.user.value
                     ? <Link href='/profile'>

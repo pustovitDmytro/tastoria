@@ -1,6 +1,7 @@
-import { component$, useVisibleTask$  } from '@builder.io/qwik';
-import type { DocumentHead, RequestEvent } from '@builder.io/qwik-city';
+import type { RequestEvent } from '@builder.io/qwik-city';
 
 export const onGet = async ({ cookie, redirect }: RequestEvent) => {
-    throw cookie.get('tastoria.session') ? redirect(302, '/recipes') : redirect(302, '/login');
+    const firstPage = cookie.get('tastoria.session') ? '/recipes' : '/login';
+
+    throw redirect(302, firstPage);
 };

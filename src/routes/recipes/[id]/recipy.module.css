@@ -1,7 +1,5 @@
-/* .component {
-
-} */
-
+@value colors: "../../../variables.css";
+@value primary_1, primary_2, primary_3, text_1 from colors;
 
 .preview {
     display: flex;
@@ -11,13 +9,93 @@
     }
 }
 
-/* .ingredients {
-
+h1, h2 {
+    color: primary_2
 }
 
-.steps {
+.contentItem {
+    margin-top: 5px;
+}
 
-} */
+.propertyLabel {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.ingredients {
+    padding-left: 50px; 
+
+    li { 
+      padding-left: 5px;
+      margin-top: 10px;
+      position: relative;
+  
+      /* &::marker {} */
+      
+      &:before {
+        content: '';
+      }
+  
+      &:nth-child(odd){
+          &::marker {
+              color: primary_2;
+          }
+      } 
+  
+      &:nth-child(even){
+          &::marker {
+              color: primary_3;
+          }
+      } 
+    }
+}
+
+ol.steps { 
+  padding-left: 50px; 
+
+  li { 
+    padding-left: 16px;
+    margin-top: 24px;
+    position: relative;
+    font-size: 16px;
+    line-height: 20px;
+
+    &::marker {
+        font-weight: bold;
+    }
+    
+    &:before {
+      content: '';
+      display: block;
+      height: 42px;
+      width: 42px;
+      border-radius: 50%;
+      border-width: 2px;
+      border-style: solid;
+      position: absolute;
+      top: -12px;
+      left: -35px;
+    }
+
+    &:nth-child(odd){
+        &::marker {
+            color: primary_2;
+        }
+        &:before { 
+            border-color: primary_2; 
+        }
+    } 
+
+    &:nth-child(even){
+        &::marker {
+            color: primary_3;
+        }
+        &:before { 
+            border-color: primary_3; 
+        }
+    } 
+  }
+}
 
 @media screen and (max-width: 700px) {
     .preview {

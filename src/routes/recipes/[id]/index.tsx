@@ -25,7 +25,10 @@ const Source = component$<SourceProps>((props) => {
     if (!props.url) return null;
     const url = new URL(props.url);
 
-    return <div>Source: <a class={styles.source} href={url.href}>{url.host}</a></div>;
+    return <div class={styles.contentItem}>
+        <span class={styles.propertyLabel}>Source:</span>
+        <a class={styles.source} href={url.href}>{url.host}</a>
+    </div>;
 });
 
 export default component$(() => {
@@ -40,21 +43,30 @@ export default component$(() => {
                     <Image src={signal.value.image}/>
                     <div class={styles.content}>
                         <h1>{signal.value.title}</h1>
-                        <div>{signal.value.description}</div>
-                        <div>Quantity: {signal.value.quantity}</div>
+                        <div class={styles.contentItem}>
+                            {signal.value.description}
+                        </div>
+                        <div class={styles.contentItem}>
+                            <span class={styles.propertyLabel} >Quantity:</span>
+                            {signal.value.quantity}
+                        </div>
                         <Source url={signal.value.url}/>
                     </div>
                 </div >
-                Ingredients:
+                <h2>Ingredients:</h2>
                 <ul class={styles.ingredients}>
                     {
-                        signal.value.ingredients.map(ing => <li>{ing}</li>)
+                        signal.value.ingredients.map(ing => <li key={ing}>
+                            {ing}
+                        </li>)
                     }
                 </ul>
-                Steps:
+                <h2>Steps:</h2>
                 <ol class={styles.steps}>
                     {
-                        signal.value.steps.map(step => <li>{step}</li>)
+                        signal.value.steps.map(step => <li key={step}>
+                            {step}
+                        </li>)
                     }
                 </ol>
             </div>

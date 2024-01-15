@@ -1,5 +1,5 @@
 @value colors: "../variables.css";
-@value alt_1 from colors;
+@value primary_1 from colors;
 
 .container {
   position: relative;
@@ -18,7 +18,7 @@
 }
 
 .arrow {
-  border: solid alt_1;
+  border: solid primary_1;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
@@ -37,4 +37,13 @@
 .options {
   display: flex;
   flex-direction: column;
+}
+
+.option {
+	padding-top: 0.25em;
+}
+
+.closeButton {
+  background-color: transparent !important;
+  border: none !important;
 }
