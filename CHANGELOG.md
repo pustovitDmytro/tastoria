@@ -1,3 +1,18 @@
+# [1.9.0](https://github.com/pustovitDmytro/tastoria/compare/v1.8.0...v1.9.0) (2024-01-14)
+
+
+### Chore
+
+* fixes lint ([8cc0293](https://github.com/pustovitDmytro/tastoria/commit/8cc02937933f5fb5d352e0e962782a73dc98cbff))
+
+### Fix
+
+* fixes translation id ([635765d](https://github.com/pustovitDmytro/tastoria/commit/635765dbc00053e377760c6393172e7e324a91a4))
+
+### New
+
+* localization for profile and login pages ([69e27f6](https://github.com/pustovitDmytro/tastoria/commit/69e27f645a2cf23ab551ce9485517235c7803cea))
+
 # [1.8.0](https://github.com/pustovitDmytro/tastoria/compare/v1.7.0...v1.8.0) (2024-01-14)
 
 
