@@ -1,11 +1,16 @@
-import { component$, useStore, useVisibleTask$, useContext, useSignal, noSerialize, useTask$,  type NoSerialize  } from '@builder.io/qwik';
+/* eslint-disable no-param-reassign */
+import { $, component$, useStore, useVisibleTask$, useContext, useSignal, noSerialize, useTask$,  type NoSerialize  } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { BlobReader, ZipReader, BlobWriter, TextWriter } from '@zip.js/zip.js';
 import { last } from 'myrmidon';
+import JSZip from 'jszip';
 import styles from './styles.module.css';
 import FileInput from '~/components/FileInput';
 import firebase from '~/firebase';
 import { sessionContext } from '~/stores/session';
+import Button from '~/components/Button';
+import DownloadIcon from '~/components/Icons/download.svg?component';
+import Loader from '~/components/Loader.js';
 
 async function uploadFile(file, user) {
     const reader = new ZipReader(new BlobReader(file));
@@ -39,9 +44,88 @@ async function uploadFile(file, user) {
     }
 }
 
+function click(node) {
+    try {
+        node.dispatchEvent(new MouseEvent('click'));
+    } catch {
+        const evt = document.createEvent('MouseEvents');
+
+        evt.initMouseEvent(
+            'click',
+            true,
+            true,
+            window,
+            0,
+            0,
+            0,
+            80,
+            20,
+            false,
+            false,
+            false,
+            false,
+            0,
+            null
+        );
+        node.dispatchEvent(evt);
+    }
+}
+
+function saveAs(blob, name) {
+    const a = document.createElementNS('http://www.w3.org/1999/xhtml', 'a') as any;
+
+    name = name || blob.name || 'download';
+    a.download = name;
+    a.rel = 'noopener'; // tabnabbing
+
+    a.href = URL.createObjectURL(blob);
+    setTimeout(() => {
+        URL.revokeObjectURL(a.href);
+    }, 4e4); // 40s
+    setTimeout(() => {
+        click(a);
+    }, 0);
+}
+
+async function exportBackup(user, isLoading) {
+    isLoading.value = true;
+    const recipes = await firebase.downloadRecipes(user.id);
+    const zip = new JSZip();
+
+    zip.file('data.json', JSON.stringify({ recipes }));
+    for (const r of recipes) {
+        if (r.image) {
+            const image = await firebase.downloadImage(user.id, r.image);
+
+            zip.file(r.image, image);
+        }
+    }
+
+    const blob = await zip.generateAsync({ type: 'blob' });
+
+    isLoading.value = false;
+
+    saveAs(blob, `${user.fullName}.tastoria`);
+}
+
+const Export = component$(() => {
+    const session = useContext(sessionContext);
+    const isLoading = useSignal(false);
+    const userExportHanlder = $(() => exportBackup(session.user.value, isLoading));
+
+    return <div class={styles.exportBox}>
+        <span class={styles.exportText}>{$localize `pages.import.export_placeholder`}</span>
+
+        <Button class={[ styles.exportButton ]} onClick={userExportHanlder}>
+            {isLoading.value && <Loader class={styles.loader}/>}
+            <DownloadIcon class={[ { [styles.isLoading]: isLoading.value } ]}/>
+        </Button>
+    </div>;
+});
+
+
 export default component$(() => {
     const session = useContext(sessionContext);
-
     const file = useSignal<NoSerialize<Blob>[] | NoSerialize<File>[]>();
 
     if (file.value) {
@@ -51,10 +135,13 @@ export default component$(() => {
     return (
         <>
             <div class={styles.page}>
+                <div class={styles.infoPage}>
+                    <Export/>
+                </div>
                 <FileInput
                     class={styles.uploader}
                     value={file}
-                    label='Click or drag and drop file'
+                    label={$localize `pages.import.fileInput_placeholder`}
                 />
             </div>
         </>
@@ -62,6 +149,6 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-    title : 'Import Recipes'
+    title : $localize `pages.import.head_title`
 };
 

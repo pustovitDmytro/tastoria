@@ -1,3 +1,6 @@
+@value colors: "../variables.css";
+@value primary_2, primary_3 from colors;
+
 .container {
   border-style: dashed;
   border-width: 3px;
@@ -6,6 +9,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-color: primary_2;
+  color: primary_2;
+
+  &:hover {
+    border-color: primary_3;
+    color: primary_3;
+  }
 }
 
 .input {

@@ -1,16 +1,14 @@
 import { $, component$,
     Slot } from '@builder.io/qwik';
 import type {
-    Signal,
-    NoSerialize,
-    PropFunction,
+    ClassList,
     QwikMouseEvent
 } from '@builder.io/qwik';
 import styles from './Button.module.css';
 
 type ButtonProps = {
   inline?: boolean;
-  class?: string;
+  class?: ClassList | ClassList[];
   onClick?: (event: QwikMouseEvent, element: HTMLButtonElement) => any
 };
 

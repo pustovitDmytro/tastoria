@@ -1,0 +1,51 @@
+@value colors: "../variables.css";
+@value error_1, white_1 from colors;
+
+.loader {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+    display: inline-block;
+
+    border-width: 8%;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-top-color: white_1;
+    border-right-color: transparent;
+    
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    opacity: 0.6;
+  }
+
+  .loader::after {
+    opacity: 0.6;
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    
+    width: 100%;
+    height: 100%;
+    
+    border-radius: 50%;
+
+    border-width: 8%;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-left-color: error_1;
+    border-bottom-color: transparent;
+    
+    animation: rotation 0.5s linear infinite reverse;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  } 
