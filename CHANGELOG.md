@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/pustovitDmytro/tastoria/compare/v1.9.1...v1.10.0) (2024-01-21)
+
+
+### New
+
+* adds export functionality ([e45f211](https://github.com/pustovitDmytro/tastoria/commit/e45f211e624c4e1034255c27a78411f040f8a2e5))
+
 ## [1.9.1](https://github.com/pustovitDmytro/tastoria/compare/v1.9.0...v1.9.1) (2024-01-15)
 
 
