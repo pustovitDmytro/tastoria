@@ -1,8 +1,7 @@
 import { component$, useContext  } from '@builder.io/qwik';
-import type { DocumentHead, RequestHandler } from '@builder.io/qwik-city';
-import { routeLoader$, useContent, useLocation } from '@builder.io/qwik-city';
+import {  useContent } from '@builder.io/qwik-city';
 import styles from './menu.module.css';
-import { appContext } from '~/stores/app';
+import { appContext } from '~/stores';
 
 export default component$(() => {
     const app = useContext(appContext);

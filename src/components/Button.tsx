@@ -8,6 +8,7 @@ import styles from './Button.module.css';
 
 type ButtonProps = {
   inline?: boolean;
+  icon?:boolean;
   class?: ClassList | ClassList[];
   onClick?: (event: QwikMouseEvent, element: HTMLButtonElement) => any
 };
@@ -20,8 +21,10 @@ export default component$((props: ButtonProps) => {
                 styles.button,
                 props.class,
                 {
-                    [styles.inline] : props.inline
+                    [styles.inline] : props.inline,
+                    [styles.icon]   : props.icon
                 }
+
             ]}
             onClick$={props.onClick}
         >

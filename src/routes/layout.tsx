@@ -5,9 +5,8 @@ import fonts from './fonts.css?inline';
 import styles from './styles.module.css';
 import Header from '~/components/Header/header';
 import Footer from '~/components/Footer/footer';
-import type { SessionStore } from '~/stores/session';
-import { sessionContext } from '~/stores/session';
-import { appContext } from '~/stores/app';
+import { sessionContext, appContext, slotContext } from '~/stores';
+import type { SlotState } from '~/stores/slot';
 import Menu from '~/components/Menu/menu';
 import { extractLang, useI18n } from '~/i18n';
 
@@ -41,16 +40,27 @@ export default component$(() => {
     const session = useSession();
     const settings = useSettings();
 
+    const slotCtx = useStore<SlotState>({
+        header      : null,
+        contextMenu : null
+    });
+
     const sessionStore = useStore({ user: session });
     const appStore = useStore({ isMenuOpened: false, language: settings.value.language });
 
     useContextProvider(sessionContext, sessionStore);
     useContextProvider(appContext, appStore);
+    useContextProvider(slotContext, slotCtx);
+    const HeaderContent = () => slotCtx.header;
 
     return (
         <>
             <main class={styles.page}>
-                <Header class={styles.header}/>
+                <Header class={styles.header}>
+                    <div class={styles.headerContent}>
+                        <HeaderContent/>
+                    </div>
+                </Header>
                 <Menu/>
                 <div class={styles.content}>
                     <Slot/>

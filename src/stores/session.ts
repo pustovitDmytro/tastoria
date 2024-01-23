@@ -1,7 +1,7 @@
-import { component$, createContextId, useContextProvider, useStore } from '@builder.io/qwik';
+import { createContextId } from '@builder.io/qwik';
 
 export interface SessionStore {
   user: any
 }
 
-export const sessionContext = createContextId<SessionStore>('Session');
+export default createContextId<SessionStore>('Session');

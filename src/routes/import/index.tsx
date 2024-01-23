@@ -7,7 +7,7 @@ import JSZip from 'jszip';
 import styles from './styles.module.css';
 import FileInput from '~/components/FileInput';
 import firebase from '~/firebase';
-import { sessionContext } from '~/stores/session';
+import { sessionContext } from '~/stores';
 import Button from '~/components/Button';
 import DownloadIcon from '~/components/Icons/download.svg?component';
 import Loader from '~/components/Loader.js';

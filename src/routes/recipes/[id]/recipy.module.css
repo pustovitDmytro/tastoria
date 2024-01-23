@@ -111,3 +111,26 @@ ol.steps {
         }
     }
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+        color: primary_1;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .headerButton {
+        width: 45px;
+        height: 45px;
+
+        svg {
+            height: 100%;
+            width: 100%;
+        }
+    }
+}

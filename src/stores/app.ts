@@ -5,4 +5,4 @@ export interface ApplicationStore {
   language: string,
 }
 
-export const appContext = createContextId<ApplicationStore>('Application');
+export default createContextId<ApplicationStore>('Application');

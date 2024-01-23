@@ -20,7 +20,7 @@ export interface Receipt {
     comment   : string,
     language  : string,
     version   : string,
-    createdAt : string
+    createdAt : string,
 }
 
 export interface ReceipFilter {

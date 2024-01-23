@@ -5,7 +5,7 @@ import { isServer } from '@builder.io/qwik/build';
 import styles from './image.module.css';
 import Image from '~/media/placeholder.png?jsx';
 import firebase from '~/firebase';
-import { sessionContext } from '~/stores/session';
+import { sessionContext } from '~/stores';
 import Loader from '~/components/Loader.js';
 
 interface ItemProps {
