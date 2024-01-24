@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/pustovitDmytro/tastoria/compare/v1.11.1...v1.11.2) (2024-01-24)
+
+
+### Fix
+
+* use web crypto api ([1549a93](https://github.com/pustovitDmytro/tastoria/commit/1549a933812d1976ab989914de8f28bab749ecaf))
+
 ## [1.11.1](https://github.com/pustovitDmytro/tastoria/compare/v1.11.0...v1.11.1) (2024-01-24)
 
 
