@@ -24,11 +24,13 @@ export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) =>
     if (!receipt) return null;
     const cipher = new Cipher({ key: env.get('SHARE_SECRET_KEY'), algorithm: env.get('SHARE_ALGORITHM') });
 
-    const sharedToken = cipher.encrypt([
-        user.id,
-        recipyId,
-        Date.now()
-    ]);
+    const sharedToken = `_${user.id}${recipyId}${Date.now()}`;
+
+    // cipher.encrypt([
+    //     user.id,
+    //     recipyId,
+    //     Date.now()
+    // ]);
 
     return { receipt, sharedToken };
 });
