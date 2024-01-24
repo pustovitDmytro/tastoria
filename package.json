@@ -79,7 +79,6 @@
     "@angular/localize": "^16.2.2",
     "@zip.js/zip.js": "^2.7.31",
     "base-api-client": "1.5.10",
-    "base64url": "^3.0.1",
     "cottus": "1.11.0",
     "file-saver": "^2.0.5",
     "firebase": "10.6.0",

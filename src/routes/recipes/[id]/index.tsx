@@ -1,5 +1,5 @@
 /* eslint-disable qwik/valid-lexical-scope */
-import { $, component$, useContext, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { $, component$, useContext, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeLoader$, server$, useLocation } from '@builder.io/qwik-city';
 import { isFunction } from 'myrmidon';
@@ -24,7 +24,7 @@ export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) =>
     const receipt = await firebase.downloadRecipy(user.id, recipyId);
 
     if (!receipt) return null;
-    const cipher = new Cipher({ key: env.get('SHARE_SECRET_KEY'), algorithm: env.get('SHARE_ALGORITHM') });
+    const cipher = new Cipher({ key: env.get('SHARE_SECRET_KEY') });
 
     const sharedToken =  await cipher.encrypt([
         user.id,
@@ -118,7 +118,7 @@ export default component$(() => {
     const location = useLocation();
     const sharedUrl = new URL(`shared/${signal.value.sharedToken}`, location.url.origin);
 
-    useVisibleTask$(() => {
+    useTask$(() => {
         // eslint-disable-next-line qwik/valid-lexical-scope
         slotCtx.header = <HeaderContent receipt={signal.value.receipt} shareURL={sharedUrl}/>;
     });

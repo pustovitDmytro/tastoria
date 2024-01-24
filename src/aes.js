@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { Buffer } from 'node:buffer';
 
 const IV_LENGTH = 16;
 const HEX_MULTIPLIER = 2;
@@ -11,8 +12,8 @@ function pad(num, size) {
 }
 
 class AES {
-    constructor({ algorithm, key }) {
-        this.algorithm = 'aes-256-gcm';// algorithm;
+    constructor({ key }) {
+        this.algorithm = 'aes-256-gcm';
         this.key = new TextEncoder().encode(key);
     }
 
@@ -117,28 +118,35 @@ function toSymbols(num, alphabet) {
 }
 
 
+/* eslint-disable no-secrets/no-secrets*/
 export default class Cipher extends AES {
     outAlphabet = [
-        ...'abcdefghijklmnopqrstuvwxyz',  // eslint-disable-line no-secrets/no-secrets
-        ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',  // eslint-disable-line no-secrets/no-secrets
-        ...'0123456789'
+        ...'abcdefghijklmnopqrstuvwxyz',
+        ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        ...'0123456789',
+        ...'$-_.+!*\'()'
     ];
 
-    inAlphabet = [ ...'0123456789abcdef.' ];
+    inAlphabet = [
+        ...'abcdefghijklmnopqrstuvwxyz',
+        ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        ...'0123456789',
+        ...'=/+.'
+    ];
 
-    // encrypt(payload) {
-    //     const string = JSON.stringify(payload);
-    //     const encrypted = super.encrypt(string);
+    async encrypt(payload) {
+        const string = JSON.stringify(payload);
+        const encrypted = await super.encrypt(string);
 
-    //     return this.short(encrypted);
-    // }
+        return this.short(encrypted);
+    }
 
-    // decrypt(text) {
-    //     const long = this.long(text);
-    //     const decrypted = super.decrypt(long);
+    async decrypt(text) {
+        const long = this.long(text);
+        const decrypted = await super.decrypt(long);
 
-    //     return JSON.parse(decrypted);
-    // }
+        return JSON.parse(decrypted);
+    }
 
     short(hex) {
         return toSymbols(toNumber(hex, this.inAlphabet), this.outAlphabet).join('');
