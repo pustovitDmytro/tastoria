@@ -1,3 +1,10 @@
+## [1.11.3](https://github.com/pustovitDmytro/tastoria/compare/v1.11.2...v1.11.3) (2024-01-24)
+
+
+### Fix
+
+* fixes buffer issue ([f600eb0](https://github.com/pustovitDmytro/tastoria/commit/f600eb0188834937407dde7640e7c3675846b547))
+
 ## [1.11.2](https://github.com/pustovitDmytro/tastoria/compare/v1.11.1...v1.11.2) (2024-01-24)
 
 
