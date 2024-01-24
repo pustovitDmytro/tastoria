@@ -2,6 +2,7 @@
 import { $, component$, useContext, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeLoader$, server$, useLocation } from '@builder.io/qwik-city';
+import { isFunction } from 'myrmidon';
 import styles from './recipy.module.css';
 import type { Receipt } from '~/types';
 import firebase from '~/firebase';
@@ -12,6 +13,7 @@ import ShareIcon from '~/components/Icons/share.svg?component';
 import LockIcon from '~/components/Icons/lock.svg?component';
 import UnlockIcon from '~/components/Icons/unlock.svg?component';
 import Button from '~/components/Button';
+
 
 export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) => {
     const session = cookie.get('tastoria.session');
@@ -24,13 +26,11 @@ export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) =>
     if (!receipt) return null;
     const cipher = new Cipher({ key: env.get('SHARE_SECRET_KEY'), algorithm: env.get('SHARE_ALGORITHM') });
 
-    const sharedToken = `_${user.id}${recipyId}${Date.now()}`;
-
-    // cipher.encrypt([
-    //     user.id,
-    //     recipyId,
-    //     Date.now()
-    // ]);
+    const sharedToken =  await cipher.encrypt([
+        user.id,
+        recipyId,
+        Date.now()
+    ]);
 
     return { receipt, sharedToken };
 });
@@ -61,8 +61,8 @@ export const HeaderContent = component$<HeaderProps>((props) => {
     const wakeLock = useSignal<WakeLockSentinel | null>(null);
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const canBeShared = navigator.canShare && navigator.canShare();
-    const canBeLocked = 'WakeLock' in window && 'request' in window.WakeLock;
+    const canBeShared = isFunction(navigator.share);
+    const canBeLocked = isFunction(navigator.wakeLock);
 
     const shareData = {
         title : receipt.title,

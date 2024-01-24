@@ -12,35 +12,84 @@ function pad(num, size) {
 
 class AES {
     constructor({ algorithm, key }) {
-        this.algorithm = algorithm;
-        this.key = key;
+        this.algorithm = 'aes-256-gcm';// algorithm;
+        this.key = new TextEncoder().encode(key);
     }
 
-    encrypt(text) {
+    async encrypt(text) {
         const iv = crypto.randomBytes(IV_LENGTH);
-        const cipher = crypto.createCipheriv(this.algorithm, this.key, iv);
+        const encodedText = new TextEncoder().encode(text);
+        const subtleCrypto = crypto.webcrypto.subtle;
+        const cipher = await subtleCrypto.encrypt(
+            {
+                name : 'AES-GCM',
+                iv
+            },
+            await subtleCrypto.importKey('raw', this.key, 'AES-GCM', false, [ 'encrypt' ]),
+            encodedText
+        );
 
-        let crypted = cipher.update(text, 'utf8', 'hex');
+        // Combine the encrypted data and IV for later decryption
+        const encryptedBytes = new Uint8Array(cipher);
+        const result = new Uint8Array(encryptedBytes.length + iv.length);
 
-        crypted += cipher.final('hex');
-        const ivString = iv.toString('hex');
+        const ivString = Buffer.from(iv).toString('base64');
+        const encryptedString = Buffer.from(encryptedBytes).toString('base64');
 
-        return `${ivString}.${crypted}`;
+        return `${ivString}.${encryptedString}`;
     }
 
-    decrypt(text) {
-        const [ iv, encrypted ] = text.split('.');
-        const ivString = pad(iv, IV_STRING_LENGTH);
-        const vec = new Buffer.from(ivString, 'hex');
-        const decipher = crypto.createDecipheriv(this.algorithm, this.key, vec);
+    async decrypt(text) {
+        const [ ivString, encryptedString ] = text.split('.');
+        const iv = Buffer.from(ivString, 'base64');
 
-        let dec = decipher.update(encrypted, 'hex', 'utf8');
+        const encryptedBytes = Buffer.from(encryptedString, 'base64');
+        const subtleCrypto = crypto.webcrypto.subtle;
+        const key = await subtleCrypto.importKey('raw', this.key, 'AES-GCM', false, [ 'decrypt' ]);
+        const decrypted = await subtleCrypto.decrypt(
+            {
+                name : 'AES-GCM',
+                iv
+            },
+            key,
+            encryptedBytes
+        );
 
-        dec += decipher.final('utf8');
-
-        return dec;
+        return new TextDecoder().decode(decrypted);
     }
 }
+
+// class AES {
+//     constructor({ algorithm, key }) {
+//         this.algorithm = algorithm;
+//         this.key = key;
+//     }
+
+//     encrypt(text) {
+//         const iv = crypto.randomBytes(IV_LENGTH);
+//         const cipher = crypto.createCipheriv(this.algorithm, this.key, iv);
+
+//         let crypted = cipher.update(text, 'utf8', 'hex');
+
+//         crypted += cipher.final('hex');
+//         const ivString = iv.toString('hex');
+
+//         return `${ivString}.${crypted}`;
+//     }
+
+//     decrypt(text) {
+//         const [ iv, encrypted ] = text.split('.');
+//         const ivString = pad(iv, IV_STRING_LENGTH);
+//         const vec = new Buffer.from(ivString, 'hex');
+//         const decipher = crypto.createDecipheriv(this.algorithm, this.key, vec);
+
+//         let dec = decipher.update(encrypted, 'hex', 'utf8');
+
+//         dec += decipher.final('utf8');
+
+//         return dec;
+//     }
+// }
 
 function toNumber(cipher, alphabet) {
     let result = BigInt(0);
@@ -77,19 +126,19 @@ export default class Cipher extends AES {
 
     inAlphabet = [ ...'0123456789abcdef.' ];
 
-    encrypt(payload) {
-        const string = JSON.stringify(payload);
-        const encrypted = super.encrypt(string);
+    // encrypt(payload) {
+    //     const string = JSON.stringify(payload);
+    //     const encrypted = super.encrypt(string);
 
-        return this.short(encrypted);
-    }
+    //     return this.short(encrypted);
+    // }
 
-    decrypt(text) {
-        const long = this.long(text);
-        const decrypted = super.decrypt(long);
+    // decrypt(text) {
+    //     const long = this.long(text);
+    //     const decrypted = super.decrypt(long);
 
-        return JSON.parse(decrypted);
-    }
+    //     return JSON.parse(decrypted);
+    // }
 
     short(hex) {
         return toSymbols(toNumber(hex, this.inAlphabet), this.outAlphabet).join('');

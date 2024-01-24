@@ -1,14 +1,15 @@
-import Assembler from 'cottus/lib/Assembler';
-import defaultRules  from 'cottus/lib/rules';
-import Cottus from 'cottus/lib/Cottus';
+import AssemblerImport from 'cottus/lib/Assembler';
+import defaultRulesImport  from 'cottus/lib/rules';
+import CottusImport from 'cottus/lib/Cottus';
+// import { isDev } from '@builder.io/qwik/build';
 
+const Assembler = AssemblerImport.default ?? AssemblerImport;
+const defaultRules = defaultRulesImport.default || defaultRulesImport;
+const Cottus = CottusImport.default || CottusImport;
 // import AssemblerInport from 'cottus/lib/Assembler';
 // import defaultRulesInport  from 'cottus/lib/rules';
 // import CottusInport from 'cottus/lib/Cottus';
 
-// const Assembler = AssemblerInport.default;
-// const defaultRules = defaultRulesInport.default;
-// const Cottus = CottusInport.default;
 
 const cottus = new Cottus({ rules: defaultRules });
 
