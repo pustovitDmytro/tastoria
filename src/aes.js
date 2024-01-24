@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 
 const IV_LENGTH = 16;
 const HEX_MULTIPLIER = 2;

@@ -167,3 +167,4 @@ export const head: DocumentHead = ({ resolveValue }) => {
         title : resolved ? resolved.receipt.title : 'Tastoria Receipt'
     };
 };
+

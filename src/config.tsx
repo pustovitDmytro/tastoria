@@ -2,6 +2,14 @@ import Assembler from 'cottus/lib/Assembler';
 import defaultRules  from 'cottus/lib/rules';
 import Cottus from 'cottus/lib/Cottus';
 
+// import AssemblerInport from 'cottus/lib/Assembler';
+// import defaultRulesInport  from 'cottus/lib/rules';
+// import CottusInport from 'cottus/lib/Cottus';
+
+// const Assembler = AssemblerInport.default;
+// const defaultRules = defaultRulesInport.default;
+// const Cottus = CottusInport.default;
+
 const cottus = new Cottus({ rules: defaultRules });
 
 const e = import.meta.env;

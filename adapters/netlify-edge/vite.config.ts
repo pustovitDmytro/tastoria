@@ -3,34 +3,23 @@ import { extendConfig } from "@builder.io/qwik-city/vite";
 import baseConfig from "../../vite.config";
 
 // import { nodeResolve } from '@rollup/plugin-node-resolve';
+// import builtins from 'rollup-plugin-node-builtins';
 
-// const replacePlugin = {
-//         {
-//         name      : 'replace-plugin',
-//         resolveId : {
-//             order : 'pre',
-//             async handler(source, importer, resolveOptions) {
-//                 if (source === 'firebase/storage') return '/home/dima/Projects/pet/tastoria/node_modules/@firebase/storage/dist/index.node.cjs.js';
-//             }
-//         }
-//     },
-// }
+// const builtinsPlugin = { ...builtins({ crypto: true }), name: 'rollup-plugin-node-builtins' };
 
 export default extendConfig(baseConfig, () => {
   return {
-    // ssr : {
-    //   external   : [ ],
-    //   noExternal: true
-    // },
     build: {
       ssr: true,
       rollupOptions: {
         input: ["src/entry.netlify-edge.tsx", "@qwik-city-plan"],
+        external: ["node:crypto"],
       },
       outDir: ".netlify/edge-functions/entry.netlify-edge",
     },
     plugins: [
-      netlifyEdgeAdapter() 
+      netlifyEdgeAdapter(),
     ],
   };
-});
+})
+

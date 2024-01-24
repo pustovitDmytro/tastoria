@@ -1,8 +1,8 @@
-import type { JSXNode } from '@builder.io/qwik';
+import type { JSXNode, JSXOutput } from '@builder.io/qwik';
 import { createContextId } from '@builder.io/qwik';
 
 export interface SlotState {
-    header: JSXNode | null;
+    header: JSXNode | null | JSXOutput;
     contextMenu: JSXNode | null;
 }
 

@@ -10,8 +10,8 @@ type InputProps = {
   label: string;
   class?: string;
   type: string;
-  onFocus?:PropFunction
-  onBlur?:PropFunction
+  onFocus?:PropFunction<any>
+  onBlur?:PropFunction<any>
 };
 
 /* eslint-disable qwik/valid-lexical-scope*/

@@ -6,7 +6,7 @@ type Props = {
     class?: string;
 };
 
-export default component$((props) => {
+export default component$<Props>((props) => {
     return (
         <button
             class={[

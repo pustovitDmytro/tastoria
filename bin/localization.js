@@ -4,8 +4,6 @@
 import path from 'path';
 import { docopt } from 'docopt';
 import fs from 'fs-extra';
-import unzipper from 'unzipper';
-import xmlJS from 'xml-js';
 import { v4 as uuid } from 'uuid';
 import { toArray } from 'myrmidon';
 import Papa from 'papaparse';
