@@ -1,4 +1,5 @@
-import { $, component$, useContext, useVisibleTask$ } from '@builder.io/qwik';
+/* eslint-disable qwik/valid-lexical-scope */
+import { $, component$, useContext, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeLoader$, server$, useLocation } from '@builder.io/qwik-city';
 import styles from './recipy.module.css';
@@ -8,6 +9,8 @@ import Image from '~/components/Image/image';
 import Cipher from '~/aes';
 import { slotContext } from '~/stores';
 import ShareIcon from '~/components/Icons/share.svg?component';
+import LockIcon from '~/components/Icons/lock.svg?component';
+import UnlockIcon from '~/components/Icons/unlock.svg?component';
 import Button from '~/components/Button';
 
 export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) => {
@@ -52,26 +55,56 @@ interface HeaderProps {
 
 export const HeaderContent = component$<HeaderProps>((props) => {
     const { receipt } = props;
+    const isLocked = useSignal(false);
+    const wakeLock = useSignal<WakeLockSentinel | null>(null);
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const canBeShared = navigator.canShare && navigator.canShare();
+    const canBeLocked = 'WakeLock' in window && 'request' in window.WakeLock;
+
     const shareData = {
         title : receipt.title,
         text  : receipt.description,
         url   : props.shareURL.href
     };
 
+    const handleLockClick = $(async () => {
+        if (isLocked.value && wakeLock.value) {
+            wakeLock.value.release();
+        } else {
+            isLocked.value = true;
+            // eslint-disable-next-line require-atomic-updates
+            wakeLock.value = await navigator.wakeLock.request('screen');
+            wakeLock.value.addEventListener('release', (e) => {
+                isLocked.value = false;
+            });
+        }
+    });
+
     return <div class={styles.header}>
         <h1>{receipt.title}</h1>
-        {
-            canBeShared && <Button
-                icon={true}
-                class={styles.headerButton}
-                onClick={$(() => navigator.share(shareData))}
-            >
-                <ShareIcon/>
-            </Button>
-        }
+        <div class={styles.headerButtons}>
+            {
+                canBeLocked && <Button
+                    icon={true}
+                    class={styles.headerButton}
+                    onClick={handleLockClick}
+                >
+                    {
+                        isLocked.value ? <UnlockIcon/> : <LockIcon/>
+                    }
+                </Button>
+            }
+            {
+                canBeShared && <Button
+                    icon={true}
+                    class={styles.headerButton}
+                    onClick={$(() => navigator.share(shareData))}
+                >
+                    <ShareIcon/>
+                </Button>
+            }
+        </div>
     </div>;
 });
 

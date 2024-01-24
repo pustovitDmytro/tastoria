@@ -122,12 +122,22 @@ ol.steps {
         margin: 0;
         display: flex;
         align-items: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .headerButtons{
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
 
     .headerButton {
         width: 45px;
         height: 45px;
-
+        
         svg {
             height: 100%;
             width: 100%;
