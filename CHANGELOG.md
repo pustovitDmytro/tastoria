@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/pustovitDmytro/tastoria/compare/v1.11.0...v1.11.1) (2024-01-24)
+
+
+### Fix
+
+* temporary disable crypto shared token generation ([29668e8](https://github.com/pustovitDmytro/tastoria/commit/29668e84c506ea12e6344a9ed81900906ed4a8e5))
+
 # [1.11.0](https://github.com/pustovitDmytro/tastoria/compare/v1.10.0...v1.11.0) (2024-01-24)
 
 
