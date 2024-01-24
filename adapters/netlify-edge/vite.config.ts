@@ -19,17 +19,14 @@ import baseConfig from "../../vite.config";
 export default extendConfig(baseConfig, () => {
   return {
     // ssr : {
-    //   external   : [ 'stream' ],
+    //   external   : [ ],
+    //   noExternal: true
     // },
     build: {
       ssr: true,
       rollupOptions: {
         input: ["src/entry.netlify-edge.tsx", "@qwik-city-plan"],
       },
-      // commonjsOptions: {
-      //   esmExternals: true,
-      //   ignore: ['stream', 'util', 'zlib', 'path', 'events', 'fs', 'assert', 'constants']
-      // },
       outDir: ".netlify/edge-functions/entry.netlify-edge",
     },
     plugins: [
