@@ -1,3 +1,15 @@
+# [1.11.0](https://github.com/pustovitDmytro/tastoria/compare/v1.10.0...v1.11.0) (2024-01-24)
+
+
+### Chore
+
+* fixes crypto import ([350f9d5](https://github.com/pustovitDmytro/tastoria/commit/350f9d5b07dc9f0e1470cfd74f273089357d0e23))
+
+### New
+
+* adds Lock screen button ([dec09c9](https://github.com/pustovitDmytro/tastoria/commit/dec09c915d27dfca2021e1765cffcd0190e53c1f))
+* adds share button ([f222095](https://github.com/pustovitDmytro/tastoria/commit/f2220959e01ee60a097ac13aee46d5b5f8b1bb1b))
+
 # [1.10.0](https://github.com/pustovitDmytro/tastoria/compare/v1.9.1...v1.10.0) (2024-01-21)
 
 
