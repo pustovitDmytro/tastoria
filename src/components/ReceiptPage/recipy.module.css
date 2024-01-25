@@ -1,4 +1,4 @@
-@value colors: "../../../variables.css";
+@value colors: "../../variables.css";
 @value primary_1, primary_2, primary_3, text_1 from colors;
 
 .preview {

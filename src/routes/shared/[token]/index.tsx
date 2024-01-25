@@ -7,22 +7,13 @@ import { slotContext } from '~/stores';
 import HeaderContent from '~/components/ReceiptPage/Header';
 import Page from '~/components/ReceiptPage/Page';
 
-export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) => {
-    const session = cookie.get('tastoria.session');
-    const user = session?.json() as any;
-
-    if (!user) return null;
-    const recipyId = params.id;
-    const receipt = await firebase.downloadRecipy(user.id, recipyId);
+export const useRecipesDetails = routeLoader$(async ({ params, env }) => {
+    const sharedToken = params.token;
+    const cipher = new Cipher({ key: env.get('SHARE_SECRET_KEY') });
+    const [ userId, recipyId ] = await cipher.decrypt(sharedToken);
+    const receipt = await firebase.downloadRecipy(userId, recipyId);
 
     if (!receipt) return null;
-    const cipher = new Cipher({ key: env.get('SHARE_SECRET_KEY') });
-
-    const sharedToken =  await cipher.encrypt([
-        user.id,
-        recipyId,
-        Date.now()
-    ]);
 
     return { receipt, sharedToken };
 });
@@ -31,7 +22,7 @@ export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) =>
 export default component$(() => {
     const signal = useRecipesDetails();
 
-    if (!signal.value) return <div>Not Found</div>;
+    if (!signal.value) return <div>Link not longer exists</div>;
     const slotCtx = useContext(slotContext);
     const location = useLocation();
     const sharedUrl = new URL(`shared/${signal.value.sharedToken}`, location.url.origin);
@@ -51,7 +42,6 @@ export const head: DocumentHead = ({ resolveValue }) => {
     const resolved = resolveValue(useRecipesDetails);
 
     return {
-        title : resolved ? resolved.receipt.title : 'Tastoria Receipt'
+        title : resolved ? resolved.receipt.title : 'Shared Receipt'
     };
 };
-
