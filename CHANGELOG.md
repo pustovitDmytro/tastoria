@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/pustovitDmytro/tastoria/compare/v1.11.3...v1.12.0) (2024-01-25)
+
+
+### New
+
+* adds shared page ([cb6c540](https://github.com/pustovitDmytro/tastoria/commit/cb6c540dc0e88771a913fdd9aed464e5a920d773))
+
 ## [1.11.3](https://github.com/pustovitDmytro/tastoria/compare/v1.11.2...v1.11.3) (2024-01-24)
 
 
