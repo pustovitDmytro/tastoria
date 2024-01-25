@@ -123,8 +123,7 @@ export default class Cipher extends AES {
     outAlphabet = [
         ...'abcdefghijklmnopqrstuvwxyz',
         ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-        ...'0123456789',
-        ...'$-_.+!*\'()'
+        ...'0123456789'
     ];
 
     inAlphabet = [

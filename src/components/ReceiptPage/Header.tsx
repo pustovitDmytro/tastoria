@@ -1,5 +1,6 @@
 /* eslint-disable qwik/valid-lexical-scope */
-import { $, component$, useContext, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import type { NoSerialize } from '@builder.io/qwik';
+import { $, component$, noSerialize, useContext, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
 import { isFunction } from 'myrmidon';
 import styles from './recipy.module.css';
 import type { Receipt } from '~/types';
@@ -16,11 +17,11 @@ interface HeaderProps {
 export default component$<HeaderProps>((props) => {
     const { receipt } = props;
     const isLocked = useSignal(false);
-    const wakeLock = useSignal<WakeLockSentinel | null>(null);
+    const wakeLock = useSignal<NoSerialize<WakeLockSentinel> | null>(null);
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const canBeShared = isFunction(navigator.share);
-    const canBeLocked = isFunction(navigator.wakeLock);
+    const canBeShared = isFunction(navigator.share) || isFunction(navigator.clipboard.writeText);
+    const canBeLocked = !!navigator.wakeLock;
 
     const shareData = {
         title : 'Tastoria Receipt',
@@ -29,16 +30,28 @@ export default component$<HeaderProps>((props) => {
     };
 
     const handleLockClick = $(async () => {
+        function onLockRelease() {
+            isLocked.value = false;
+        }
+
         if (isLocked.value && wakeLock.value) {
             wakeLock.value.release();
         } else {
+            /* eslint-disable require-atomic-updates */
+            const w = await navigator.wakeLock.request('screen');
+
             isLocked.value = true;
-            // eslint-disable-next-line require-atomic-updates
-            wakeLock.value = await navigator.wakeLock.request('screen');
-            wakeLock.value.addEventListener('release', (e) => {
-                isLocked.value = false;
-            });
+
+            w.addEventListener('release', onLockRelease);
+            wakeLock.value = noSerialize(w);
+            /* eslint-enable require-atomic-updates */
         }
+    });
+
+    const handleShareClick = $(() => {
+        if (isFunction(navigator.share)) navigator.share(shareData);
+
+        if (isFunction(navigator.clipboard.writeText)) navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`);
     });
 
     return <div class={styles.header}>
@@ -59,7 +72,7 @@ export default component$<HeaderProps>((props) => {
                 canBeShared && <Button
                     icon={true}
                     class={styles.headerButton}
-                    onClick={$(() => navigator.share(shareData))}
+                    onClick={handleShareClick}
                 >
                     <ShareIcon/>
                 </Button>

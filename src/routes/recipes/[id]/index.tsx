@@ -35,15 +35,15 @@ export default component$(() => {
     const slotCtx = useContext(slotContext);
     const location = useLocation();
     const sharedUrl = new URL(`shared/${signal.value.sharedToken}`, location.url.origin);
-
-    useTask$(() => {
-        // eslint-disable-next-line qwik/valid-lexical-scope
-        slotCtx.header = <HeaderContent receipt={signal.value.receipt} shareURL={sharedUrl}/>;
-    });
-
     const receipt = signal.value.receipt;
 
-    return <Page receipt={signal.value.receipt} shareURL={sharedUrl}/>;
+    useVisibleTask$(() => {
+        // eslint-disable-next-line qwik/valid-lexical-scope
+        slotCtx.header = <HeaderContent receipt={receipt} shareURL={sharedUrl}/>;
+    });
+
+
+    return <Page receipt={receipt} shareURL={sharedUrl}/>;
 });
 
 
