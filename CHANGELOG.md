@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/pustovitDmytro/tastoria/compare/v1.12.0...v1.12.1) (2024-01-25)
+
+
+### Fix
+
+* wake lock api fix ([4c1e347](https://github.com/pustovitDmytro/tastoria/commit/4c1e34785f9195b89f425698a86eb2fa372d5c23))
+
 # [1.12.0](https://github.com/pustovitDmytro/tastoria/compare/v1.11.3...v1.12.0) (2024-01-25)
 
 
