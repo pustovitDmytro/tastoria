@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/pustovitDmytro/tastoria/compare/v1.13.0...v1.13.1) (2024-01-26)
+
+
+### Fix
+
+* fixes qr code in ssr ([cd62de3](https://github.com/pustovitDmytro/tastoria/commit/cd62de379319301fab747d6a408c91b6361337b5))
+
 # [1.13.0](https://github.com/pustovitDmytro/tastoria/compare/v1.12.1...v1.13.0) (2024-01-26)
 
 
