@@ -27,8 +27,8 @@ interface Props {
 export default component$<Props>((props) => {
     const { receipt, shareURL } = props;
 
-    const qrCode = useResource$<string>(() => {
-        return QRCode.toDataURL(shareURL.href);
+    const qrCode = useResource$<string>(async () => {
+        return QRCode.toString(shareURL.href, { type: 'svg' });
     });
 
     return (
@@ -57,7 +57,8 @@ export default component$<Props>((props) => {
             </ul>
             <Resource
                 value={qrCode}
-                onResolved={url => <img src={url} class={styles.qrCode} crossOrigin='anonymous'/>}
+                onRejected={() => <div class={styles.qrCode}/>}
+                onResolved={svg => <div class={styles.qrCode} dangerouslySetInnerHTML={svg}/>}
             />
             <h2>Steps:</h2>
             <ol class={styles.steps}>

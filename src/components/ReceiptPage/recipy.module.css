@@ -156,18 +156,19 @@ ol.steps {
     .content{
         width: 75% !important;
     }
-    
-    a::after {
-        content: " (" attr(href) ")";
-    }
 
     .qrCode {
         float: right;
-        margin: 5px;
+        margin-top: -6cm;
         display:inline;
+        background-color: unset;
         width: 4cm;
         height: 4cm;
 
-        margin-top: -6cm;
+        svg {
+            path {
+                fill: transparent;
+            }
+        }
     }
 }
