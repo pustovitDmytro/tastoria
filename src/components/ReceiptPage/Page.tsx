@@ -1,5 +1,6 @@
 /* eslint-disable qwik/valid-lexical-scope */
-import { $, component$, useContext, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import { $, Resource, component$, useContext, useResource$, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import QRCode from 'qrcode';
 import styles from './recipy.module.css';
 import type { Receipt } from '~/types';
 import Image from '~/components/Image/image';
@@ -26,7 +27,9 @@ interface Props {
 export default component$<Props>((props) => {
     const { receipt, shareURL } = props;
 
-    console.log('sharedUrl:', shareURL.href);
+    const qrCode = useResource$<string>(() => {
+        return QRCode.toDataURL(shareURL.href);
+    });
 
     return (
         <div class={styles.component}>
@@ -52,6 +55,10 @@ export default component$<Props>((props) => {
                     </li>)
                 }
             </ul>
+            <Resource
+                value={qrCode}
+                onResolved={url => <img src={url} class={styles.qrCode} crossOrigin='anonymous'/>}
+            />
             <h2>Steps:</h2>
             <ol class={styles.steps}>
                 {

@@ -7,6 +7,7 @@ import type { Receipt } from '~/types';
 import ShareIcon from '~/components/Icons/share.svg?component';
 import LockIcon from '~/components/Icons/lock.svg?component';
 import UnlockIcon from '~/components/Icons/unlock.svg?component';
+import PrintIcon from '~/components/Icons/print.svg?component';
 import Button from '~/components/Button';
 
 interface HeaderProps {
@@ -54,18 +55,21 @@ export default component$<HeaderProps>((props) => {
         if (isFunction(navigator.clipboard.writeText)) navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`);
     });
 
+    const handlePrintClick = $(() => {
+        window.print();
+    });
+
     return <div class={styles.header}>
         <h1>{receipt.title}</h1>
         <div class={styles.headerButtons}>
             {
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                 canBeLocked && <Button
                     icon={true}
                     class={styles.headerButton}
                     onClick={handleLockClick}
                 >
-                    {
-                        isLocked.value ? <UnlockIcon/> : <LockIcon/>
-                    }
+                    { isLocked.value ? <UnlockIcon/> : <LockIcon/> }
                 </Button>
             }
             {
@@ -77,6 +81,13 @@ export default component$<HeaderProps>((props) => {
                     <ShareIcon/>
                 </Button>
             }
+            <Button
+                icon={true}
+                class={styles.headerButton}
+                onClick={handlePrintClick}
+            >
+                <PrintIcon/>
+            </Button>
         </div>
     </div>;
 });

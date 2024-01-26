@@ -3,9 +3,10 @@
 
 .preview {
     display: flex;
+    align-items: center;
     
     .content{
-        width: 50%
+        width: 60%
     }
 }
 
@@ -59,6 +60,8 @@ ol.steps {
     position: relative;
     font-size: 16px;
     line-height: 20px;
+    float: none;
+
 
     &::marker {
         font-weight: bold;
@@ -142,5 +145,29 @@ ol.steps {
             height: 100%;
             width: 100%;
         }
+    }
+}
+
+.qrCode {
+    display: none;
+}
+
+@media print {
+    .content{
+        width: 75% !important;
+    }
+    
+    a::after {
+        content: " (" attr(href) ")";
+    }
+
+    .qrCode {
+        float: right;
+        margin: 5px;
+        display:inline;
+        width: 4cm;
+        height: 4cm;
+
+        margin-top: -6cm;
     }
 }

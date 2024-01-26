@@ -12,7 +12,7 @@ process.env.PUBLIC_TASTORIA_VERSION = version;
 export default defineConfig(() => {
     return {
         plugins : [
-            basicSsl(),
+            // basicSsl(),
             svgx(),
             qwikCity(),
             qwikVite(),

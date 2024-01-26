@@ -30,3 +30,16 @@
     margin-left: 56px;
   }
 }
+
+@media print {
+  .page {
+    background-color: transparent;
+  }
+  .header{
+      display: none;
+  }
+
+  .content {
+    height: calc(100vh - 10px);
+  }
+}
