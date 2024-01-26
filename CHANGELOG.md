@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/pustovitDmytro/tastoria/compare/v1.12.1...v1.13.0) (2024-01-26)
+
+
+### New
+
+* adds print feature ([e8cd7d0](https://github.com/pustovitDmytro/tastoria/commit/e8cd7d077a7bbc716b559d56dc087dc6f50cd20a))
+
 ## [1.12.1](https://github.com/pustovitDmytro/tastoria/compare/v1.12.0...v1.12.1) (2024-01-25)
 
 
