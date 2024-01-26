@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/pustovitDmytro/tastoria/compare/v1.13.1...v1.13.2) (2024-01-26)
+
+
+### Fix
+
+* fixes images in shared urls ([87a0005](https://github.com/pustovitDmytro/tastoria/commit/87a000564d0e8ad2fff77f312b0f6308b6b8d775))
+
 ## [1.13.1](https://github.com/pustovitDmytro/tastoria/compare/v1.13.0...v1.13.1) (2024-01-26)
 
 
