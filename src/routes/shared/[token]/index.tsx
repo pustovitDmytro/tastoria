@@ -15,7 +15,7 @@ export const useRecipesDetails = routeLoader$(async ({ params, env }) => {
 
     if (!receipt) return null;
 
-    return { receipt, sharedToken };
+    return { receipt, sharedToken, sharedBy: userId };
 });
 
 
@@ -33,7 +33,7 @@ export default component$(() => {
         slotCtx.header = <HeaderContent receipt={signal.value.receipt} shareURL={sharedUrl}/>;
     });
 
-    return <Page receipt={receipt} shareURL={sharedUrl}/>;
+    return <Page receipt={receipt} shareURL={sharedUrl} sharedBy={signal.value.sharedBy}/>;
 });
 
 

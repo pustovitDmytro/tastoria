@@ -21,11 +21,12 @@ const Source = component$<SourceProps>((props) => {
 
 interface Props {
     receipt: Receipt;
-    shareURL: URL
+    shareURL: URL;
+    sharedBy?: string;
 }
 
 export default component$<Props>((props) => {
-    const { receipt, shareURL } = props;
+    const { receipt, shareURL, sharedBy } = props;
 
     const qrCode = useResource$<string>(async () => {
         return QRCode.toString(shareURL.href, { type: 'svg' });
@@ -34,7 +35,7 @@ export default component$<Props>((props) => {
     return (
         <div class={styles.component}>
             <div class={styles.preview}>
-                <Image src={receipt.image}/>
+                <Image src={receipt.image} userId={sharedBy}/>
                 <div class={styles.content}>
                     <h1>{receipt.title}</h1>
                     <div class={styles.contentItem}>

@@ -10,6 +10,7 @@ import Loader from '~/components/Loader.js';
 
 interface ItemProps {
     src?:string;
+    userId?: string;
 }
 
 export const placeholder = <Image class={styles.placeholder}/>;
@@ -20,7 +21,7 @@ export default component$<ItemProps>((props) => {
 
     const url = useResource$<string>(
         async () => {
-            const userId = session.user.value.id;
+            const userId = props.userId || session.user.value.id;
 
             if (isServer) {
                 return firebase.getImageUrl(userId, props.src);
@@ -35,7 +36,7 @@ export default component$<ItemProps>((props) => {
     return <Resource
         value={url}
         onPending={() => <Loader class={styles.loader}/>}
-        onRejected={() => <Loader class={styles.loader}/>}
+        onRejected={() => placeholder}
         onResolved={u => <img src={u} class={styles.image} crossOrigin='anonymous'/>}
     />;
 });
