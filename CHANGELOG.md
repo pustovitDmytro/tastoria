@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/pustovitDmytro/tastoria/compare/v1.13.2...v1.14.0) (2024-01-26)
+
+
+### New
+
+* localization for recipy page ([a249662](https://github.com/pustovitDmytro/tastoria/commit/a24966277aae40ebe111ba402a9ad4975eee2378))
+
 ## [1.13.2](https://github.com/pustovitDmytro/tastoria/compare/v1.13.1...v1.13.2) (2024-01-26)
 
 
