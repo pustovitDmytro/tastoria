@@ -1,6 +1,6 @@
-import { $, component$, useContext, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import { component$, useContext, useVisibleTask$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { routeLoader$, server$, useLocation } from '@builder.io/qwik-city';
+import { routeLoader$, useLocation } from '@builder.io/qwik-city';
 import firebase from '~/firebase';
 import Cipher from '~/aes';
 import { slotContext } from '~/stores';
@@ -22,7 +22,7 @@ export const useRecipesDetails = routeLoader$(async ({ params, env }) => {
 export default component$(() => {
     const signal = useRecipesDetails();
 
-    if (!signal.value) return <div>Link not longer exists</div>;
+    if (!signal.value) return <div>{$localize `pages.shared.notfound`}</div>;
     const slotCtx = useContext(slotContext);
     const location = useLocation();
     const sharedUrl = new URL(`shared/${signal.value.sharedToken}`, location.url.origin);
@@ -41,6 +41,6 @@ export const head: DocumentHead = ({ resolveValue }) => {
     const resolved = resolveValue(useRecipesDetails);
 
     return {
-        title : resolved ? resolved.receipt.title : 'Shared Receipt'
+        title : resolved ? resolved.receipt.title : $localize `pages.shared.head_title`
     };
 };

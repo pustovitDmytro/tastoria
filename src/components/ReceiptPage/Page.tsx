@@ -1,5 +1,5 @@
 /* eslint-disable qwik/valid-lexical-scope */
-import { $, Resource, component$, useContext, useResource$, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import { Resource, component$, useResource$ } from '@builder.io/qwik';
 import QRCode from 'qrcode';
 import styles from './recipy.module.css';
 import type { Receipt } from '~/types';
@@ -14,7 +14,7 @@ const Source = component$<SourceProps>((props) => {
     const url = new URL(props.url);
 
     return <div class={styles.contentItem}>
-        <span class={styles.propertyLabel}>Source:</span>
+        <span class={styles.propertyLabel}>{$localize `component.ReciptPage_Page.sourceLabel`}</span>
         <a class={styles.source} href={url.href}>{url.host}</a>
     </div>;
 });
@@ -35,20 +35,20 @@ export default component$<Props>((props) => {
     return (
         <div class={styles.component}>
             <div class={styles.preview}>
-                <Image src={receipt.image} userId={sharedBy}/>
+                <Image class={styles.image} src={receipt.image} userId={sharedBy}/>
                 <div class={styles.content}>
                     <h1>{receipt.title}</h1>
                     <div class={styles.contentItem}>
                         {receipt.description}
                     </div>
                     <div class={styles.contentItem}>
-                        <span class={styles.propertyLabel} >Quantity:</span>
+                        <span class={styles.propertyLabel}>{$localize `component.ReciptPage_Page.quantityLabel`}</span>
                         {receipt.quantity}
                     </div>
                     <Source url={receipt.url}/>
                 </div>
             </div >
-            <h2>Ingredients:</h2>
+            <h2>{$localize `component.ReciptPage_Page.ingredientsLabel`}</h2>
             <ul class={styles.ingredients}>
                 {
                     receipt.ingredients.map(ing => <li key={ing}>
@@ -61,7 +61,7 @@ export default component$<Props>((props) => {
                 onRejected={() => <div class={styles.qrCode}/>}
                 onResolved={svg => <div class={styles.qrCode} dangerouslySetInnerHTML={svg}/>}
             />
-            <h2>Steps:</h2>
+            <h2>{$localize `component.ReciptPage_Page.stepsLabel`}</h2>
             <ol class={styles.steps}>
                 {
                     receipt.steps.map(step => <li key={step}>

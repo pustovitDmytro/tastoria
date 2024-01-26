@@ -31,7 +31,7 @@ export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) =>
 export default component$(() => {
     const signal = useRecipesDetails();
 
-    if (!signal.value) return <div>Not Found</div>;
+    if (!signal.value) return <div>{$localize `pages.recipy.notfound`}</div>;
     const slotCtx = useContext(slotContext);
     const location = useLocation();
     const sharedUrl = new URL(`shared/${signal.value.sharedToken}`, location.url.origin);
@@ -51,7 +51,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
     const resolved = resolveValue(useRecipesDetails);
 
     return {
-        title : resolved ? resolved.receipt.title : 'Tastoria Receipt'
+        title : resolved ? resolved.receipt.title : $localize `pages.recipy.head_title`
     };
 };
 

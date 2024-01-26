@@ -11,6 +11,7 @@ import Loader from '~/components/Loader.js';
 interface ItemProps {
     src?:string;
     userId?: string;
+    class?:string
 }
 
 export const placeholder = <Image class={styles.placeholder}/>;
@@ -37,6 +38,6 @@ export default component$<ItemProps>((props) => {
         value={url}
         onPending={() => <Loader class={styles.loader}/>}
         onRejected={() => placeholder}
-        onResolved={u => <img src={u} class={styles.image} crossOrigin='anonymous'/>}
+        onResolved={u => <img src={u} class={[ styles.image, props.class ]} crossOrigin='anonymous'/>}
     />;
 });

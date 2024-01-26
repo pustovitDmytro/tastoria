@@ -20,3 +20,14 @@ id,en,key,ua
 8879685062443496521,Click or drag and drop file,pages.import.fileInput_placeholder,Обрати файл
 4148539808738930454,Import Recipes,pages.import.head_title,Імпортувати рецепти
 35625434891051792,Before import of recipes it is recommended to backup existing recipes.,pages.import.export_placeholder,"Перед виконанням імпорту, рекомендується зберегти попередні рецепти"
+961257340316121819,Tastoria Receipt,pages.recipy.head_title,Рецепт Tastoria
+208624274412181024,Tastoria Receipt,component.ReciptPage_Header.title,Рецепт Tastoria
+58826928898186330,Ingredients:,component.ReciptPage_Header.ingredientsLabel,Інгредієнти:
+6708720171450853236,Steps:,component.ReciptPage_Header.stepsLabel,Кроки:
+5468183920911796779,Quantity:,component.ReciptPage_Page.quantityLabel,Кількість:
+6927158287673844091,Ingredients:,component.ReciptPage_Page.ingredientsLabel,Інгредієнти:
+4105167119286126322,Steps:,component.ReciptPage_Page.stepsLabel,Кроки:
+8666022368985534088,Link not longer exists,pages.shared.notfound,Посилання не існує
+1395132042776826596,Not Found,pages.recipy.notfound,Не знайдено
+6283366373255790357,Source:,component.ReciptPage_Page.sourceLabel,Джерело:
+286750953181174850,Shared Receipt,pages.shared.head_title,Поширений рецепт

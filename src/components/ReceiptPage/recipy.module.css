@@ -8,6 +8,10 @@
     .content{
         width: 60%
     }
+
+    .image {
+        margin: 25px;
+    }
 }
 
 h1, h2 {
@@ -104,6 +108,11 @@ ol.steps {
     .preview {
         flex-direction: column;
         margin-bottom: 10px;
+
+
+        .image {
+            margin: 5px;
+        }
 
         .content{
             width: 100%

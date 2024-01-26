@@ -15,6 +15,17 @@ interface HeaderProps {
     shareURL: URL
 }
 
+function prepareSharedText(receipt: Receipt) {
+    const lines = [ receipt.title ];
+
+    lines.push('', $localize `component.ReciptPage_Header.ingredientsLabel`);
+    receipt.ingredients.map(i => lines.push(i));
+    lines.push('', $localize `component.ReciptPage_Header.stepsLabel`);
+    receipt.steps.map((s, i) => lines.push(`${i + 1}. ${s}`));
+
+    return lines.join('\n');
+}
+
 export default component$<HeaderProps>((props) => {
     const { receipt } = props;
     const isLocked = useSignal(false);
@@ -25,8 +36,8 @@ export default component$<HeaderProps>((props) => {
     const canBeLocked = !!navigator.wakeLock;
 
     const shareData = {
-        title : 'Tastoria Receipt',
-        text  : receipt.title,
+        title : $localize `component.ReciptPage_Header.title`,
+        text  : prepareSharedText(receipt),
         url   : props.shareURL.href
     };
 
@@ -52,7 +63,7 @@ export default component$<HeaderProps>((props) => {
     const handleShareClick = $(() => {
         if (isFunction(navigator.share)) navigator.share(shareData);
 
-        if (isFunction(navigator.clipboard.writeText)) navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`);
+        if (isFunction(navigator.clipboard.writeText)) navigator.clipboard.writeText(`${shareData.text}\n\n${shareData.url}`);
     });
 
     const handlePrintClick = $(() => {
