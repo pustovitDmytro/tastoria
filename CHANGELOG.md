@@ -1,3 +1,10 @@
+## [1.14.1](https://github.com/pustovitDmytro/tastoria/compare/v1.14.0...v1.14.1) (2024-01-26)
+
+
+### Fix
+
+* header on print ([085ae51](https://github.com/pustovitDmytro/tastoria/commit/085ae51779c7cdc7ce7e55e7c7e59e5ddf1e9d22))
+
 # [1.14.0](https://github.com/pustovitDmytro/tastoria/compare/v1.13.2...v1.14.0) (2024-01-26)
 
 
