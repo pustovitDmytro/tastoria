@@ -5,17 +5,7 @@ import {
     precacheAndRoute
 } from 'workbox-precaching';
 import { NavigationRoute, registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
-
-const buildDate = import.meta.env.PUBLIC_TASTORIA_BUILD_DATE;
-const version = import.meta.env.PUBLIC_TASTORIA_VERSION;
-
-declare const self: ServiceWorkerGlobalScope;
-
-const revision = `${version} (${buildDate})`;
-const prefix = `tastoria v.${revision}`;
-
-console.log(prefix, 'service worker');
+import { CacheFirst, StaleWhileRevalidate, NetworkOnly } from 'workbox-strategies';
 
 // const myPlugin = {
 //     cacheWillUpdate : async ({ request, response, event, state }) => {
@@ -93,6 +83,19 @@ console.log(prefix, 'service worker');
 // };
 
 
+import { BackgroundSyncPlugin } from 'workbox-background-sync';
+
+const buildDate = import.meta.env.PUBLIC_TASTORIA_BUILD_DATE;
+const version = import.meta.env.PUBLIC_TASTORIA_VERSION;
+
+declare const self: ServiceWorkerGlobalScope;
+
+const revision = `${version} (${buildDate})`;
+const prefix = `tastoria v.${revision}`;
+
+console.log(prefix, 'service worker');
+
+
 try {
     addEventListener('install', () => {
         self.skipWaiting();
@@ -133,6 +136,17 @@ try {
             cacheName : 'image'
         })
     );
+
+    registerRoute(
+        /\/api\/sync\/recipes/,
+        new NetworkOnly({
+            plugins : [ new BackgroundSyncPlugin('recipes_sync_queue', {
+                maxRetentionTime : 24 * 60 // Retry for max of 24 Hours (specified in minutes)
+            }) ]
+        }),
+        'POST'
+    );
+
 
     cleanupOutdatedCaches();
     setupServiceWorker();

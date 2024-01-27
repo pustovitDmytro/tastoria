@@ -81,6 +81,7 @@
     "@zip.js/zip.js": "^2.7.31",
     "base-api-client": "1.5.10",
     "cottus": "1.11.0",
+    "date-fns": "^3.3.1",
     "file-saver": "^2.0.5",
     "firebase": "10.6.0",
     "jszip": "^3.10.1",
@@ -88,6 +89,7 @@
     "qrcode": "^1.5.3",
     "ua-parser-js": "^1.0.37",
     "uuid": "9.0.1",
+    "workbox-background-sync": "^7.0.0",
     "workbox-precaching": "7.0.0",
     "workbox-routing": "7.0.0",
     "workbox-strategies": "7.0.0"

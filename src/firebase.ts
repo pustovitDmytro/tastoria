@@ -2,34 +2,12 @@ import type { FirebaseApp } from 'firebase/app';
 import { initializeApp } from 'firebase/app';
 import type { FirebaseStorage } from 'firebase/storage';
 import { getStorage, ref as refStorage, uploadBytes } from 'firebase/storage';
-import type { User } from 'firebase/auth';
 import  * as firebaseAuth  from 'firebase/auth';
 import { getDatabase, ref as refDB, set, get } from 'firebase/database';
 import config from './config';
-import type { Receipt } from '~/types';
+import { dumpReceipt, dumpUserSessionData } from '~/utils/dumpUtils';
 
 const { GoogleAuthProvider, getAuth, signInWithPopup } = firebaseAuth;
-
-function dumpReceipt(r: any): Receipt {
-    return {
-        id         : r.id,
-        title      : r.title,
-        image      : r.image,
-        categories : r.categories || [],
-        tags       : r.tags || [],
-
-        description : r.description,
-        ingredients : r.ingredients || [],
-        steps       : r.steps || [],
-        url         : r.url,
-        time        : r.time || {},
-        quantity    : r.quantity,
-        comment     : r.comment,
-        language    : r.language,
-        version     : r.version,
-        createdAt   : r.createdAt
-    };
-}
 
 async function getDownloadURL(reference) {
     const service = reference.storage;
@@ -42,21 +20,6 @@ async function getDownloadURL(reference) {
     return `${url.href}?alt=media&token=${json.downloadTokens}`;
 }
 
-function dumpUserSessionData(user: User) {
-    const meta = user.metadata;
-
-    return {
-        id       : user.uid,
-        email    : user.email,
-        fullName : user.displayName,
-        avatar   : user.photoURL,
-
-        lastLoginAt : meta.lastSignInTime,
-        createdAt   : meta.creationTime
-
-        // accessToken: user.accessToken
-    };
-}
 
 // interface CustomBaseApi extends BaseApi {
 //     get(url: string): any; // Define the 'get' method signature

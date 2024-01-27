@@ -2,7 +2,7 @@ import { component$, useContext, useVisibleTask$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeLoader$, useLocation } from '@builder.io/qwik-city';
 import firebase from '~/firebase';
-import Cipher from '~/aes';
+import Cipher from '~/utils/aes';
 import { slotContext } from '~/stores';
 import HeaderContent from '~/components/ReceiptPage/Header';
 import Page from '~/components/ReceiptPage/Page';
