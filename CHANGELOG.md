@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/pustovitDmytro/tastoria/compare/v1.16.0...v1.17.0) (2024-01-28)
+
+
+### New
+
+* adds edit remove and duplicate ([9bc7ddb](https://github.com/pustovitDmytro/tastoria/commit/9bc7ddba4f7975e10aadc54c29aa68aaa693cd49))
+
 # [1.16.0](https://github.com/pustovitDmytro/tastoria/compare/v1.15.0...v1.16.0) (2024-01-28)
 
 
