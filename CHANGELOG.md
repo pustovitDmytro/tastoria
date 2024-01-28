@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/pustovitDmytro/tastoria/compare/v1.17.0...v1.17.1) (2024-01-28)
+
+
+### Fix
+
+* translations for edit receipt ([e5550f5](https://github.com/pustovitDmytro/tastoria/commit/e5550f542121b05a81998ea6d054b01e1ffcc9de))
+
 # [1.17.0](https://github.com/pustovitDmytro/tastoria/compare/v1.16.0...v1.17.0) (2024-01-28)
 
 
