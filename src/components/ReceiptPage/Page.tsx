@@ -1,10 +1,11 @@
 /* eslint-disable qwik/valid-lexical-scope */
-import { $, Resource, component$, useContext, useResource$, useStore, useTask$ } from '@builder.io/qwik';
+import { $, Resource, component$, noSerialize, useContext, useResource$, useStore, useTask$, useVisibleTask$ } from '@builder.io/qwik';
 import QRCode from 'qrcode';
 import styles from './recipy.module.css';
 import type { Receipt } from '~/types';
 import Image from '~/components/Image/image';
 import FavoriteIcon from '~/components/Icons/favorite.svg';
+import PopularityIcon from '~/components/Icons/popularity.svg';
 import RatingIcon from '~/components/Icons/rating.svg';
 import Button from '~/components/Button';
 import { recipesContext } from '~/stores';
@@ -25,7 +26,9 @@ const Source = component$<SourceProps>((props) => {
 
 function getRecipyHash(r: Receipt):string {
     return JSON.stringify({
-        rating : r.rating
+        rating   : r.rating,
+        favorite : r.favorite,
+        visits   : r.visits
     });
 }
 
@@ -35,6 +38,10 @@ interface Props {
     sharedBy?: string;
 }
 
+const MAX_RATING = 5;
+const IS_VISITED_TIMEOUT = 60 * 1000;
+
+// eslint-disable-next-line max-lines-per-function
 export default component$<Props>((props) => {
     const { shareURL, sharedBy } = props;
     const receipt = useStore(props.receipt);
@@ -47,6 +54,16 @@ export default component$<Props>((props) => {
 
     const qrCode = useResource$<string>(async () => {
         return QRCode.toString(shareURL.href, { type: 'svg' });
+    });
+
+    useVisibleTask$(({ cleanup }) => {
+        if (!sharedBy) {
+            const visitsTimeout = setTimeout(() => {
+                receipt.visits++;
+            }, IS_VISITED_TIMEOUT);
+
+            cleanup(() => clearTimeout(visitsTimeout));
+        }
     });
 
     useTask$(async ({ track }) => {
@@ -69,9 +86,9 @@ export default component$<Props>((props) => {
                     <div class={styles.contentItem}>
                         {receipt.description}
                     </div>
-                    <div class={[ styles.contentItem, styles.ratingIcons ]}>
+                    <div class={[ styles.contentItem ]}>
                         {
-                            Array.from({ length: 5 }).map(
+                            Array.from({ length: MAX_RATING }).map(
                                 (e, i) => <Button
                                     icon={true}
                                     class={[
@@ -79,9 +96,7 @@ export default component$<Props>((props) => {
                                         { [styles.filled]: receipt.rating && receipt.rating >= i + 1 }
                                     ]}
                                     key={i}
-                                    onClick={$(() => {
-                                        receipt.rating = i + 1;
-                                    })}
+                                    onClick={$(() => receipt.rating = i + 1)}
                                 >
                                     <RatingIcon/>
                                 </Button>
@@ -91,8 +106,30 @@ export default component$<Props>((props) => {
                     <div class={styles.contentItem}>
                         <span class={styles.propertyLabel}>{$localize `component.ReciptPage_Page.quantityLabel`}</span>
                         {receipt.quantity}
+                        <Source url={receipt.url}/>
                     </div>
-                    <Source url={receipt.url}/>
+                    <div class={styles.contentItem}>
+                        {
+                            !sharedBy && <div class={[ styles.contentItem, styles.popularity ]}>
+                                <div class={styles.visitsStatistics}>
+                                    <PopularityIcon/>
+                                    <span class={styles.visitsValue}>
+                                        {receipt.visits}
+                                    </span>
+                                </div>
+                                <Button
+                                    icon={true}
+                                    class={[
+                                        styles.favoriteIcon,
+                                        { [styles.filled]: receipt.favorite }
+                                    ]}
+                                    onClick={$(() => receipt.favorite = !receipt.favorite)}
+                                >
+                                    <FavoriteIcon/>
+                                </Button>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div >
             <h2>{$localize `component.ReciptPage_Page.ingredientsLabel`}</h2>
