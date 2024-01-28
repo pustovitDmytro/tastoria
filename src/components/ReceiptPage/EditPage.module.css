@@ -62,8 +62,8 @@ h1, h2 {
     width: 30px;
 
     svg {
-        width: 25px;
-        height: 25px;
+        width: 100%;
+        height: 100%;
         stroke: primary_3;
     }
     
@@ -204,9 +204,8 @@ ol.steps {
         height: 45px;
         
         svg {
-            height: calc(100% - 10px);
-            width: calc(100% - 10px);
-            fill: primary_1;
+            height: 100%;
+            width: 100%;
         }
     }
 }
@@ -216,11 +215,6 @@ ol.steps {
 }
 
 @media print {
-    .image {
-        width: 4cm;
-        height: 4cm;
-    }
-
     .content{
         width: 75% !important;
     }
@@ -228,7 +222,6 @@ ol.steps {
     .qrCode {
         float: right;
         margin-top: -6cm;
-        margin-right: 2cm;
         display:inline;
         background-color: unset;
         width: 4cm;
@@ -239,9 +232,5 @@ ol.steps {
                 fill: transparent;
             }
         }
-    }
-
-    .popularity {
-        display: none;
     }
 }

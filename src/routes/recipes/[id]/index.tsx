@@ -1,6 +1,7 @@
+/* eslint-disable qwik/valid-lexical-scope */
 import { $, component$, useContext, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { routeLoader$, server$, useLocation } from '@builder.io/qwik-city';
+import { routeAction$, routeLoader$, server$, useLocation } from '@builder.io/qwik-city';
 import Cipher from '~/utils/aes';
 import { slotContext, recipesContext } from '~/stores';
 import HeaderContent from '~/components/ReceiptPage/Header';
@@ -23,6 +24,18 @@ export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) =>
     return { sharedToken, recipyId };
 });
 
+export const useRemove = routeAction$((recipy, { redirect }) => {
+    throw redirect(302, '/recipes');
+});
+
+export const useEdit = routeAction$((recipy, { redirect, params }) => {
+    throw redirect(302, `/recipes/${params.id}/edit`);
+});
+
+export const useDuplicate = routeAction$((recipy, { redirect }) => {
+    throw redirect(302, `/recipes/${recipy.id}/edit`);
+});
+
 
 export default component$(() => {
     const signal = useRecipesDetails();
@@ -35,21 +48,30 @@ export default component$(() => {
     const location = useLocation();
     const sharedUrl = new URL(`shared/${signal.value.sharedToken}`, location.url.origin);
 
-    useVisibleTask$(() => {
-        // eslint-disable-next-line qwik/valid-lexical-scope
-        slotCtx.header = <HeaderContent receipt={receipt} shareURL={sharedUrl}/>;
+    const onRemove = useRemove();
+    const onEdit = useEdit();
+    const onDuplicate = useDuplicate();
+
+    useVisibleTask$(({ cleanup }) => {
+        slotCtx.header = <HeaderContent
+            receipt={receipt}
+            shareURL={sharedUrl}
+            onRemove={onRemove}
+            onEdit={onEdit}
+            onDuplicate={onDuplicate}
+        />;
+        document.title = receipt.title;
+        cleanup(() => slotCtx.header = null);
     });
 
 
-    return <Page receipt={receipt} shareURL={sharedUrl}/>;
+    return <Page
+        receipt={receipt}
+        shareURL={sharedUrl}
+    />;
 });
 
-
-export const head: DocumentHead = ({ resolveValue }) => {
-    const resolved = resolveValue(useRecipesDetails);
-
-    return {
-        title : $localize `pages.recipy.head_title`
-    };
+export const head: DocumentHead = {
+    title : $localize `pages.recipy.head_title`
 };
 

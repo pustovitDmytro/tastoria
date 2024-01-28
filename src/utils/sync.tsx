@@ -1,12 +1,10 @@
 import { getDatabase, ref as refDB, set, get } from 'firebase/database';
 import { isEqual, isAfter } from 'date-fns';
 
-// import config from '../config';s
-
 import type { Receipt } from '~/types';
 
 interface compareResult {
-    type: 'KEEP' | 'UPDATE_REMOTE' | 'UPDATE_LOCAL' | 'CANT_COMPARE' |'ADD_REMOTE'|'ADD_LOCAL',
+    type: 'KEEP' | 'UPDATE_REMOTE' | 'UPDATE_LOCAL' | 'CANT_COMPARE' | 'ADD_REMOTE' | 'ADD_LOCAL' |'DELETE_REMOTE',
     recipy: Receipt
 }
 
@@ -53,7 +51,7 @@ export async function syncUserRecipes(userId:string, recipes:Receipt[]):Promise<
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (remoteRecipy) {
                 results.push(compareRecipes(remoteRecipy, localRecipy));
-            } else {
+            } else if (!localRecipy.deletedAt) {
                 results.push({ type: 'ADD_REMOTE', recipy: localRecipy });
             }
 

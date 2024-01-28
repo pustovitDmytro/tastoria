@@ -1,11 +1,10 @@
 /* eslint-disable qwik/use-method-usage */
-import { component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { component$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { routeLoader$ } from '@builder.io/qwik-city';
-import type { Receipt, ReceipFilter } from '~/types';
+import type { ReceipFilter } from '~/types';
 import List from '~/components/RecipesList/RecipesList';
-import firebase from '~/firebase';
 import FilterInput from '~/components/FilterInput';
+import { recipesContext } from '~/stores';
 
 function fill(resultArray, category, id) {
     const found  = resultArray.find(t => t.value === category);
@@ -16,27 +15,6 @@ function fill(resultArray, category, id) {
         resultArray.push({ value: category, items: [ id ] });
     }
 }
-
-export const useRecipesDetails = routeLoader$(async ({ cookie }) => {
-    const session = cookie.get('tastoria.session');
-    const user = session?.json() as any;
-    const result = {
-        list       : [] as Receipt[],
-        tags       : [] as ReceipFilter[],
-        categories : [] as ReceipFilter[]
-    };
-
-    if (!user) return result;
-
-    result.list = await firebase.downloadRecipes(user.id);
-
-    result.list.forEach(r => {
-        r.tags.forEach(tag => fill(result.tags, tag, r.id));
-        r.categories.forEach(tag => fill(result.categories, tag, r.id));
-    });
-
-    return result;
-});
 
 export function handleVisibility(recipe, search, { categories, tags }) {
     const needSearch = !!search;
@@ -58,20 +36,31 @@ export function handleVisibility(recipe, search, { categories, tags }) {
 }
 
 export default component$(() => {
-    const result = useRecipesDetails();
     const search = useSignal('');
+    const recipyContext = useContext(recipesContext);
+    const result = {
+        tags       : [] as ReceipFilter[],
+        categories : [] as ReceipFilter[]
+    };
+
+    recipyContext.list.value.forEach(r => {
+        r.tags.forEach(tag => fill(result.tags, tag, r.id));
+        r.categories.forEach(tag => fill(result.categories, tag, r.id));
+    });
+
     const options = [
-        ...result.value.categories.map(r => ({ label: `${r.value} (${r.items.length})`, id: `category_${r.value}`, isSelected: useSignal(false) })),
-        ...result.value.tags.map(r => ({ label: `${r.value} (${r.items.length})`, id: `tags_${r.value}`, isSelected: useSignal(false) }))
+        ...result.categories.map(r => ({ label: `${r.value} (${r.items.length})`, id: `category_${r.value}`, isSelected: useSignal(false) })),
+        ...result.tags.map(r => ({ label: `${r.value} (${r.items.length})`, id: `tags_${r.value}`, isSelected: useSignal(false) }))
     ];
-    const list = result.value.list.map(r => ({ ...r, isVisible: useSignal(true) }));
+
+    const list = recipyContext.list.value.map(r => ({ ...r, isVisible: useSignal(true) }));
 
     useTask$(({ track }) => {
         track(() => search.value + options.filter(o => o.isSelected.value).map(o => o.id).join(' '));
         const selected = new Set(options.filter(o => o.isSelected.value).map(o => o.id));
 
-        const categories = result.value.categories.filter(c => selected.has(`category_${c.value}`));
-        const tags = result.value.tags.filter(c => selected.has(`tags_${c.value}`));
+        const categories = result.categories.filter(c => selected.has(`category_${c.value}`));
+        const tags = result.tags.filter(c => selected.has(`tags_${c.value}`));
 
         for (const recipe of list) {
             handleVisibility(recipe, search.value, { categories, tags });

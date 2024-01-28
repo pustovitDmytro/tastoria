@@ -24,7 +24,8 @@ export function dumpReceipt(r: any): Receipt {
         rating   : r.rating || null,
 
         createdAt : r.createdAt,
-        updatedAt : r.updatedAt
+        updatedAt : r.updatedAt,
+        deletedAt : r.deletedAt
     };
 }
 

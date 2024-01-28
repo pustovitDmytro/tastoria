@@ -9,7 +9,7 @@ type InputProps = {
   value?:Signal<string>;
   label: string;
   class?: string;
-  type: string;
+  type: 'button'| 'checkbox'| 'color'| 'date'| 'email'| 'file'| 'hidden'| 'image'| 'month'| 'number'| 'password'| 'radio'| 'range'| 'reset'| 'search'| 'submit'| 'tel'| 'text'| 'time'| 'url'| 'week' | 'multiline';
   onFocus?:PropFunction<any>
   onBlur?:PropFunction<any>
 };
@@ -20,14 +20,24 @@ export default component$((props: InputProps) => {
 
     return (
         <div class={[ styles.container, props.class ]}>
-            <input
-                bind:value={value}
-                class={styles.input}
-                type={type}
-                placeholder={label}
-                onFocus$={onFocus}
-                onBlur$={onBlur}
-            />
+            {
+                type === 'multiline'
+                    ? <textarea
+                        bind:value={value}
+                        class={styles.input}
+                        placeholder={label}
+                        onFocus$={onFocus}
+                        onBlur$={onBlur}
+                    />
+                    : <input
+                        bind:value={value}
+                        class={styles.input}
+                        type={type}
+                        placeholder={label}
+                        onFocus$={onFocus}
+                        onBlur$={onBlur}
+                    />
+            }
         </div>
     );
 });

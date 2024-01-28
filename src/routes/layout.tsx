@@ -33,10 +33,25 @@ export const useSettings = routeLoader$(async ({ locale, cookie }) => {
     return { language };
 });
 
-async function runBackgroundSync(list) {
-    const serviceWorkerExists = navigator.serviceWorker;
+function debounce(func, timeout = 1000) {
+    let timer;
 
-    console.log('serviceWorkerExists:', !!serviceWorkerExists);
+    return (...args) => {
+        if (!timer) {
+            func.apply(null, args);
+        }
+
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            timer = undefined;
+        }, timeout);
+    };
+}
+
+async function runBackgroundSync(list) {
+    // const serviceWorkerExists = navigator.serviceWorker;
+
+    // console.log('serviceWorkerExists:', !!serviceWorkerExists);
 
     const res = await fetch('/api/sync/recipes', {
         headers : {
@@ -44,12 +59,22 @@ async function runBackgroundSync(list) {
             'Content-Type' : 'application/json'
         },
         method : 'POST',
-        body   : JSON.stringify(list)
+        body   : JSON.stringify(list.value)
     });
 
     const { implement } = await res.json();
 
-    console.log('implement:', implement);
+    if (implement.length > 1) {
+        // eslint-disable-next-line no-param-reassign
+        list.value = [
+            ...list.value.map(i => {
+                const update = implement.find(r => r.type === 'UPDATE_LOCAL');
+
+                return update ? update.recipy : i;
+            }),
+            ...implement.filter(r => r.type === 'ADD_LOCAL').map(r => r.recipy)
+        ];
+    }
 
     // const registration = await navigator.serviceWorker.ready;
 
@@ -60,13 +85,17 @@ async function runBackgroundSync(list) {
     // console.log('register:', register);
 }
 
+const debouncedSync = debounce((w) => runBackgroundSync(w));
+
 export const useRecipes = routeLoader$(async ({ cookie }) => {
     const session = cookie.get('tastoria.session');
     const user = session?.json() as any;
 
     if (!user) return [];
 
-    return firebase.downloadRecipes(user.id);
+    const recipes = await firebase.downloadRecipes(user.id);
+
+    return recipes.filter(f => !f.deletedAt);
 });
 
 
@@ -97,7 +126,7 @@ export default component$(() => {
     useVisibleTask$(({ track }) => {
         const c = track(() => recipesStore.list.value);
 
-        runBackgroundSync(recipesStore.list.value);
+        debouncedSync(recipesStore.list);
     });
 
     return (

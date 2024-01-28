@@ -1,5 +1,5 @@
 /* eslint-disable qwik/valid-lexical-scope */
-import { $, Resource, component$, noSerialize, useContext, useResource$, useStore, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import { $, Resource, component$, useContext, useResource$, useStore, useTask$, useVisibleTask$ } from '@builder.io/qwik';
 import QRCode from 'qrcode';
 import styles from './recipy.module.css';
 import type { Receipt } from '~/types';
@@ -49,7 +49,6 @@ export default component$<Props>((props) => {
 
     const recipyContext = useContext(recipesContext);
     const contextIndex = recipyContext.list.value.findIndex(r => r.id === receipt.id);
-
     const contextHash = ~contextIndex && getRecipyHash(recipyContext.list.value[contextIndex]);
 
     const qrCode = useResource$<string>(async () => {

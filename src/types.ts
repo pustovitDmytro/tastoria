@@ -30,6 +30,7 @@ export interface Receipt {
 
     updatedAt : string,
     createdAt : string,
+    deletedAt?: string
 }
 
 export interface ReceipFilter {
