@@ -1,3 +1,14 @@
+# [1.15.0](https://github.com/pustovitDmytro/tastoria/compare/v1.14.1...v1.15.0) (2024-01-27)
+
+
+### New
+
+* adds sync recipes ([f6df824](https://github.com/pustovitDmytro/tastoria/commit/f6df824413f70f45801bbe120901b9fadf2de4f6))
+
+### Update
+
+* change theme color ([6d5af4c](https://github.com/pustovitDmytro/tastoria/commit/6d5af4c26b8ce7749b7d5b719796e810da49ad8e))
+
 ## [1.14.1](https://github.com/pustovitDmytro/tastoria/compare/v1.14.0...v1.14.1) (2024-01-26)
 
 
