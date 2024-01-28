@@ -108,7 +108,7 @@ try {
     });
 
     const staticFiles = [
-        '/manifest.json',
+        // '/manifest.json',
         ...[ '128', '144', '152', '192', '256' ]
             .map(size => `images/logo_${size}.png`),
         'fonts/PlayfairDisplay-ExtraBoldItalic.ttf'
