@@ -31,3 +31,15 @@ id,en,key,ua
 1395132042776826596,Not Found,pages.recipy.notfound,Не знайдено
 6283366373255790357,Source:,component.ReciptPage_Page.sourceLabel,Джерело:
 286750953181174850,Shared Receipt,pages.shared.head_title,Поширений рецепт
+9048481037676798650,Edit Receipt,component.ReciptPage_EditPage.title,Редагувати рецепт
+8207317081345070117,Save,component.ReciptPage_EditPage.save_btn,Зберегти
+8951933055493702510,Receipt not found,pages.recipyEdit.notfound,Рецепт не знайдено
+8198565162747498599,Edit Receipt,pages.recipyEdit.head_title,Редагувати рецепт
+1142736076148169361,Title,component.ReeiptPage_EditPage.titleLabel,Назва
+638180037574713182,Description,component.ReeiptPage_EditPage.descriptionLabel,Опис
+4511879499314046520,Source,component.ReeiptPage_EditPage.urlLabel,Джерело
+3695931293201942434,Quantity,component.ReeiptPage_EditPage.quantityLabel,Кількість
+4677820560918264762,Comment,component.ReeiptPage_EditPage.commentLabel,Коментарі
+3046419276080059115,Ingredients,component.ReeiptPage_EditPage.ingredientsLabel,Інгредієнти
+821941966115107300,Steps,component.ReeiptPage_EditPage.stepsLabel,Кроки
+5803520579164494019,Rating,component.ReeiptPage_EditPage.ratingLabel,Рейтинг

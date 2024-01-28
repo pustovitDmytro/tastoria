@@ -17,7 +17,6 @@ import DuplicateIcon from '~/components/Icons/duplicate.svg';
 import Button from '~/components/Button';
 import { recipesContext } from '~/stores';
 
-
 interface HeaderProps {
     receipt: Receipt;
     shareURL: URL,
@@ -114,7 +113,7 @@ export default component$<HeaderProps>((props) => {
         <div class={styles.headerButtons}>
             {
                 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                <Button
+                canBeLocked && <Button
                     icon={true}
                     class={styles.headerButton}
                     onClick={handleLockClick}
