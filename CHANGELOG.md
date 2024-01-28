@@ -1,3 +1,14 @@
+# [1.16.0](https://github.com/pustovitDmytro/tastoria/compare/v1.15.0...v1.16.0) (2024-01-28)
+
+
+### Fix
+
+* not cache manifest ([49c6177](https://github.com/pustovitDmytro/tastoria/commit/49c617742e66a689d9ef8926b15c7f6b36a5399d))
+
+### New
+
+* adds visits and favorites ([9ce7498](https://github.com/pustovitDmytro/tastoria/commit/9ce74989c0bbd5aa72599c8caa751c6e758b92b5))
+
 # [1.15.0](https://github.com/pustovitDmytro/tastoria/compare/v1.14.1...v1.15.0) (2024-01-27)
 
 
