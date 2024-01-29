@@ -88,7 +88,7 @@ export default component$<Props>((props) => {
                 </div>
             </div >
             <div class={styles.footer}>
-                <Button class={styles.button} onClick={handleSave}>{$localize `component.ReciptPage_EditPage.save_btn`}</Button>
+                <Button class={styles.saveButton} onClick={handleSave}>{$localize `component.ReciptPage_EditPage.save_btn`}</Button>
             </div>
         </div>
     );

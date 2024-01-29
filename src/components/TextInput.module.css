@@ -24,6 +24,14 @@
   transition   : border-color 0.3s ease;
   background-color: unset;
 
+  &textarea {
+    padding: 10px;
+  }
+  
+  &input {
+    padding: 10px;
+  }
+
   &:focus {
       border-color: primary_3;
   }
