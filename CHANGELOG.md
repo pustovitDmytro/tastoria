@@ -1,3 +1,10 @@
+## [1.17.2](https://github.com/pustovitDmytro/tastoria/compare/v1.17.1...v1.17.2) (2024-01-29)
+
+
+### Fix
+
+* styles for edit page ([16dc094](https://github.com/pustovitDmytro/tastoria/commit/16dc094675c3f644a4192c990baa48b680622e44))
+
 ## [1.17.1](https://github.com/pustovitDmytro/tastoria/compare/v1.17.0...v1.17.1) (2024-01-28)
 
 
