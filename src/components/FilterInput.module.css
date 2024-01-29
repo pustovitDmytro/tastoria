@@ -1,5 +1,5 @@
 @value colors: "../variables.css";
-@value primary_1 from colors;
+@value primary_1, background_2 from colors;
 
 .container {
   position: relative;
@@ -37,10 +37,17 @@
 .options {
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top: 40px;
+  z-index: 1;
+  background-color: background_2;
+  border-radius: 10px;
+  opacity: 0.95;
 }
 
 .option {
 	padding-top: 0.25em;
+  font-size: 1.1rem;
 }
 
 .closeButton {

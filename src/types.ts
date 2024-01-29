@@ -31,6 +31,8 @@ export interface Receipt {
     updatedAt : string,
     createdAt : string,
     deletedAt?: string
+
+    isVisible?: any;
 }
 
 export interface ReceipFilter {

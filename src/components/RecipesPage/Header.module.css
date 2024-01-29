@@ -1,0 +1,31 @@
+@value colors: "../../variables.css";
+@value primary_1, primary_2, primary_3, text_1 from colors;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .search {
+        min-width: 250px;
+        width: 50%;
+    }
+
+    .headerButtons{
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .headerButton {
+        width: 45px;
+        height: 45px;
+        
+        svg {
+            height: calc(100% - 10px);
+            width: calc(100% - 10px);
+            fill: primary_1;
+        }
+    }
+}

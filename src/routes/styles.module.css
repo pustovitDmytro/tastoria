@@ -25,7 +25,7 @@
 .headerContent {
   height: 100%;
   width: calc(100% - 56px);
-  div {
+  & > div {
     height: 100%;
     margin-left: 56px;
   }

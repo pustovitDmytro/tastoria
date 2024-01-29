@@ -24,7 +24,6 @@ export default component$((props: Props) => {
     const { search, options } = props;
     const needOpen = useSignal(false);
 
-
     return (
         <div class={[ styles.container, props.class ]}>
             <TextInput

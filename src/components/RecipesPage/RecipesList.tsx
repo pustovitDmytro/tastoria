@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import styles from './RecipesList.module.css';
-import Card from '~/components/RecipesCard/card';
+import Card from '~/components/RecipesPage/card';
 import type { Receipt } from '~/types';
 
 interface ItemProps {
