@@ -6,7 +6,6 @@ import { version, license } from '../../../package.json';
 import styles from './styles.module.css';
 import Image from '~/media/about.png?jsx';
 
-
 export const useUserAgentDetails = routeLoader$(async (requestEvent) => {
     const userAgent = requestEvent.request.headers.get('user-agent');
 
@@ -14,16 +13,16 @@ export const useUserAgentDetails = routeLoader$(async (requestEvent) => {
 });
 
 interface BoxProps {
-    label: string;
+    label?: string;
     name:string;
     value?:string;
 }
 
 const InfoBox = component$<BoxProps>((props) => {
-    return <div class={styles.infoBox} key={props.label}>
+    return <div class={styles.infoBox} key={props.label + props.name}>
         {/* <span class={styles.infoLabel}>{props.label}</span> */}
         <span class={styles.infoName}>{props.name}</span>
-        <span class={styles.infoValue}>{props.value}</span>
+        {props.value && <span class={styles.infoValue}>{props.value}</span>}
     </div>;
 });
 
@@ -44,16 +43,15 @@ export default component$(() => {
             const value = result.value[key].version;
 
             return { label: key, name, value };
-        });
+        }) as BoxProps[];
 
-    if (deviceSize.availWidth) deviceInfo.push({ label: 'width', name: 'width', value: deviceSize.availWidth });
-    if (deviceSize.availHeight) deviceInfo.push({ label: 'height', name: 'height', value: deviceSize.availHeight });
+    if (deviceSize.availWidth) deviceInfo.push({ name: $localize `pages.about.widthLabel`, value: deviceSize.availWidth.toFixed(0) });
+    if (deviceSize.availHeight) deviceInfo.push({ name: $localize `pages.about.heightLabel`, value: deviceSize.availHeight.toFixed(0) });
 
     const { device, cpu } = result.value;
 
-    if (device.vendor) deviceInfo.push({ label: 'device', name: device.vendor, value: device.model });
-    deviceInfo.push({ label: 'architecture', name: cpu.architecture, value: null });
-
+    if (device.vendor) deviceInfo.push({ label: $localize `pages.about.deviceLabel`, name: device.vendor, value: device.model });
+    deviceInfo.push({ label: $localize `pages.about.architectureLabel`, name: cpu.architecture });
 
     useVisibleTask$(() => {
         deviceSize.availWidth = window.screen.availWidth;
@@ -66,7 +64,7 @@ export default component$(() => {
                 <div class={styles.paper}>
                     <div class={styles.header}>Tastoria</div>
                     <div class={styles.content}>
-                        <InfoBox label='licence' name='License' value={license} />
+                        <InfoBox name={$localize `pages.about.LicenseLabel`} value={license} />
                         <Separator/>
                         {...deviceInfo.map(info => <InfoBox
                             key={info.label}
@@ -84,6 +82,6 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-    title : 'About'
+    title : $localize `pages.about.head_title`
 };
 
