@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/pustovitDmytro/tastoria/compare/v1.17.2...v1.18.0) (2024-01-29)
+
+
+### New
+
+* pick random recipy functionality ([c9aaea7](https://github.com/pustovitDmytro/tastoria/commit/c9aaea7e12d580ae2285445c922f647a68c37925))
+
 ## [1.17.2](https://github.com/pustovitDmytro/tastoria/compare/v1.17.1...v1.17.2) (2024-01-29)
 
 
