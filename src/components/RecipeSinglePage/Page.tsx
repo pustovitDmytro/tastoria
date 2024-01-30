@@ -19,7 +19,7 @@ const Source = component$<SourceProps>((props) => {
     const url = new URL(props.url);
 
     return <div class={styles.contentItem}>
-        <span class={styles.propertyLabel}>{$localize `component.RecipePage_ViewPage.sourceLabel`}</span>
+        <span class={styles.propertyLabel}>{$localize `component.RecipePage_ViewPage.sourceLabel`}:</span>
         <a class={styles.source} href={url.href}>{url.host}</a>
     </div>;
 });
@@ -98,7 +98,7 @@ export default component$<Props>((props) => {
                         }
                     </div>
                     <div class={styles.contentItem}>
-                        <span class={styles.propertyLabel}>{$localize `component.RecipePage_ViewPage.quantityLabel`}</span>
+                        <span class={styles.propertyLabel}>{$localize `component.RecipePage_ViewPage.quantityLabel`}:</span>
                         {recipe.quantity}
                         <Source url={recipe.url}/>
                     </div>
@@ -126,7 +126,7 @@ export default component$<Props>((props) => {
                     </div>
                 </div>
             </div >
-            <h2>{$localize `component.RecipePage_ViewPage.ingredientsLabel`}</h2>
+            <h2>{$localize `component.RecipePage_ViewPage.ingredientsLabel`}:</h2>
             <ul class={styles.ingredients}>
                 {
                     recipe.ingredients.map(ing => <li key={ing}>
@@ -139,7 +139,7 @@ export default component$<Props>((props) => {
                 onRejected={() => <div class={styles.qrCode}/>}
                 onResolved={svg => <div class={styles.qrCode} dangerouslySetInnerHTML={svg}/>}
             />
-            <h2>{$localize `component.RecipePage_ViewPage.stepsLabel`}</h2>
+            <h2>{$localize `component.RecipePage_ViewPage.stepsLabel`}:</h2>
             <ol class={styles.steps}>
                 {
                     recipe.steps.map(step => <li key={step}>

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-nested-template-literals */
 /* eslint-disable qwik/valid-lexical-scope */
 import type { NoSerialize } from '@builder.io/qwik';
 import { $, component$, noSerialize, useContext, useSignal } from '@builder.io/qwik';
@@ -28,9 +29,9 @@ interface HeaderProps {
 function prepareSharedText(recipe: Recipe) {
     const lines = [ recipe.title ];
 
-    lines.push('', $localize `component.RecipePage_ViewHeader.ingredientsLabel`);
+    lines.push('', `${$localize `component.RecipePage_ViewHeader.ingredientsLabel`}:`);
     recipe.ingredients.map(i => lines.push(i));
-    lines.push('', $localize `component.RecipePage_ViewHeader.stepsLabel`);
+    lines.push('', `${$localize `component.RecipePage_ViewHeader.stepsLabel`}:`);
     recipe.steps.map((s, i) => lines.push(`${i + 1}. ${s}`));
 
     return lines.join('\n');

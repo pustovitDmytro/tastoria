@@ -17,6 +17,9 @@ id,en,key,ua
 4658353484491812875,Quantity,component.RecipePage_ViewPage.quantityLabel,Кількість
 4650903528543833426,Source,component.RecipePage_ViewPage.sourceLabel,Джерело
 5705116752623815839,Steps,component.RecipePage_ViewPage.stepsLabel,Кроки
+5243211389958567300,About,menu.About,Про нас
+3374218623292627817,Import,menu.Import,Імпортувати
+4747233810145954506,Recipes,menu.Recipes,Мої Рецепти
 35625434891051792,Before import of recipes it is recommended to backup existing recipes,pages.import.export_placeholder,"Перед виконанням імпорту, рекомендується зберегти попередні рецепти"
 8879685062443496521,Click or drag and drop file,pages.import.fileInput_placeholder,Обрати файл
 4148539808738930454,Import Recipes,pages.import.head_title,Імпортувати рецепти
