@@ -2,38 +2,40 @@ import { $, component$, useContext, useSignal, useTask$, useVisibleTask$ } from 
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeAction$, routeLoader$, server$, useLocation } from '@builder.io/qwik-city';
 import { recipesContext } from '~/stores';
-import Page from '~/components/ReceiptPage/EditPage';
+import Page from '~/components/RecipeSinglePage/EditPage';
 
 export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) => {
     const session = cookie.get('tastoria.session');
     const user = session?.json() as any;
 
     if (!user) return null;
-    const recipyId = params.id;
+    const recipeId = params.id;
 
-    return { recipyId };
+    return { recipeId };
 });
 
-export const useEdit = routeAction$((recipy, { redirect, params }) => {
-    throw redirect(302, `/recipes/${params.id}`);
+export const useEdit = routeAction$((recipe, { redirect }) => {
+    throw redirect(302, `/recipes/${recipe.id}`);
 });
 
 export default component$(() => {
     const signal = useRecipesDetails();
-    const recipyContext = useContext(recipesContext);
+    const recipeContext = useContext(recipesContext);
     const onSave = useEdit();
 
-    const receipt = recipyContext.list.value.find(r => r.id === signal.value?.recipyId);
+    if (!signal.value) return <div>{$localize `pages.recipeEdit.notfound`}</div>;
 
-    if (!receipt || !signal.value) return <div>{$localize `pages.recipyEdit.notfound`}</div>;
+    const recipe = recipeContext.all[signal.value.recipeId];
+
+    if (!recipe) return <div>{$localize `pages.recipeEdit.notfound`}</div>;
 
     return <Page
-        receipt={receipt}
+        recipe={recipe}
         onSave={onSave}
     />;
 });
 
 export const head: DocumentHead = {
-    title : $localize `pages.recipyEdit.head_title`
+    title : $localize `pages.recipeEdit.head_title`
 };
 

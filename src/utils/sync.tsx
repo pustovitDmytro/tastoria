@@ -1,38 +1,38 @@
 import { getDatabase, ref as refDB, set, get } from 'firebase/database';
 import { isEqual, isAfter } from 'date-fns';
 
-import type { Receipt } from '~/types';
+import type { Recipe } from '~/types';
 
 interface compareResult {
     type: 'KEEP' | 'UPDATE_REMOTE' | 'UPDATE_LOCAL' | 'CANT_COMPARE' | 'ADD_REMOTE' | 'ADD_LOCAL' |'DELETE_REMOTE',
-    recipy: Receipt
+    recipe: Recipe
 }
 
 interface dbResult {
-    [key: string]: Receipt;
+    [key: string]: Recipe;
 }
 
-function compareRecipes(remoteRecipy:Receipt, localRecipy:Receipt):compareResult {
-    const localDate = localRecipy.updatedAt;
-    const remoteDate = remoteRecipy.updatedAt;
+function compareRecipes(remoteRecipe:Recipe, localRecipe:Recipe):compareResult {
+    const localDate = localRecipe.updatedAt;
+    const remoteDate = remoteRecipe.updatedAt;
 
     if (isEqual(localDate, remoteDate)) {
-        return { type: 'KEEP', recipy: localRecipy };
+        return { type: 'KEEP', recipe: localRecipe };
     }
 
     if (isAfter(localDate, remoteDate)) {
-        return { type: 'UPDATE_REMOTE', recipy: localRecipy };
+        return { type: 'UPDATE_REMOTE', recipe: localRecipe };
     }
 
     if (isAfter(remoteDate, localDate)) {
-        return { type: 'UPDATE_LOCAL', recipy: remoteRecipy };
+        return { type: 'UPDATE_LOCAL', recipe: remoteRecipe };
     }
 
-    return { type: 'CANT_COMPARE', recipy: localRecipy };
+    return { type: 'CANT_COMPARE', recipe: localRecipe };
 }
 
 
-export async function syncUserRecipes(userId:string, recipes:Receipt[]):Promise<compareResult[]>  {
+export async function syncUserRecipes(userId:string, recipes:Recipe[]):Promise<compareResult[]>  {
     const syncId = `${userId }_${Date.now()}`;
 
     try {
@@ -45,28 +45,28 @@ export async function syncUserRecipes(userId:string, recipes:Receipt[]):Promise<
         const results = [] as compareResult[];
         const checked = new Set();
 
-        for (const localRecipy of recipes) {
-            const remoteRecipy = inDBMapping[localRecipy.id];
+        for (const localRecipe of recipes) {
+            const remoteRecipe = inDBMapping[localRecipe.id];
 
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            if (remoteRecipy) {
-                results.push(compareRecipes(remoteRecipy, localRecipy));
-            } else if (!localRecipy.deletedAt) {
-                results.push({ type: 'ADD_REMOTE', recipy: localRecipy });
+            if (remoteRecipe) {
+                results.push(compareRecipes(remoteRecipe, localRecipe));
+            } else if (!localRecipe.deletedAt) {
+                results.push({ type: 'ADD_REMOTE', recipe: localRecipe });
             }
 
-            checked.add(localRecipy.id);
+            checked.add(localRecipe.id);
         }
 
-        for (const remoteRecipy of Object.values(inDBMapping)) {
-            if (!checked.has(remoteRecipy.id)) results.push({ type: 'ADD_LOCAL', recipy: remoteRecipy });
+        for (const remoteRecipe of Object.values(inDBMapping)) {
+            if (!checked.has(remoteRecipe.id)) results.push({ type: 'ADD_LOCAL', recipe: remoteRecipe });
         }
 
         const promises = results.map(r => {
             if ([ 'ADD_REMOTE', 'UPDATE_REMOTE' ].includes(r.type)) {
-                const recipyRef = refDB(db, `recipes/${userId}/${r.recipy.id}`);
+                const recipeRef = refDB(db, `recipes/${userId}/${r.recipe.id}`);
 
-                return set(recipyRef, r.recipy);
+                return set(recipeRef, r.recipe);
             }
 
             return null;

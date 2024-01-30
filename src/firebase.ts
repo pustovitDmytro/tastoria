@@ -5,7 +5,7 @@ import { getStorage, ref as refStorage, uploadBytes } from 'firebase/storage';
 import  * as firebaseAuth  from 'firebase/auth';
 import { getDatabase, ref as refDB, set, get } from 'firebase/database';
 import config from './config';
-import { dumpReceipt, dumpUserSessionData } from '~/utils/dumpUtils';
+import { dumpRecipe, dumpUserSessionData } from '~/utils/dumpUtils';
 
 const { GoogleAuthProvider, getAuth, signInWithPopup } = firebaseAuth;
 
@@ -68,17 +68,17 @@ class FireBase {
 
         if (!snapshot.exists()) return [];
 
-        return Object.values(snapshot.val()).map(r => dumpReceipt(r));
+        return Object.values(snapshot.val()).map(r => dumpRecipe(r));
     }
 
-    async downloadRecipy(userId, recipyId) {
+    async downloadRecipe(userId, recipeId) {
         const db = getDatabase();
-        const ref = refDB(db, `recipes/${userId}/${recipyId}`);
+        const ref = refDB(db, `recipes/${userId}/${recipeId}`);
         const snapshot = await get(ref);
 
         if (!snapshot.exists()) return null;
 
-        return dumpReceipt(snapshot.val());
+        return dumpRecipe(snapshot.val());
     }
 
     async signIn() {
@@ -112,9 +112,9 @@ class FireBase {
 
         const promises = data.recipes.map(async r => {
             if (!r.id) return;
-            const recipyRef = refDB(db, `recipes/${user.id}/${r.id}`);
+            const recipeRef = refDB(db, `recipes/${user.id}/${r.id}`);
 
-            await set(recipyRef, r);
+            await set(recipeRef, r);
         });
 
         await Promise.all(promises);

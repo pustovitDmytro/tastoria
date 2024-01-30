@@ -1,11 +1,11 @@
 import { component$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import styles from './RecipesList.module.css';
-import Card from '~/components/RecipesPage/card';
-import type { Receipt } from '~/types';
+import Card from './card';
+import type { Recipe } from '~/types';
 
 interface ItemProps {
-    data: Array<Receipt>;
+    data: Array<Recipe>;
 }
 
 export default component$<ItemProps>((props) => {

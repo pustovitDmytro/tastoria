@@ -1,46 +1,47 @@
 id,en,key,ua
-6613832474988089359,Profile,pages.profile.head_title,Профіль
-5433578825624245250,Email address,pages.profile.email_key,Електронна скринька
-6372840712435657545,Full Name,pages.profile.fullName_key,Ім'я
-7858988313881362203,Last login,pages.profile.lastLoginAt_key,Останній вхід
-1816896085722253318,Profile,pages.profile.title,Профіль
-4977660148846081836,Personal Information,pages.profile.personal_info_title,Персональні дані
-5178814728918508488,Settings,pages.profile.settings_title,Налаштування
-8534426176771316877,Language,pages.profile.language_key,Мова
-5730284166112008943,Sign Out,pages.profile.sign_out_btn,Вийти
-9102807079407818595,Log In,pages.login.head_title,Вхід
-6271147126785959794,Log In,pages.login.title,Увійти
-80659794385992600,Please login to using app,pages.login.subtitle,Будь ласка увійдіть в свій аккаунт
-3386771653296544465,Email,pages.login.email_key,Електронна скринька
-3600505066039878153,Password,pages.login.password_key,Пароль
-2405063527433899529,forgot password?,pages.login.forgot_password,нагадати пароль
-1975137463963122681,Log In,pages.login.logIn_btn,Увійти
-6587778258360430022,Dont have an account?,pages.login.signUp_text,Поки без аккаунта?
-1828433699778992027,Sign Up,pages.login.signUp_btn,Зареєструватись
+2480342317161667903,Search,component.FilterInput.searchLabel,Знайти
+2039021515265108710,Comment,component.RecipePage_EditPage.commentLabel,Коментарі
+2330381719439020400,Description,component.RecipePage_EditPage.descriptionLabel,Опис
+8007566936968300367,Ingredients,component.RecipePage_EditPage.ingredientsLabel,Інгредієнти
+1052097821206541703,Quantity,component.RecipePage_EditPage.quantityLabel,Кількість
+3333136804410967485,Rating,component.RecipePage_EditPage.ratingLabel,Рейтинг
+6299960686489723221,Save,component.RecipePage_EditPage.save_btn,Зберегти
+8144997804518442563,Steps,component.RecipePage_EditPage.stepsLabel,Кроки
+2102064060603598482,Edit Recipe,component.RecipePage_EditPage.title,Редагувати рецепт
+3654005871061026259,Title,component.RecipePage_EditPage.titleLabel,Назва
+5351086426857767883,Source,component.RecipePage_EditPage.urlLabel,Джерело
+6462603258769598950,Ingredients,component.RecipePage_ViewHeader.ingredientsLabel,Інгредієнти
+7183414116130184102,Steps,component.RecipePage_ViewHeader.stepsLabel,Кроки
+7871448920656156096,Tastoria Recipe,component.RecipePage_ViewHeader.title,Рецепт Tastoria
+1001257716202028138,Ingredients,component.RecipePage_ViewPage.ingredientsLabel,Інгредієнти
+4658353484491812875,Quantity,component.RecipePage_ViewPage.quantityLabel,Кількість
+4650903528543833426,Source,component.RecipePage_ViewPage.sourceLabel,Джерело
+5705116752623815839,Steps,component.RecipePage_ViewPage.stepsLabel,Кроки
+35625434891051792,Before import of recipes it is recommended to backup existing recipes,pages.import.export_placeholder,"Перед виконанням імпорту, рекомендується зберегти попередні рецепти"
 8879685062443496521,Click or drag and drop file,pages.import.fileInput_placeholder,Обрати файл
 4148539808738930454,Import Recipes,pages.import.head_title,Імпортувати рецепти
-35625434891051792,Before import of recipes it is recommended to backup existing recipes.,pages.import.export_placeholder,"Перед виконанням імпорту, рекомендується зберегти попередні рецепти"
-961257340316121819,Tastoria Receipt,pages.recipy.head_title,Рецепт Tastoria
-208624274412181024,Tastoria Receipt,component.ReciptPage_Header.title,Рецепт Tastoria
-58826928898186330,Ingredients:,component.ReciptPage_Header.ingredientsLabel,Інгредієнти:
-6708720171450853236,Steps:,component.ReciptPage_Header.stepsLabel,Кроки:
-5468183920911796779,Quantity:,component.ReciptPage_Page.quantityLabel,Кількість:
-6927158287673844091,Ingredients:,component.ReciptPage_Page.ingredientsLabel,Інгредієнти:
-4105167119286126322,Steps:,component.ReciptPage_Page.stepsLabel,Кроки:
+3386771653296544465,Email,pages.login.email_key,Електронна скринька
+2405063527433899529,forgot password?,pages.login.forgot_password,нагадати пароль
+9102807079407818595,Log In,pages.login.head_title,Вхід
+1975137463963122681,Log In,pages.login.logIn_btn,Увійти
+3600505066039878153,Password,pages.login.password_key,Пароль
+1828433699778992027,Sign Up,pages.login.signUp_btn,Зареєструватись
+6587778258360430022,Dont have an account?,pages.login.signUp_text,Поки без аккаунта?
+80659794385992600,Please login to using app,pages.login.subtitle,Будь ласка увійдіть в свій аккаунт
+6271147126785959794,Log In,pages.login.title,Увійти
+5433578825624245250,Email address,pages.profile.email_key,Електронна скринька
+6372840712435657545,Full Name,pages.profile.fullName_key,Ім'я
+6613832474988089359,Profile,pages.profile.head_title,Профіль
+8534426176771316877,Language,pages.profile.language_key,Мова
+7858988313881362203,Last login,pages.profile.lastLoginAt_key,Останній вхід
+4977660148846081836,Personal Information,pages.profile.personal_info_title,Персональні дані
+5178814728918508488,Settings,pages.profile.settings_title,Налаштування
+5730284166112008943,Sign Out,pages.profile.sign_out_btn,Вийти
+1816896085722253318,Profile,pages.profile.title,Профіль
+3868144566054937925,Tastoria Recipe,pages.recipe.head_title,Рецепт Tastoria
+4271335781364480953,Not Found,pages.recipe.notfound,Не знайдено
+3681288560322490113,Edit Recipe,pages.recipeEdit.head_title,Редагувати рецепт
+8900761381169893282,Not Found,pages.recipeEdit.notfound,Не знайдено
+6427225241485476050,My recipes,pages.recipeList.head_title,Мої pецепти
+286750953181174850,Shared Recipe,pages.shared.head_title,Поширений рецепт
 8666022368985534088,Link not longer exists,pages.shared.notfound,Посилання не існує
-1395132042776826596,Not Found,pages.recipy.notfound,Не знайдено
-6283366373255790357,Source:,component.ReciptPage_Page.sourceLabel,Джерело:
-286750953181174850,Shared Receipt,pages.shared.head_title,Поширений рецепт
-9048481037676798650,Edit Receipt,component.ReciptPage_EditPage.title,Редагувати рецепт
-8207317081345070117,Save,component.ReciptPage_EditPage.save_btn,Зберегти
-8951933055493702510,Receipt not found,pages.recipyEdit.notfound,Рецепт не знайдено
-8198565162747498599,Edit Receipt,pages.recipyEdit.head_title,Редагувати рецепт
-1142736076148169361,Title,component.ReeiptPage_EditPage.titleLabel,Назва
-638180037574713182,Description,component.ReeiptPage_EditPage.descriptionLabel,Опис
-4511879499314046520,Source,component.ReeiptPage_EditPage.urlLabel,Джерело
-3695931293201942434,Quantity,component.ReeiptPage_EditPage.quantityLabel,Кількість
-4677820560918264762,Comment,component.ReeiptPage_EditPage.commentLabel,Коментарі
-3046419276080059115,Ingredients,component.ReeiptPage_EditPage.ingredientsLabel,Інгредієнти
-821941966115107300,Steps,component.ReeiptPage_EditPage.stepsLabel,Кроки
-5803520579164494019,Rating,component.ReeiptPage_EditPage.ratingLabel,Рейтинг
-1408552018937713020,Recipes,pages.recipyList.head_title,Рецепти

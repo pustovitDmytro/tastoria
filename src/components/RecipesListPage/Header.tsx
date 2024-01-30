@@ -1,19 +1,23 @@
 /* eslint-disable qwik/use-method-usage */
 /* eslint-disable qwik/valid-lexical-scope */
-import type { NoSerialize } from '@builder.io/qwik';
-import { $, component$, noSerialize, useContext, useSignal, useTask$ } from '@builder.io/qwik';
+import type {  Signal } from '@builder.io/qwik';
+import { $, component$, useContext, useSignal, useTask$ } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import { random } from 'myrmidon';
 import FilterInput from '../FilterInput';
 import styles from './Header.module.css';
-import type { ReceipFilter, Receipt } from '~/types';
+import { handleVisibility } from './utils';
+import type { ReceipFilter, Recipe } from '~/types';
 import RandomIcon from '~/components/Icons/random.svg';
 import Button from '~/components/Button';
 import { recipesContext } from '~/stores';
 
 interface HeaderProps {
-    list: Receipt[];
-    onOpenRecipy: ActionStore<never,  Record<string, unknown>, true>
+    list: {
+        recipe: Recipe,
+        isVisible: Signal<boolean>
+    }[];
+    onOpenRecipe: ActionStore<never,  Record<string, unknown>, true>
 }
 
 function fill(resultArray, category, id) {
@@ -26,35 +30,16 @@ function fill(resultArray, category, id) {
     }
 }
 
-export function handleVisibility(recipe, search, { categories, tags }) {
-    const needSearch = !!search;
-    const bySearch = needSearch && search.split(/\s+/)
-        .every(word => recipe.title.includes(word));
-
-    let isVisible = true;
-
-    if (needSearch && !bySearch) isVisible = false;
-    if (categories.length > 0 &&
-        (!recipe.categories || !categories.some(c => recipe.categories.includes(c.value)))
-    ) isVisible = false;
-    if (tags.length > 0 &&
-        (!recipe.tags || !tags.some(c => recipe.tags.includes(c.value)))
-    ) isVisible = false;
-
-    // eslint-disable-next-line no-param-reassign
-    recipe.isVisible.value = isVisible;
-}
-
 export default component$<HeaderProps>((props) => {
-    const { list, onOpenRecipy } = props;
+    const { list, onOpenRecipe } = props;
     const search = useSignal('');
-    const recipyContext = useContext(recipesContext);
+    const recipeContext = useContext(recipesContext);
     const result = {
         tags       : [] as ReceipFilter[],
         categories : [] as ReceipFilter[]
     };
 
-    recipyContext.list.value.forEach(r => {
+    Object.values(recipeContext.all).forEach(r => {
         r.tags.forEach(tag => fill(result.tags, tag, r.id));
         r.categories.forEach(tag => fill(result.categories, tag, r.id));
     });
@@ -71,8 +56,8 @@ export default component$<HeaderProps>((props) => {
         const categories = result.categories.filter(c => selected.has(`category_${c.value}`));
         const tags = result.tags.filter(c => selected.has(`tags_${c.value}`));
 
-        for (const recipe of list) {
-            handleVisibility(recipe, search.value, { categories, tags });
+        for (const r of list) {
+            handleVisibility(r, search.value, { categories, tags });
         }
     });
 
@@ -82,7 +67,7 @@ export default component$<HeaderProps>((props) => {
 
         const selected = available[randIndex];
 
-        onOpenRecipy.submit({ ...selected });
+        onOpenRecipe.submit({ ...selected });
     });
 
     return (

@@ -5,8 +5,8 @@ import { isFunction } from 'myrmidon';
 import type { ActionStore } from '@builder.io/qwik-city';
 import { v4 as uuid } from 'uuid';
 import { version } from '../../../package.json';
-import styles from './recipy.module.css';
-import type { Receipt } from '~/types';
+import styles from './recipe.module.css';
+import type { Recipe } from '~/types';
 import ShareIcon from '~/components/Icons/share.svg?component';
 import LockIcon from '~/components/Icons/lock.svg?component';
 import UnlockIcon from '~/components/Icons/unlock.svg?component';
@@ -18,39 +18,38 @@ import Button from '~/components/Button';
 import { recipesContext } from '~/stores';
 
 interface HeaderProps {
-    receipt: Receipt;
+    recipe: Recipe;
     shareURL: URL,
     onEdit?: ActionStore<never, Record<string, unknown>, true>
     onRemove?: ActionStore<never, Record<string, unknown>, true>
     onDuplicate?: ActionStore<never, Record<string, unknown>, true>
 }
 
-function prepareSharedText(receipt: Receipt) {
-    const lines = [ receipt.title ];
+function prepareSharedText(recipe: Recipe) {
+    const lines = [ recipe.title ];
 
-    lines.push('', $localize `component.ReciptPage_Header.ingredientsLabel`);
-    receipt.ingredients.map(i => lines.push(i));
-    lines.push('', $localize `component.ReciptPage_Header.stepsLabel`);
-    receipt.steps.map((s, i) => lines.push(`${i + 1}. ${s}`));
+    lines.push('', $localize `component.RecipePage_ViewHeader.ingredientsLabel`);
+    recipe.ingredients.map(i => lines.push(i));
+    lines.push('', $localize `component.RecipePage_ViewHeader.stepsLabel`);
+    recipe.steps.map((s, i) => lines.push(`${i + 1}. ${s}`));
 
     return lines.join('\n');
 }
 
 // eslint-disable-next-line max-lines-per-function
 export default component$<HeaderProps>((props) => {
-    const { receipt, onRemove, onDuplicate, onEdit } = props;
+    const { recipe, onRemove, onDuplicate, onEdit } = props;
     const isLocked = useSignal(false);
     const wakeLock = useSignal<NoSerialize<WakeLockSentinel> | null>(null);
-    const recipyContext = useContext(recipesContext);
-    const contextIndex = recipyContext.list.value.findIndex(r => r.id === receipt.id);
+    const recipeContext = useContext(recipesContext);
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const canBeShared = isFunction(navigator.share) || isFunction(navigator.clipboard.writeText);
     const canBeLocked = !!navigator.wakeLock;
 
     const shareData = {
-        title : $localize `component.ReciptPage_Header.title`,
-        text  : prepareSharedText(receipt),
+        title : $localize `component.RecipePage_ViewHeader.title`,
+        text  : prepareSharedText(recipe),
         url   : props.shareURL.href
     };
 
@@ -85,7 +84,7 @@ export default component$<HeaderProps>((props) => {
 
     const handleDuplicate = $(() => {
         const duplicated = {
-            ...receipt,
+            ...recipe,
             id : uuid(),
             version,
 
@@ -96,16 +95,16 @@ export default component$<HeaderProps>((props) => {
             updatedAt : (new Date()).toISOString()
         };
 
-        recipyContext.list.value = [ ...recipyContext.list.value, duplicated ];
+        recipeContext.all[duplicated.id] = duplicated;
+        recipeContext.lastChanged.value = new Date();
 
         return duplicated;
     });
 
     const handleRemove = $(() => {
-        receipt.deletedAt = (new Date()).toISOString();
-        receipt.updatedAt = (new Date()).toISOString();
-        recipyContext.list.value.splice(contextIndex, 1, receipt);
-        recipyContext.list.value = [ ...recipyContext.list.value ];
+        recipe.deletedAt = (new Date()).toISOString();
+        recipe.updatedAt = (new Date()).toISOString();
+        recipeContext.lastChanged.value = new Date();
     });
 
     return <div class={styles.header}>

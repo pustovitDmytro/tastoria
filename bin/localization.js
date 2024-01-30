@@ -56,7 +56,7 @@ async function jsonToCSV() {
         });
     }
 
-    const csv = Papa.unparse(texts);
+    const csv = Papa.unparse(texts.sort((a, b) => a.key.localeCompare(b.key)));
 
     await fs.writeFile(
         csvFile,

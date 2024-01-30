@@ -123,11 +123,11 @@ class CookMateParser {
         return a.title === b.title;
     }
 
-    merge(oldRecipy, newRecipy) {
-        if (oldRecipy.image) newRecipy.image = oldRecipy.image;
-        Object.keys(newRecipy).forEach(key => {
-            if (newRecipy[key] && newRecipy[key] !== oldRecipy[key]) {
-                oldRecipy[key] = newRecipy[key];
+    merge(oldRecipe, newRecipe) {
+        if (oldRecipe.image) newRecipe.image = oldRecipe.image;
+        Object.keys(newRecipe).forEach(key => {
+            if (newRecipe[key] && newRecipe[key] !== oldRecipe[key]) {
+                oldRecipe[key] = newRecipe[key];
             }
         });
     }
@@ -175,10 +175,10 @@ class CookMateParser {
                 data.image = this._images.get(path.basename(recipe.imagepath._text));
             }
 
-            const currentRecipy = this._items.find(i => this.isEqual(data, i));
+            const currentRecipe = this._items.find(i => this.isEqual(data, i));
 
-            if (currentRecipy) {
-                this.merge(currentRecipy, data);
+            if (currentRecipe) {
+                this.merge(currentRecipe, data);
             } else {
                 this._items.push(data);
             }

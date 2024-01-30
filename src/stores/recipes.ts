@@ -1,9 +1,12 @@
 import type { Signal } from '@builder.io/qwik';
 import { createContextId } from '@builder.io/qwik';
-import type { Receipt } from '~/types';
+import type { Recipe } from '~/types';
 
 export interface Recipes {
-    list: Signal<Receipt[]>;
+    all: {
+        [key: string]: Recipe;
+    },
+    lastChanged: Signal<Date>
 }
 
 export default createContextId<Recipes>('Recipes');

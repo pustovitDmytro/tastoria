@@ -1,7 +1,7 @@
 import type { User } from 'firebase/auth';
-import type { Receipt } from '~/types';
+import type { Recipe } from '~/types';
 
-export function dumpReceipt(r: any): Receipt {
+export function dumpRecipe(r: any): Recipe {
     return {
         id         : r.id,
         title      : r.title,

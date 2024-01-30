@@ -1,4 +1,4 @@
-import { component$, Slot, useStyles$, useStore, useContextProvider, useVisibleTask$ } from '@builder.io/qwik';
+import { component$, Slot, useStyles$, useStore, useContextProvider, useVisibleTask$, useSignal } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import fonts from './fonts.css?inline';
 import styles from './styles.module.css';
@@ -48,33 +48,27 @@ function debounce(func, timeout = 1000) {
     };
 }
 
-async function runBackgroundSync(list) {
+async function runBackgroundSync(time, mapping) {
     // const serviceWorkerExists = navigator.serviceWorker;
 
     // console.log('serviceWorkerExists:', !!serviceWorkerExists);
-
     const res = await fetch('/api/sync/recipes', {
         headers : {
             'Accept'       : 'application/json',
             'Content-Type' : 'application/json'
         },
         method : 'POST',
-        body   : JSON.stringify(list.value)
+        body   : JSON.stringify(Object.values(mapping))
     });
 
     const { implement } = await res.json();
 
-    if (implement.length > 1) {
-        // eslint-disable-next-line no-param-reassign
-        list.value = [
-            ...list.value.map(i => {
-                const update = implement.find(r => r.type === 'UPDATE_LOCAL');
-
-                return update ? update.recipy : i;
-            }),
-            ...implement.filter(r => r.type === 'ADD_LOCAL').map(r => r.recipy)
-        ];
-    }
+    implement.forEach(i => {
+        if ([ 'UPDATE_LOCAL', 'ADD_LOCAL' ].includes(i.type)) {
+            // eslint-disable-next-line no-param-reassign
+            mapping[i.recipe.id] = i.recipe;
+        }
+    });
 
     // const registration = await navigator.serviceWorker.ready;
 
@@ -85,7 +79,7 @@ async function runBackgroundSync(list) {
     // console.log('register:', register);
 }
 
-const debouncedSync = debounce((w) => runBackgroundSync(w));
+const debouncedSync = debounce((a, b) => runBackgroundSync(a, b));
 
 export const useRecipes = routeLoader$(async ({ cookie }) => {
     const session = cookie.get('tastoria.session');
@@ -107,6 +101,10 @@ export default component$(() => {
     const settings = useSettings();
     const recipes = useRecipes();
 
+    const map = {};
+
+    recipes.value.forEach(r => map[r.id] =  r);
+
     const slotCtx = useStore<SlotState>({
         header      : null,
         contextMenu : null
@@ -114,7 +112,7 @@ export default component$(() => {
 
     const sessionStore = useStore({ user: session });
     const appStore = useStore({ isMenuOpened: false, language: settings.value.language });
-    const recipesStore = useStore({ list: recipes });
+    const recipesStore = useStore({ all: map, lastChanged: useSignal(new Date()) });
 
     useContextProvider(sessionContext, sessionStore);
     useContextProvider(appContext, appStore);
@@ -124,9 +122,9 @@ export default component$(() => {
     const HeaderContent = () => slotCtx.header;
 
     useVisibleTask$(({ track }) => {
-        const c = track(() => recipesStore.list.value);
+        const changeTime = track(() => recipesStore.lastChanged.value);
 
-        debouncedSync(recipesStore.list);
+        // debouncedSync(changeTime, recipesStore.all);
     });
 
     return (

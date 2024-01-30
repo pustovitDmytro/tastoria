@@ -1,4 +1,4 @@
-import { $, component$, useSignal } from '@builder.io/qwik';
+import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import type {
     Signal
 } from '@builder.io/qwik';
@@ -22,20 +22,49 @@ type Props = {
 
 export default component$((props: Props) => {
     const { search, options } = props;
-    const needOpen = useSignal(false);
+    const needOpen = useSignal(true);
+    const ref = useSignal<Element>();
+
+    const hideOnClickOutside = $((element) => {
+        const outsideClickListener = event => {
+            if (!element.contains(event.target)) {
+                needOpen.value = false;
+                removeClickListener();
+            }
+        };
+
+        const removeClickListener = () => {
+            document.removeEventListener('click', outsideClickListener);
+        };
+
+        document.addEventListener('click', outsideClickListener);
+    });
+
+    useVisibleTask$(({ track }) => {
+        const isOpen = track(() => needOpen.value);
+
+        if (isOpen) {
+            const elem = ref.value;
+
+            hideOnClickOutside(elem);
+        }
+    });
 
     return (
-        <div class={[ styles.container, props.class ]}>
+        <div ref={ref} class={[ styles.container, props.class ]}>
             <TextInput
                 value={search}
-                label='Search'
+                label={$localize `component.FilterInput.searchLabel` }
                 type='search'
                 onFocus={$((e, o) => {
                     needOpen.value = true;
                 })}
             />
             {
-                needOpen.value && <div class={styles.options}>
+                needOpen.value && <div
+                    class={styles.options}
+                    onClick$={event => event.stopPropagation()}
+                >
                     <Button
                         class={styles.closeButton}
                         onClick={$(() => needOpen.value = false)}

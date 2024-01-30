@@ -1,4 +1,4 @@
-export interface Receipt {
+export interface Recipe {
     id: string;
     title: string;
     description : string,
@@ -31,8 +31,6 @@ export interface Receipt {
     updatedAt : string,
     createdAt : string,
     deletedAt?: string
-
-    isVisible?: any;
 }
 
 export interface ReceipFilter {
