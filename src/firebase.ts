@@ -7,7 +7,19 @@ import { getDatabase, ref as refDB, set, get } from 'firebase/database';
 import config from './config';
 import { dumpRecipe, dumpUserSessionData } from '~/utils/dumpUtils';
 
-const { GoogleAuthProvider, getAuth, signInWithPopup } = firebaseAuth;
+const {
+    GoogleAuthProvider,
+    getAuth,
+    signInWithPopup,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendSignInLinkToEmail,
+    isSignInWithEmailLink,
+    signInWithEmailLink,
+    EmailAuthProvider,
+    updatePassword,
+    updateProfile
+} = firebaseAuth;
 
 async function getDownloadURL(reference) {
     const service = reference.storage;
@@ -81,7 +93,7 @@ class FireBase {
         return dumpRecipe(snapshot.val());
     }
 
-    async signIn() {
+    async googleSignIn() {
         const auth = getAuth(this._app);
 
         const provider = new GoogleAuthProvider();
@@ -91,6 +103,45 @@ class FireBase {
         const result = await signInWithPopup(auth, provider);
 
         return dumpUserSessionData(result.user);
+    }
+
+    async signIn({ email, password }) {
+        const auth = getAuth(this._app);
+        const credentials = await signInWithEmailAndPassword(auth, email, password);
+        const user = credentials.user;
+
+        return dumpUserSessionData(user);
+    }
+
+    async verifyEmail(email, appUrl) {
+        const auth = getAuth(this._app);
+        const url = new URL('?step=create-user', appUrl.href);
+        const actionCodeSettings = {
+            url             : url.href,
+            handleCodeInApp : true
+        };
+
+        await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+    }
+
+    async signUp({ email, password, fullName }, url) {
+        const auth = getAuth(this._app);
+
+        const credentials = await signInWithEmailLink(auth, email, url.href);
+
+        const user = credentials.user;
+
+        await Promise.all([
+            updateProfile(user, {
+                displayName : fullName
+            }),
+            updatePassword(user, password)
+        ]);
+
+        return dumpUserSessionData({ ...user, displayName: fullName });
+
+        // const credentials = await createUserWithEmailAndPassword(auth, email, password);
+        // const user = credentials.user;
     }
 
     onError(error) {

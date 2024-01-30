@@ -54,3 +54,10 @@ id,en,key,ua
 6427225241485476050,My recipes,pages.recipeList.head_title,Мої pецепти
 286750953181174850,Shared Recipe,pages.shared.head_title,Поширений рецепт
 8666022368985534088,Link not longer exists,pages.shared.notfound,Посилання не існує
+7281479044872185903,Email,pages.signup.email_key,Електронна скринька
+5236010107479578886,Full Name,pages.signup.fullName_key,Ім'я
+6863644611684467188,Sign Up,pages.signup.head_title,Зареєструватись
+1460103689053291231,Password,pages.signup.password_key,Пароль
+1894930952407334569,Create Account,pages.signup.SignUp_btn,Приєднатися
+3437508990078887479,Welcome to tastoria,pages.signup.subtitle,Ласкаво просимо в Tastoria
+6116359827668725042,Sign Up,pages.signup.title,Реєстрація

@@ -124,7 +124,7 @@ export default component$(() => {
     useVisibleTask$(({ track }) => {
         const changeTime = track(() => recipesStore.lastChanged.value);
 
-        // debouncedSync(changeTime, recipesStore.all);
+        debouncedSync(changeTime, recipesStore.all);
     });
 
     return (

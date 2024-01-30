@@ -22,7 +22,7 @@ type Props = {
 
 export default component$((props: Props) => {
     const { search, options } = props;
-    const needOpen = useSignal(true);
+    const needOpen = useSignal(false);
     const ref = useSignal<Element>();
 
     const hideOnClickOutside = $((element) => {

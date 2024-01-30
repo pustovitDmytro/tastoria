@@ -28,7 +28,7 @@ export default component$(() => {
     });
 
     const googleLogin = $(async () => {
-        const authorized = await firebase.signIn();
+        const authorized = await firebase.googleSignIn();
 
         console.log(`Signed In as ${authorized.email}`);
 

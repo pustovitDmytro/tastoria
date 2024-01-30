@@ -41,13 +41,14 @@
   top: 40px;
   z-index: 1;
   background-color: background_2;
-  border-radius: 10px;
+  border-radius: 20px;
   opacity: 0.95;
+  padding-bottom: 20px;
 }
 
 .option {
-	padding-top: 0.25em;
-  font-size: 1.1rem;
+	padding-top: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .closeButton {
