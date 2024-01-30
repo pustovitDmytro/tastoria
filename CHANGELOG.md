@@ -1,3 +1,15 @@
+# [1.19.0](https://github.com/pustovitDmytro/tastoria/compare/v1.18.0...v1.19.0) (2024-01-30)
+
+
+### Fix
+
+* fixxes case in search ([cbb9d0b](https://github.com/pustovitDmytro/tastoria/commit/cbb9d0bb9de8d636583ee31042a599a143103e6b))
+
+### New
+
+* about page localization ([af44701](https://github.com/pustovitDmytro/tastoria/commit/af4470160988e4b2ae054aa11cea93d3a432ad5d))
+* menu localization ([29d5509](https://github.com/pustovitDmytro/tastoria/commit/29d55099014b574531b97cd64f8caee4df478d74))
+
 # [1.18.0](https://github.com/pustovitDmytro/tastoria/compare/v1.17.2...v1.18.0) (2024-01-29)
 
 
