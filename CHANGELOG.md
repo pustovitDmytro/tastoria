@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/pustovitDmytro/tastoria/compare/v1.19.0...v1.20.0) (2024-02-01)
+
+
+### New
+
+* signup mechanism ([3fe0d57](https://github.com/pustovitDmytro/tastoria/commit/3fe0d57e08bb0a832176e09adbe262ed34701bb9))
+
 # [1.19.0](https://github.com/pustovitDmytro/tastoria/compare/v1.18.0...v1.19.0) (2024-01-30)
 
 
