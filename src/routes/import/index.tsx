@@ -21,14 +21,11 @@ async function uploadFile(file, user) {
 
         if (!fileEntry?.getData) throw new Error('no data');
         const zipFileWriter = new TextWriter();
-        const helloWorldText = await fileEntry.getData(zipFileWriter);
-        const data = JSON.parse(helloWorldText);
+        const fileData = await fileEntry.getData(zipFileWriter);
+        const data = JSON.parse(fileData);
         const imageNames = new Set(data.recipes.map(r => r.image).filter(Boolean));
 
-        await firebase.saveUserData(
-            user,
-            JSON.parse(helloWorldText)
-        );
+        await firebase.saveUserData(user, data);
 
         const images = entries.filter(f => imageNames.has(last(f.filename.split('/'))));
 

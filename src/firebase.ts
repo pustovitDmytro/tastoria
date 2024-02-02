@@ -18,7 +18,9 @@ const {
     signInWithEmailLink,
     EmailAuthProvider,
     updatePassword,
-    updateProfile
+    updateProfile,
+    sendEmailVerification,
+    applyActionCode
 } = firebaseAuth;
 
 async function getDownloadURL(reference) {
@@ -113,35 +115,24 @@ class FireBase {
         return dumpUserSessionData(user);
     }
 
-    async verifyEmail(email, appUrl) {
+    async signUp({ email, password, fullName }, appUrl) {
         const auth = getAuth(this._app);
-        const url = new URL('?step=create-user', appUrl.href);
+        const credentials = await createUserWithEmailAndPassword(auth, email, password);
+        const user = credentials.user;
+        const url = new URL(`/login/?email=${email}`, appUrl.href);
+
+        await updateProfile(user, {
+            displayName : fullName
+        });
+
         const actionCodeSettings = {
             url             : url.href,
             handleCodeInApp : true
         };
 
-        await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-    }
+        await sendEmailVerification(user, actionCodeSettings);
 
-    async signUp({ email, password, fullName }, url) {
-        const auth = getAuth(this._app);
-
-        const credentials = await signInWithEmailLink(auth, email, url.href);
-
-        const user = credentials.user;
-
-        await Promise.all([
-            updateProfile(user, {
-                displayName : fullName
-            }),
-            updatePassword(user, password)
-        ]);
-
-        return dumpUserSessionData({ ...user, displayName: fullName });
-
-        // const credentials = await createUserWithEmailAndPassword(auth, email, password);
-        // const user = credentials.user;
+        return dumpUserSessionData(user);
     }
 
     onError(error) {

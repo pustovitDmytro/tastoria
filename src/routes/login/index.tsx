@@ -1,6 +1,6 @@
 import { $, component$,  useSignal,  useStore } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { routeAction$ } from '@builder.io/qwik-city';
+import { Link, routeAction$, useLocation } from '@builder.io/qwik-city';
 import styles from './styles.module.css';
 import firebase from '~/firebase';
 import TextInput from '~/components/TextInput';
@@ -19,18 +19,24 @@ export const useRedirect = routeAction$(async (user, { cookie, redirect }) => {
 
 
 export default component$(() => {
+    const location = useLocation();
     const action = useRedirect();
-    const email = useSignal('');
+    const prefilledEmail = location.url.searchParams.get('email');
+    const email = useSignal(prefilledEmail || '');
     const password = useSignal('');
 
     const handleLoginClick = $(async () => {
-        console.log('credentials:', email.value, password.value);
+        const authorized = await firebase.signIn({
+            email    : email.value,
+            password : password.value
+        });
+
+        action.submit(authorized);
+        // auth/invalid-email
     });
 
     const googleLogin = $(async () => {
         const authorized = await firebase.googleSignIn();
-
-        console.log(`Signed In as ${authorized.email}`);
 
         action.submit(authorized);
     });
@@ -51,7 +57,9 @@ export default component$(() => {
                         <Glogo onClick$={googleLogin}/>
                     </div>
                 </div>
-                <div class={styles.footer}>{$localize `pages.login.signUp_text`}<Button inline={true}>{$localize `pages.login.signUp_btn`}</Button></div>
+                <div class={styles.footer}>{$localize `pages.login.signUp_text`}
+                    <Link class={styles.signUpLink} prefetch href={'/signup'}>{$localize `pages.login.signUp_btn`}</Link>
+                </div>
             </div>
         </>
     );

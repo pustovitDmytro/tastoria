@@ -17,60 +17,24 @@ export const useRedirect = routeAction$(async (user, { cookie, redirect }) => {
     throw redirect(302, '/recipes');
 });
 
-const VerifyEmailStep = component$(() => {
-    const email = useSignal('');
-    const isSend = useSignal(false);
+export default component$(() => {
+    const action = useRedirect();
     const location = useLocation();
-
-    const handleSignUpClick = $(async () => {
-        await firebase.verifyEmail(email.value, location.url);
-
-        isSend.value = true;
-    });
-
-    return (
-        <>
-            <TextInput type='email' value={email} label={$localize `pages.signup.email_key`} class={styles.input}/>
-            <Button class={styles.signUpBtn} onClick={handleSignUpClick}>{$localize `pages.signup.SignUp_btn`}</Button>
-            {
-                isSend.value && <div>{$localize `pages.signup.SignUp_btn`}</div>
-            }
-        </>
-    );
-});
-
-const CreateUserStep = component$(() => {
+    const step = useSignal<'create-user'|'verify-email'>('create-user');
     const email = useSignal('');
     const password = useSignal('');
     const fullName = useSignal('');
-    const location = useLocation();
-    const action = useRedirect();
 
     const handleSignUpClick = $(async () => {
-        const authorized = await firebase.signUp({
+        await firebase.signUp({
             email    : email.value,
             password : password.value,
             fullName : fullName.value
         }, location.url);
 
-        action.submit(authorized);
+        step.value = 'verify-email';
         // FirebaseError: Firebase: Error (auth/email-already-in-use).
     });
-
-    return (
-        <>
-            <TextInput type='email' value={email} label={$localize `pages.signup.email_key`} class={styles.input}/>
-            <TextInput type='text' value={fullName} label={$localize `pages.signup.fullName_key`} class={styles.input}/>
-            <TextInput type='password' value={password} label={$localize `pages.signup.password_key`} class={styles.input}/>
-            <Button class={styles.signUpBtn} onClick={handleSignUpClick}>{$localize `pages.signup.SignUp_btn`}</Button>
-        </>
-    );
-});
-
-export default component$(() => {
-    const action = useRedirect();
-    const location = useLocation();
-    const step = location.url.searchParams.get('step') || 'verify-email';
 
     const googleLogin = $(async () => {
         const authorized = await firebase.googleSignIn();
@@ -90,14 +54,19 @@ export default component$(() => {
                 </div>
                 <div class={styles.content}>
                     {
-                        step === 'verify-email' && <VerifyEmailStep/>
+                        step.value === 'verify-email' && <div>{$localize `pages.signup.verify_email_sent`}</div>
                     }
                     {
-                        step === 'create-user' && <CreateUserStep/>
+                        step.value === 'create-user' && <>
+                            <TextInput type='email' value={email} label={$localize `pages.signup.email_key`} class={styles.input}/>
+                            <TextInput type='text' value={fullName} label={$localize `pages.signup.fullName_key`} class={styles.input}/>
+                            <TextInput type='password' value={password} label={$localize `pages.signup.password_key`} class={styles.input}/>
+                            <Button class={styles.signUpBtn} onClick={handleSignUpClick}>{$localize `pages.signup.SignUp_btn`}</Button>
+                            <div class={styles.providers}>
+                                <Button icon={true} class={styles.googleBtn} onClick={googleLogin}><Glogo/></Button>
+                            </div>
+                        </>
                     }
-                    <div class={styles.providers}>
-                        <Button icon={true} class={styles.googleBtn} onClick={googleLogin}><Glogo/></Button>
-                    </div>
                 </div>
             </div>
         </>

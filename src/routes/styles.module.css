@@ -25,10 +25,10 @@
 .headerContent {
   height: 100%;
   width: calc(100% - 56px);
-  & > div {
-    height: 100%;
-    margin-left: 56px;
-  }
+  margin-left: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @media print {
