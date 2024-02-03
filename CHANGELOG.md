@@ -1,3 +1,10 @@
+## [1.20.1](https://github.com/pustovitDmytro/tastoria/compare/v1.20.0...v1.20.1) (2024-02-02)
+
+
+### Fix
+
+* change verification flow ([16a1328](https://github.com/pustovitDmytro/tastoria/commit/16a1328c776f0001e3c72812bbe9fe0db9fa0821))
+
 # [1.20.0](https://github.com/pustovitDmytro/tastoria/compare/v1.19.0...v1.20.0) (2024-02-01)
 
 
