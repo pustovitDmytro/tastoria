@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/pustovitDmytro/tastoria/compare/v1.21.0...v1.22.0) (2024-02-03)
+
+
+### New
+
+* create recipe functionality ([006899e](https://github.com/pustovitDmytro/tastoria/commit/006899e2ecde39e4ffa7d0374603b1778825a80a))
+
 # [1.21.0](https://github.com/pustovitDmytro/tastoria/compare/v1.20.1...v1.21.0) (2024-02-03)
 
 
