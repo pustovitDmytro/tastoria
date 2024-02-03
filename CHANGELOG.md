@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/pustovitDmytro/tastoria/compare/v1.22.0...v1.22.1) (2024-02-03)
+
+
+### Fix
+
+* fixes styling ([ed77910](https://github.com/pustovitDmytro/tastoria/commit/ed77910858464448e326ffa4536445c3a7eb02a5))
+
 # [1.22.0](https://github.com/pustovitDmytro/tastoria/compare/v1.21.0...v1.22.0) (2024-02-03)
 
 
