@@ -1,3 +1,12 @@
+# [1.21.0](https://github.com/pustovitDmytro/tastoria/compare/v1.20.1...v1.21.0) (2024-02-03)
+
+
+### New
+
+* adds avatar generator ([52f58e9](https://github.com/pustovitDmytro/tastoria/commit/52f58e9cdf8ef46e81e0df0dd2198b18e7fba90f))
+* duplicate for shared recipes ([93e1812](https://github.com/pustovitDmytro/tastoria/commit/93e1812558552b71b87389b432359524bb3c4979))
+* login instead avatar for not auth ([b61f63d](https://github.com/pustovitDmytro/tastoria/commit/b61f63dd0b50196fe843bd2beab455a0405b56f5))
+
 ## [1.20.1](https://github.com/pustovitDmytro/tastoria/compare/v1.20.0...v1.20.1) (2024-02-02)
 
 
