@@ -4,6 +4,7 @@ import { routeAction$, type DocumentHead } from '@builder.io/qwik-city';
 import List from '~/components/RecipesListPage/RecipesList';
 import Header from '~/components/RecipesListPage/Header';
 import { recipesContext, slotContext } from '~/stores';
+import type { Recipe } from '~/types';
 
 export const useOpenRecipe = routeAction$((recipe, { redirect }) => {
     throw redirect(302, `/recipes/${recipe.id}`);

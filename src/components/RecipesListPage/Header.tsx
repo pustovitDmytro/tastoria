@@ -64,11 +64,12 @@ export default component$<HeaderProps>((props) => {
 
     const handleRandom = $(() => {
         const available = list.filter(l => l.isVisible.value);
+
         const randIndex = random.int(available.length - 1, 0);
 
         const selected = available[randIndex];
 
-        onOpenRecipe.submit(selected);
+        onOpenRecipe.submit({ ...selected.recipe });
     });
 
     return (
