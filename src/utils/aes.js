@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { Buffer } from 'node:buffer';
+import { toNumber } from './common';
 
 const IV_LENGTH = 16;
 const HEX_MULTIPLIER = 2;
@@ -92,19 +93,6 @@ class AES {
 //     }
 // }
 
-function toNumber(cipher, alphabet) {
-    let result = BigInt(0);
-
-    [ ...cipher ]
-        .map(s => alphabet.indexOf(s))
-        .forEach((n, index) => {
-            const power = BigInt(cipher.length - index - 1);
-
-            result += BigInt(n) * BigInt(BigInt(alphabet.length) ** power);
-        });
-
-    return result;
-}
 
 function toSymbols(num, alphabet) {
     const base = BigInt(alphabet.length);

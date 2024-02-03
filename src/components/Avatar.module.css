@@ -1,0 +1,17 @@
+@value colors: "../variables.css";
+@value primary_1, primary_2, primary_3 from colors;
+
+.avatar {
+  .face {
+    fill: primary_3;
+    stroke: primary_3;
+  }
+  
+  .head {
+    fill: primary_1;
+  }
+  
+  .hat {
+    fill: primary_3;
+  }
+}
