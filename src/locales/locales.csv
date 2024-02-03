@@ -1,6 +1,7 @@
 id,en,key,ua
 2480342317161667903,Search,component.FilterInput.searchLabel,Знайти
 2039021515265108710,Comment,component.RecipePage_EditPage.commentLabel,Коментарі
+6082804499388572687,Create Recipe,component.RecipePage_EditPage.create_title,Створити рецепт
 2330381719439020400,Description,component.RecipePage_EditPage.descriptionLabel,Опис
 8007566936968300367,Ingredients,component.RecipePage_EditPage.ingredientsLabel,Інгредієнти
 1052097821206541703,Quantity,component.RecipePage_EditPage.quantityLabel,Кількість
@@ -49,6 +50,7 @@ id,en,key,ua
 1816896085722253318,Profile,pages.profile.title,Профіль
 3868144566054937925,Tastoria Recipe,pages.recipe.head_title,Рецепт Tastoria
 4271335781364480953,Not Found,pages.recipe.notfound,Не знайдено
+258000378672733393,Create Recipe,pages.recipeCreate.head_title,Створити рецепт
 3681288560322490113,Edit Recipe,pages.recipeEdit.head_title,Редагувати рецепт
 8900761381169893282,Not Found,pages.recipeEdit.notfound,Не знайдено
 6427225241485476050,My recipes,pages.recipeList.head_title,Мої pецепти
@@ -61,4 +63,4 @@ id,en,key,ua
 1894930952407334569,Create Account,pages.signup.SignUp_btn,Приєднатися
 3437508990078887479,Welcome to tastoria,pages.signup.subtitle,Ласкаво просимо в Tastoria
 6116359827668725042,Sign Up,pages.signup.title,Реєстрація
-4366555974862707223,Verification email was sent,pages.signup.verify_email_sent,Лист з підтвердженням надіслано на вашу електронну адресу
+4366555974862707223,"We've just sent a verification email to your registered address. Please check your inbox (and spam folder) and click on the verification link to complete the process. If you don't receive the email within a few minutes, or need assistance, kindly contact our support team.",pages.signup.verify_email_sent,"Ми щойно відправили вам електронний лист для верифікації адреси. Будь ласка, перевірте свою скриньку (в тому числі папку Спам) та натисніть на посилання для завершення процесу. Якщо ви не отримаєте листа протягом кількох хвилин або потребуєте допомоги, будь ласка, зверніться до нашої служби підтримки."

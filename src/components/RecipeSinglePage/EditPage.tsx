@@ -1,6 +1,7 @@
 /* eslint-disable qwik/valid-lexical-scope */
-import { $, Resource, component$, useContext, useResource$, useSignal, useStore, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import { $, Resource, component$, useContext, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
+import { v4 as uuid } from 'uuid';
 import { version } from '../../../package.json';
 import TextInput from '../TextInput';
 import styles from './EditPage.module.css';
@@ -9,7 +10,7 @@ import Button from '~/components/Button';
 import { recipesContext } from '~/stores';
 
 interface Props {
-    recipe: Recipe;
+    recipe?: Recipe;
     onSave: ActionStore<never, Record<string, unknown>, true>
 }
 
@@ -33,10 +34,39 @@ const fields = [
     { key: 'rating', label: $localize `component.RecipePage_EditPage.ratingLabel`, type: 'number' }
 ] as FieldConfig[];
 
+function getRecipePlaceHolder():Recipe {
+    return {
+        id          : uuid(),
+        title       : '',
+        description : '',
+        categories  : [],
+        tags        : [],
+        language    : 'en',
+        quantity    : '',
+        comment     : '',
+        ingredients : [],
+        steps       : [],
+        time        : {
+            total   : '',
+            prepare : '',
+            cook    : ''
+        },
+        version,
+        favorite : false,
+        visits   : 0,
+        rating   : 0,
+
+        updatedAt : (new Date()).toISOString(),
+        createdAt : (new Date()).toISOString()
+    };
+}
+
 
 // eslint-disable-next-line max-lines-per-function
 export default component$<Props>((props) => {
-    const { recipe, onSave } = props;
+    const { onSave } = props;
+    const isCreate = !props.recipe;
+    const recipe = props.recipe || getRecipePlaceHolder();
     const fieldSignals = fields.map(f => ({
         ...f,
         // eslint-disable-next-line qwik/use-method-usage
@@ -69,15 +99,20 @@ export default component$<Props>((props) => {
     });
 
     useVisibleTask$(() => {
-        // eslint-disable-next-line qwik/valid-lexical-scope
-        document.title = `* ${recipe.title}`;
+        if (!isCreate) {
+            document.title = `* ${recipe.title}`;
+        }
     });
+
+    const title = isCreate
+        ? $localize `component.RecipePage_EditPage.create_title`
+        : $localize `component.RecipePage_EditPage.title`;
 
     return (
         <div class={styles.component}>
             <div class={styles.preview}>
                 <div class={styles.content}>
-                    <h1>{$localize `component.RecipePage_EditPage.title`}</h1>
+                    <h1>{title}</h1>
                     {...fieldSignals.map(f => <div class={styles.item} key={f.key}>
                         <span class={styles.itemLabel}>{f.label}</span>
                         <TextInput type={f.type} value={f.signal} label={f.label} class={styles.input}/>

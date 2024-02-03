@@ -40,7 +40,7 @@ export default component$((props: Props) => {
             </div>
             <Slot/>
             {
-                session.user.value1
+                session.user.value
                     ? <Link href='/profile'>
                         {
                             session.user.value.avatar
