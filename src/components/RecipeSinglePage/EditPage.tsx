@@ -1,6 +1,5 @@
 /* eslint-disable qwik/valid-lexical-scope */
 import { $, Resource, component$, useContext, useResource$, useSignal, useStore, useTask$, useVisibleTask$ } from '@builder.io/qwik';
-import { v4 as uuid } from 'uuid';
 import type { ActionStore } from '@builder.io/qwik-city';
 import { version } from '../../../package.json';
 import TextInput from '../TextInput';
@@ -54,6 +53,7 @@ export default component$<Props>((props) => {
         const edited = {
             ...recipe,
             version,
+            deletedAt : undefined,
             updatedAt : (new Date()).toISOString()
         };
 

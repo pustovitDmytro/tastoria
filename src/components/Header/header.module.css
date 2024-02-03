@@ -1,3 +1,6 @@
+@value colors: "../../variables.css";
+@value primary_1 from colors;
+
 :root {
   --size: 45px;
 }
@@ -14,6 +17,10 @@
   object-fit: contain;
   border-radius: 50%;
   margin: 0 5px;
+
+  svg {
+    stroke: primary_1;
+  }
 }
 
 .menu {
