@@ -1,3 +1,14 @@
+# [1.23.0](https://github.com/pustovitDmytro/tastoria/compare/v1.22.1...v1.23.0) (2024-02-04)
+
+
+### Fix
+
+* error handling for sign up/in operations ([cd4a75b](https://github.com/pustovitDmytro/tastoria/commit/cd4a75bcb1ac4fe873fe9cd5ffa3840a3b72bfe8))
+
+### New
+
+* loaders for buttons ([12f1f8d](https://github.com/pustovitDmytro/tastoria/commit/12f1f8dbbb7681d530866503d24985ed6b967a3f))
+
 ## [1.22.1](https://github.com/pustovitDmytro/tastoria/compare/v1.22.0...v1.22.1) (2024-02-03)
 
 
