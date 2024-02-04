@@ -1,0 +1,57 @@
+@value colors: "../variables.css";
+@value primary_1, error_1 from colors;
+
+.container {
+  position: fixed;
+  max-width: 450px;
+  min-width: 250px;
+  width: 30%;
+  
+  top: 60px;
+  right: 30px;
+
+  .toast {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    cursor: pointer;
+
+    padding: 10px 15px 10px 15px;
+
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border-right-width: 8px;
+    border-right-style: solid;
+
+    .icon {
+      width: 50px;
+    }
+
+    .text {
+      margin-left: 10px;
+      width: 100%
+    }
+
+    &.error {
+      border-color: error_1;
+      background-color: rgba(#c00026, 0.04);
+      box-shadow: 0 5px 10px rgba(#c00026, 0.2);
+
+      .icon {
+        stroke: error_1;
+      }
+    }
+
+    &.success {
+      border-color: primary_1;
+      background-color: rgba(#00b27c, 0.04);
+      box-shadow: 0 5px 10px rgba(#00b27c, 0.2);
+      
+      .icon {
+        fill: primary_1;
+      }
+    }
+  }
+
+}

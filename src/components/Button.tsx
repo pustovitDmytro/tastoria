@@ -7,6 +7,7 @@ import {
 import type {
     ClassList
 } from '@builder.io/qwik';
+import logger from '../logger';
 import styles from './Button.module.css';
 import Loader from './Loader';
 
@@ -14,7 +15,7 @@ type ButtonProps = {
   inline?: boolean;
   icon?:boolean;
   class?: ClassList | ClassList[];
-  onClick: () => undefined | Promise<void>
+  onClick: () => any
 };
 
 export default component$((props: ButtonProps) => {
@@ -27,9 +28,10 @@ export default component$((props: ButtonProps) => {
             // eslint-disable-next-line qwik/valid-lexical-scope
             await props.onClick();
             isLoading.value = false;
-        } catch {
+        } catch (error) {
             isFailed.value = true;
             isLoading.value = false;
+            logger.error(error);
         }
     });
 

@@ -16,7 +16,7 @@ import DeleteIcon from '~/components/Icons/delete.svg';
 import EditIcon from '~/components/Icons/edit.svg';
 import DuplicateIcon from '~/components/Icons/duplicate.svg';
 import Button from '~/components/Button';
-import { recipesContext } from '~/stores';
+import { recipesContext, appContext } from '~/stores';
 
 interface HeaderProps {
     recipe: Recipe;
@@ -43,6 +43,7 @@ export default component$<HeaderProps>((props) => {
     const isLocked = useSignal(false);
     const wakeLock = useSignal<NoSerialize<WakeLockSentinel> | null>(null);
     const recipeContext = useContext(recipesContext);
+    const app = useContext(appContext);
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const canBeShared = isFunction(navigator.share) || isFunction(navigator.clipboard.writeText);
@@ -76,7 +77,16 @@ export default component$<HeaderProps>((props) => {
     const handleShareClick = $(() => {
         if (isFunction(navigator.share)) navigator.share(shareData);
 
-        if (isFunction(navigator.clipboard.writeText)) navigator.clipboard.writeText(`${shareData.text}\n\n${shareData.url}`);
+        if (isFunction(navigator.clipboard.writeText)) {
+            navigator.clipboard.writeText(`${shareData.text}\n\n${shareData.url}`);
+            const toastId = `${recipe.id}.clipboard`;
+
+            app.toasts[toastId] = {
+                id   : toastId,
+                type : 'success',
+                text : $localize `component.RecipePage_ViewHeader.copied_to_clipboard`
+            };
+        }
     });
 
     const handlePrintClick = $(() => {

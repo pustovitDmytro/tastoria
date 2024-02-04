@@ -1,5 +1,5 @@
 @value colors: "../../variables.css";
-@value primary_2 from colors;
+@value primary_2, error_1 from colors;
 
 .page {
     height: 100%;
@@ -13,6 +13,13 @@
 .header{
     height: 30%;
     color: primary_2;
+    position: relative;
+
+    .error{
+        position: absolute;
+        bottom: 10px;
+        color: error_1;
+    }
 }
 
 .content {
@@ -29,7 +36,6 @@
 .signUpBtn {
     margin-top: 5px;
     margin-bottom: 10px;
-    height: calc(2.5rem + 20px);
 }
 
 .providers {

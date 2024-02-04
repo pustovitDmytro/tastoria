@@ -4,6 +4,8 @@ import { qwikCity } from '@builder.io/qwik-city/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import svgx from '@svgx/vite-plugin-qwik';
 import basicSsl from '@vitejs/plugin-basic-ssl';
+import { vitePluginTypescriptTransform } from 'vite-plugin-typescript-transform';
+import ts from 'typescript';
 import { version } from './package.json';
 
 process.env.PUBLIC_TASTORIA_BUILD_DATE = (new Date()).toISOString();
@@ -13,10 +15,28 @@ export default defineConfig(() => {
     return {
         plugins : [
             // basicSsl(),
+            // babel({
+            //     babelConfig : {
+            //         babelrc : true
+            //     }
+            // }),
             svgx(),
             qwikCity(),
             qwikVite(),
-            tsconfigPaths()
+            tsconfigPaths(),
+            vitePluginTypescriptTransform({
+                enforce : 'pre',
+                filter  : {
+                    files : {
+                        include : /firebase.ts$/
+                    }
+                },
+                tsconfig : {
+                    override : {
+                        jsx : ts.JsxEmit.Preserve
+                    }
+                }
+            })
         ],
         dev : {
             headers : {
@@ -27,9 +47,10 @@ export default defineConfig(() => {
             headers : {
                 'Cache-Control' : 'public, max-age=600'
             }
+        },
+        define : {
+            TASTORIA_BUILD_DATE : JSON.stringify((new Date()).toISOString()),
+            TASTORIA_VERSION    : JSON.stringify(version)
         }
-        // define : {
-        //     VITE_UNV : JSON.stringify('ABCDEF')
-        // }
     };
 });

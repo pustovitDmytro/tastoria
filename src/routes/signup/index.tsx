@@ -1,4 +1,4 @@
-import { $, component$,  useSignal,  useStore } from '@builder.io/qwik';
+import { $, component$,  useContext,  useSignal,  useStore } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeAction$,  useLocation } from '@builder.io/qwik-city';
 import styles from './styles.module.css';
@@ -6,6 +6,8 @@ import firebase from '~/firebase';
 import TextInput from '~/components/TextInput';
 import Button from '~/components/Button';
 import Glogo from '~/media/google-logo.png?jsx';
+import { appContext } from '~/stores';
+import { qwikErrorDecorator } from '~/errors';
 
 export const useRedirect = routeAction$(async (user, { cookie, redirect }) => {
     cookie.set('tastoria.session', user, {
@@ -24,8 +26,10 @@ export default component$(() => {
     const email = useSignal('');
     const password = useSignal('');
     const fullName = useSignal('');
+    const app = useContext(appContext);
+    const error = useSignal('');
 
-    const handleSignUpClick = $(async () => {
+    const handleSignUpClickInternal = $(async () => {
         await firebase.signUp({
             email    : email.value,
             password : password.value,
@@ -33,8 +37,10 @@ export default component$(() => {
         }, location.url);
 
         step.value = 'verify-email';
-        // FirebaseError: Firebase: Error (auth/email-already-in-use).
     });
+
+    const handleSignUpClick = $(() =>
+        qwikErrorDecorator(handleSignUpClickInternal, { app, signals: { main: error } }));
 
     const googleLogin = $(async () => {
         const authorized = await firebase.googleSignIn();
@@ -51,6 +57,7 @@ export default component$(() => {
                 <div class={styles.header}>
                     <h1>{$localize `pages.signup.title`}</h1>
                     <h2>{$localize `pages.signup.subtitle`}</h2>
+                    <p class={styles.error}>{error}</p>
                 </div>
                 <div class={styles.content}>
                     {

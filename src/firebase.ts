@@ -6,6 +6,7 @@ import  * as firebaseAuth  from 'firebase/auth';
 import { getDatabase, ref as refDB, set, get } from 'firebase/database';
 import config from './config';
 import { dumpRecipe, dumpUserSessionData } from '~/utils/dumpUtils';
+import { fireBaseErrorDecorator } from '~/errors';
 
 const {
     GoogleAuthProvider,
@@ -34,15 +35,9 @@ async function getDownloadURL(reference) {
     return `${url.href}?alt=media&token=${json.downloadTokens}`;
 }
 
-
-// interface CustomBaseApi extends BaseApi {
-//     get(url: string): any; // Define the 'get' method signature
-// }
-
+@fireBaseErrorDecorator()
 class FireBase {
     _app: FirebaseApp;
-
-    _userId: any;
 
     _storage: FirebaseStorage;
 
@@ -51,7 +46,6 @@ class FireBase {
     _instance: any;
 
     constructor(firebaseConfig) {
-        // super();
         this._app = initializeApp(firebaseConfig);
         this._storage = getStorage(this._app);
         this._bucketName = this._app.options.storageBucket || '';

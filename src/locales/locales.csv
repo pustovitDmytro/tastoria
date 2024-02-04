@@ -11,6 +11,7 @@ id,en,key,ua
 2102064060603598482,Edit Recipe,component.RecipePage_EditPage.title,Редагувати рецепт
 3654005871061026259,Title,component.RecipePage_EditPage.titleLabel,Назва
 5351086426857767883,Source,component.RecipePage_EditPage.urlLabel,Джерело
+7982773027193738087,Copied to Clipboard,component.RecipePage_ViewHeader.copied_to_clipboard,Скопійовано в буфер обміну
 6462603258769598950,Ingredients,component.RecipePage_ViewHeader.ingredientsLabel,Інгредієнти
 7183414116130184102,Steps,component.RecipePage_ViewHeader.stepsLabel,Кроки
 7871448920656156096,Tastoria Recipe,component.RecipePage_ViewHeader.title,Рецепт Tastoria
@@ -18,6 +19,29 @@ id,en,key,ua
 4658353484491812875,Quantity,component.RecipePage_ViewPage.quantityLabel,Кількість
 4650903528543833426,Source,component.RecipePage_ViewPage.sourceLabel,Джерело
 5705116752623815839,Steps,component.RecipePage_ViewPage.stepsLabel,Кроки
+4236136619794542356,Error: Admin Only Operation,ERROR_FIREBASE_ADMIN_ONLY_OPERATION,Помилка: Тільки для адміністраторів
+176774566442809400,Error: Code Expired,ERROR_FIREBASE_CODE_EXPIRED,Помилка: Термін дії коду закінчився
+4668349082736715583,Error: Email Already Exists,ERROR_FIREBASE_EMAIL_EXISTS,Помилка: Електронна пошта вже існує
+3880691444767968768,Error: Expired OOB Code,ERROR_FIREBASE_EXPIRED_OOB_CODE,Помилка: Термін дії зовнішнього коду закінчився
+7737052254869964490,Error: Internal Server Error,ERROR_FIREBASE_INTERNAL_ERROR,Помилка: Внутрішня помилка сервера
+7339256980490794339,Error: Invalid Authentication,ERROR_FIREBASE_INVALID_AUTH,Помилка: Неправильна аутентифікація
+4707217017575566954,Error: Invalid Code,ERROR_FIREBASE_INVALID_CODE,Помилка: Неправильний код
+3797702890437021927,Error: Invalid Email,ERROR_FIREBASE_INVALID_EMAIL,Помилка: Неправильна електронна пошта
+1489367329696169074,Error: Invalid Login Credentials,ERROR_FIREBASE_INVALID_LOGIN_CREDENTIALS,Помилка: Неправильні облікові дані для входу
+5866302122084818846,Error: Invalid OOB Code,ERROR_FIREBASE_INVALID_OOB_CODE,Помилка: Неправильний зовнішній код
+4941573491216098836,Error: Invalid Password,ERROR_FIREBASE_INVALID_PASSWORD,Помилка: Неправильний пароль
+7466819402592819925,Error: Missing Code,ERROR_FIREBASE_MISSING_CODE,Помилка: Відсутній код
+2111998227502058872,Error: Missing Session Info,ERROR_FIREBASE_MISSING_SESSION_INFO,Помилка: Відсутня інформація про сеанс
+7106064751016864463,Error: Network Request Failed,ERROR_FIREBASE_NETWORK_REQUEST_FAILED,Помилка: Не вдалось виконати мережевий запит
+165580488283847478,Error: Quota Exceeded,ERROR_FIREBASE_QUOTA_EXCEEDED,Помилка: Перевищено квоту
+5425125509842092477,Error: Timeout,ERROR_FIREBASE_TIMEOUT,Помилка: Таймаут
+7855586582448434398,Error: Token Expired,ERROR_FIREBASE_TOKEN_EXPIRED,Помилка: Термін дії токена закінчився
+4515137648508416271,"Error: Too Many Attempts, Try Later",ERROR_FIREBASE_TOO_MANY_ATTEMPTS_TRY_LATER,"Помилка: Забагато спроб, спробуйте пізніше"
+9039817998329289062,Unknown Error,ERROR_FIREBASE_UNKNOWN_ERROR,Невідома помилка
+1132414157822879852,Error: Unverified Email,ERROR_FIREBASE_UNVERIFIED_EMAIL,Помилка: Електронна пошта не підтверджена
+1322738374409609580,Error: User Not Found,ERROR_FIREBASE_USER_DELETED,Помилка: Користувача не знайдено
+4957061158928875695,Error: User Signed Out,ERROR_FIREBASE_USER_SIGNED_OUT,Помилка: Користувач вийшов із системи
+5555959723551271636,Error: Weak Password,ERROR_FIREBASE_WEAK_PASSWORD,Помилка: Слабкий пароль
 5243211389958567300,About,menu.About,Про нас
 3374218623292627817,Import,menu.Import,Імпортувати
 4747233810145954506,Recipes,menu.Recipes,Мої Рецепти

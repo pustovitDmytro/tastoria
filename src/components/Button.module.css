@@ -8,10 +8,11 @@
   border-color: primary_2;
   color: primary_2;
   border-radius: 0.5rem;
-  height: 2.5rem;
+  height: calc(2.5rem + 20px);
   position: relative;
   opacity: 1;
   transition: opacity 0.3s ease;
+  padding: 10px;
 
   &.isLoading {
     opacity: 0.5;
@@ -50,6 +51,7 @@
     border: none;
     background-color: unset;
     border-radius: 0;
+    padding: 0;
   }
 
   .loader {

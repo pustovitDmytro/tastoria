@@ -9,6 +9,8 @@ import type { SlotState } from '~/stores/slot';
 import Menu from '~/components/Menu/menu';
 import { extractLang, useI18n } from '~/i18n';
 import firebase from '~/firebase';
+import Toasts from '~/components/Toasts';
+
 // export const onGet: RequestHandler = async ({ cacheControl, cookie }) => {
 //     cacheControl({ // https://qwik.builder.io/docs/caching/
 //         staleWhileRevalidate : 60 * 60 * 24 * 7, // Always serve a cached response by default, up to a week stale
@@ -111,7 +113,7 @@ export default component$(() => {
     });
 
     const sessionStore = useStore({ user: session });
-    const appStore = useStore({ isMenuOpened: false, language: settings.value.language });
+    const appStore = useStore({ isMenuOpened: false, language: settings.value.language, toasts: {} });
     const recipesStore = useStore({ all: map, lastChanged: useSignal(new Date()) });
 
     useContextProvider(sessionContext, sessionStore);
@@ -140,6 +142,7 @@ export default component$(() => {
                     <Slot/>
                 </div>
                 <Footer class={styles.footer}/>
+                <Toasts/>
             </main>
         </>
     );
