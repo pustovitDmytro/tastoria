@@ -8,9 +8,6 @@ import { vitePluginTypescriptTransform } from 'vite-plugin-typescript-transform'
 import ts from 'typescript';
 import { version } from './package.json';
 
-process.env.PUBLIC_TASTORIA_BUILD_DATE = (new Date()).toISOString();
-process.env.PUBLIC_TASTORIA_VERSION = version;
-
 export default defineConfig(() => {
     return {
         plugins : [
@@ -49,8 +46,10 @@ export default defineConfig(() => {
             }
         },
         define : {
-            TASTORIA_BUILD_DATE : JSON.stringify((new Date()).toISOString()),
-            TASTORIA_VERSION    : JSON.stringify(version)
+            TASTORIA_BUILD : {
+                DATE    : new Date().toISOString(),
+                VERSION : version
+            }
         }
     };
 });

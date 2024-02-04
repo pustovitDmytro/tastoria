@@ -2,12 +2,13 @@
 import { $, Resource, component$, useContext, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
 import { v4 as uuid } from 'uuid';
-import { version } from '../../../package.json';
 import TextInput from '../TextInput';
 import styles from './EditPage.module.css';
 import type { Recipe } from '~/types';
 import Button from '~/components/Button';
 import { recipesContext } from '~/stores';
+
+const version = TASTORIA_BUILD.VERSION;
 
 interface Props {
     recipe?: Recipe;

@@ -85,8 +85,8 @@ import { CacheFirst, StaleWhileRevalidate, NetworkOnly } from 'workbox-strategie
 
 import { BackgroundSyncPlugin } from 'workbox-background-sync';
 
-const buildDate = import.meta.env.PUBLIC_TASTORIA_BUILD_DATE;
-const version = import.meta.env.PUBLIC_TASTORIA_VERSION;
+const buildDate = TASTORIA_BUILD.DATE;
+const version = TASTORIA_BUILD.VERSION;
 
 declare const self: ServiceWorkerGlobalScope;
 

@@ -2,9 +2,11 @@ import { component$, useStore, useVisibleTask$  } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import uaparser from 'ua-parser-js';
-import { version, license } from '../../../package.json';
+import { license } from '../../../package.json';
 import styles from './styles.module.css';
 import Image from '~/media/about.png?jsx';
+
+const version = TASTORIA_BUILD.VERSION;
 
 export const useUserAgentDetails = routeLoader$(async (requestEvent) => {
     const userAgent = requestEvent.request.headers.get('user-agent');

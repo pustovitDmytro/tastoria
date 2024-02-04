@@ -50,6 +50,7 @@ module.exports = {
         'qwik/jsx-img'                                      : 0
     },
     'globals' : {
-        $localize : 'writable'
+        $localize      : 'writable',
+        TASTORIA_BUILD : 'readable'
     }
 };

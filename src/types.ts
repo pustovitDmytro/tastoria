@@ -37,3 +37,10 @@ export interface ReceipFilter {
     value: string,
     items: Array<string>
 }
+
+declare global {
+    const TASTORIA_BUILD: {
+        VERSION: string;
+        DATE: string;
+    };
+}

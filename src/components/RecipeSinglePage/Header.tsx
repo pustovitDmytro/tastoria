@@ -5,7 +5,6 @@ import { $, component$, noSerialize, useContext, useSignal } from '@builder.io/q
 import { isFunction } from 'myrmidon';
 import type { ActionStore } from '@builder.io/qwik-city';
 import { v4 as uuid } from 'uuid';
-import { version } from '../../../package.json';
 import styles from './recipe.module.css';
 import type { Recipe } from '~/types';
 import ShareIcon from '~/components/Icons/share.svg?component';
@@ -17,6 +16,8 @@ import EditIcon from '~/components/Icons/edit.svg';
 import DuplicateIcon from '~/components/Icons/duplicate.svg';
 import Button from '~/components/Button';
 import { recipesContext, appContext } from '~/stores';
+
+const version = TASTORIA_BUILD.VERSION;
 
 interface HeaderProps {
     recipe: Recipe;
