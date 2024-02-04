@@ -1,3 +1,14 @@
+## [1.23.1](https://github.com/pustovitDmytro/tastoria/compare/v1.23.0...v1.23.1) (2024-02-04)
+
+
+### Chore
+
+* replace version import with define ([8c577af](https://github.com/pustovitDmytro/tastoria/commit/8c577afce9bc368fa4d3a97b7c24128b1f774ada))
+
+### Fix
+
+* localization for errors ([65896a9](https://github.com/pustovitDmytro/tastoria/commit/65896a9af03051b2ee6aff94fed7119cb9877be1))
+
 # [1.23.0](https://github.com/pustovitDmytro/tastoria/compare/v1.22.1...v1.23.0) (2024-02-04)
 
 
