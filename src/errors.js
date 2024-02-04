@@ -46,10 +46,10 @@ function classDecorator(target, config = {}) {
 class TastoriaError extends Error {
     constructor({ type, original, code, message }) {
         super(code);
-        this._type = type;
-        this._original = original;
-        this._code = code;
-        this._message = message;
+        this.type = type;
+        this.original = original;
+        this.code = code;
+        this.message = message;
     }
 }
 
@@ -57,6 +57,9 @@ export async function qwikErrorDecorator(f, { app, signals: { main } }) {
     try {
         await f();
     } catch (error) {
+        console.log('error:', error);
+        console.log(1, error._message);
+        console.log(2, error.message);
         const id = uuid();
 
         // eslint-disable-next-line no-param-reassign
