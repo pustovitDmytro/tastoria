@@ -1,4 +1,4 @@
-import { $, component$, useSignal } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import type {
     Signal
 } from '@builder.io/qwik';
@@ -12,7 +12,6 @@ type Props = {
 
 export default component$((props: Props) => {
     const { value, options } = props;
-    const count = useSignal(false);
 
     return (
         <div class={[ styles.container, props.class ]}>

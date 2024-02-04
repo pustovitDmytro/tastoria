@@ -1,5 +1,5 @@
 @value colors: "../../variables.css";
-@value white_1, white_2, primary_2, text_1 from colors;
+@value white_1, white_2, primary_2, primary_1, text_1 from colors;
 
 .menu {
   position: absolute;
@@ -27,14 +27,21 @@
     margin-left: 1.5rem;
     margin-bottom: 1.2rem;
     font-size: 1.2rem;
-}
+
+    &.current{
+      .link{
+        color: primary_1;
+      }
+    }
+      
+    .link {
+      text-decoration: none;
+      color: text_1;
+      font-weight: 500;
+      transition: color 0.3s ease-in-out;
+    }
+  }
   
-.link {
-  text-decoration: none;
-  color: text_1;
-  font-weight: 500;
-  transition: color 0.3s ease-in-out;
-}
 
 .link:hover {
   color: primary_2;

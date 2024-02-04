@@ -1,5 +1,5 @@
 @value colors: "../variables.css";
-@value primary_1, primary_2, primary_3 from colors;
+@value primary_1, primary_2, primary_3, error_1 from colors;
 
 .button {
   cursor: pointer;
@@ -9,6 +9,13 @@
   color: primary_2;
   border-radius: 0.5rem;
   height: 2.5rem;
+  position: relative;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+
+  &.isLoading {
+    opacity: 0.5;
+  }
   
   &.disabled {
       opacity: 0.5;
@@ -30,9 +37,34 @@
     }
   }
 
+  &.error {
+    border-color: error_1;
+    color: error_1;
+    
+    svg {
+      fill: error_1;
+    }
+  }
+
   &.icon {
     border: none;
     background-color: unset;
     border-radius: 0;
+  }
+
+  .loader {
+    position: absolute;
+    opacity: 0;
+
+    width: 50%;
+    height: 50%;
+
+    left: 25%;
+    top: 25%;
+
+    &.isLoading {
+      opacity: 1;
+      transition   : opacity 0.3s ease;
+    }
   }
 }

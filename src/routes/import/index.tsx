@@ -84,8 +84,7 @@ function saveAs(blob, name) {
     }, 0);
 }
 
-async function exportBackup(user, isLoading) {
-    isLoading.value = true;
+async function exportBackup(user) {
     const recipes = await firebase.downloadRecipes(user.id);
     const zip = new JSZip();
 
@@ -100,22 +99,18 @@ async function exportBackup(user, isLoading) {
 
     const blob = await zip.generateAsync({ type: 'blob' });
 
-    isLoading.value = false;
-
     saveAs(blob, `${user.fullName}.tastoria`);
 }
 
 const Export = component$(() => {
     const session = useContext(sessionContext);
-    const isLoading = useSignal(false);
-    const userExportHanlder = $(() => exportBackup(session.user.value, isLoading));
+    const userExportHanlder = $(() => exportBackup(session.user.value));
 
     return <div class={styles.exportBox}>
         <span class={styles.exportText}>{$localize `pages.import.export_placeholder`}</span>
 
         <Button class={[ styles.exportButton ]} onClick={userExportHanlder}>
-            {isLoading.value && <Loader class={styles.loader}/>}
-            <DownloadIcon class={[ { [styles.isLoading]: isLoading.value } ]}/>
+            <DownloadIcon class={[ styles.icon ]}/>
         </Button>
     </div>;
 });
