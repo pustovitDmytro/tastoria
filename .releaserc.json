@@ -8,19 +8,19 @@
         [
             "semantic-release-bundle",
             {
-              "type": "q-manifest",
+              "type": "vite-define",
               "updatePackageJSON": true
-            }
-        ],
-        [
-            "@semantic-release/exec", {
-                "prepareCmd": "zip -r build.v${nextRelease.version}.zip dist .netlify",
-                "publishCmd": "npx netlify deploy --prod"
             }
         ],
         [
             "@semantic-release/changelog", {
                 "changelogFile": "CHANGELOG.md"
+            }
+        ],
+        [
+            "@semantic-release/exec", {
+                "prepareCmd": "./bin/bundle_changelog.js CHANGELOG.md dist/changelog.json && zip -r build.v${nextRelease.version}.zip dist .netlify",
+                "publishCmd": "npx netlify deploy --prod"
             }
         ],
         [

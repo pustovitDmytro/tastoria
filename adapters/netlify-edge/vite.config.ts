@@ -13,7 +13,7 @@ export default extendConfig(baseConfig, () => {
       ssr: true,
       rollupOptions: {
         input: ["src/entry.netlify-edge.tsx", "@qwik-city-plan"],
-        external: ["node:crypto", "node:buffer", 'util'],
+        external: ["node:crypto", "node:buffer"],
       },
       outDir: ".netlify/edge-functions/entry.netlify-edge",
     },

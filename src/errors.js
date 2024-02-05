@@ -57,9 +57,6 @@ export async function qwikErrorDecorator(f, { app, signals: { main } }) {
     try {
         await f();
     } catch (error) {
-        console.log('error:', error);
-        console.log(1, error._message);
-        console.log(2, error.message);
         const id = uuid();
 
         // eslint-disable-next-line no-param-reassign

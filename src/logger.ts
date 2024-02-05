@@ -1,2 +1,3 @@
+import stdlogger from 'stdlogger';
 
-export default console;
+export default stdlogger;

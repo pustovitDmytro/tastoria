@@ -129,12 +129,6 @@ class FireBase {
         return dumpUserSessionData(user);
     }
 
-    onError(error) {
-        console.error(error);
-
-        return null;
-    }
-
     async saveUserData(user, data) {
         const db = getDatabase();
         const userRef = refDB(db, `users/${user.id}`);

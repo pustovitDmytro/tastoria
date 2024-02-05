@@ -1,6 +1,6 @@
 import { getDatabase, ref as refDB, set, get } from 'firebase/database';
 import { isEqual, isAfter } from 'date-fns';
-
+import logger from '../logger';
 import type { Recipe } from '~/types';
 
 interface compareResult {
@@ -36,7 +36,7 @@ export async function syncUserRecipes(userId:string, recipes:Recipe[]):Promise<c
     const syncId = `${userId }_${Date.now()}`;
 
     try {
-        console.log('RECIPES_SYNC_STARTED', syncId);
+        logger.info(`RECIPES_SYNC_STARTED ${syncId}`);
 
         const db = getDatabase();
         const ref = refDB(db, `recipes/${userId}`);
@@ -74,13 +74,13 @@ export async function syncUserRecipes(userId:string, recipes:Recipe[]):Promise<c
 
         await Promise.all(promises);
 
-        console.log('RECIPES_SYNC_FINISHED', syncId);
+        logger.info(`RECIPES_SYNC_FINISHED ${ syncId}`);
 
         return results;
     } catch (error) {
-        console.log('RECIPES_SYNC_FAILED', syncId);
+        logger.error(`RECIPES_SYNC_FAILED ${syncId}`);
 
-        console.error(error);
+        logger.error(error);
 
         return [];
     }
