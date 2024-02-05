@@ -4,7 +4,6 @@
 import path from 'path';
 import { docopt } from 'docopt';
 import fs from 'fs-extra';
-import { remark } from 'remark';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
 import sectionize from 'remark-sectionize';
