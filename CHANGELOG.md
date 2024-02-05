@@ -1,3 +1,10 @@
+## [1.23.2](https://github.com/pustovitDmytro/tastoria/compare/v1.23.1...v1.23.2) (2024-02-05)
+
+
+### Fix
+
+* fixes service worker ([5bc8fbd](https://github.com/pustovitDmytro/tastoria/commit/5bc8fbd4664fc15d23a8d4395427d5e94856ce7c))
+
 ## [1.23.1](https://github.com/pustovitDmytro/tastoria/compare/v1.23.0...v1.23.1) (2024-02-04)
 
 
