@@ -1,3 +1,14 @@
+# [1.24.0](https://github.com/pustovitDmytro/tastoria/compare/v1.23.1...v1.24.0) (2024-02-06)
+
+
+### Fix
+
+* fixes service worker ([5bc8fbd](https://github.com/pustovitDmytro/tastoria/commit/5bc8fbd4664fc15d23a8d4395427d5e94856ce7c))
+
+### New
+
+* adds whats new section ([1899dd6](https://github.com/pustovitDmytro/tastoria/commit/1899dd619136f237baf76b1f407fba28a61b4bcb))
+
 ## [1.23.1](https://github.com/pustovitDmytro/tastoria/compare/v1.23.0...v1.23.1) (2024-02-04)
 
 
