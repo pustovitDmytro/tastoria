@@ -44,6 +44,7 @@
   border-radius: 20px;
   opacity: 0.95;
   padding-bottom: 20px;
+  min-width: 300px;
 }
 
 .option {
@@ -54,4 +55,11 @@
 .closeButton {
   background-color: transparent !important;
   border: none !important;
+}
+
+@media screen and (max-width: 450px) {
+  .options {
+    left: -20px;
+    width: calc(100vw - 20px);
+  }
 }

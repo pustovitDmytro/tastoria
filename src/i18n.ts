@@ -2,16 +2,17 @@ import '@angular/localize/init';
 import { loadTranslations } from '@angular/localize';
 import { $, getLocale, useOnDocument, withLocale } from '@builder.io/qwik';
 import type { RenderOptions } from '@builder.io/qwik/server';
+import { uk, enUS } from 'date-fns/locale';
 
 // You must declare all your locales here
 import EN from './locales/message.en.json';
 import UA from './locales/message.ua.json';
 
-
 export const languages = [
-    { id: 'en', label: 'English', default: true },
-    { id: 'ua', label: 'Українська' }
+    { id: 'en', label: 'English', default: true, date: enUS },
+    { id: 'ua', label: 'Українська', date: uk }
 ];
+
 const defaultLang = languages.find(l => l.default) || languages[0];
 const TRANSLATIONS = [ EN, UA ];
 

@@ -46,6 +46,8 @@ id,en,key,ua
 3374218623292627817,Import,menu.Import,Імпортувати
 4747233810145954506,Recipes,menu.Recipes,Мої Рецепти
 1470636646523941683,Architecture,pages.about.architectureLabel,Архітектура
+3686460665643313009,What's New?,pages.about.changlelogTitle,Що нового?
+2822903074087296942,Copied to Clipboard,pages.about.deviceInfo_copied_to_clipboard,Інформацію скопійовано в буфер обміну
 8804550834504208424,Device,pages.about.deviceLabel,Пристрій
 7516280592864477890,About,pages.about.head_title,Про нас
 5199124990398657897,Height,pages.about.heightLabel,Висота

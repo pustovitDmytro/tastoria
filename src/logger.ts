@@ -1,3 +1,5 @@
 import stdlogger from 'stdlogger';
 
-export default stdlogger;
+const logger = stdlogger.default ?? stdlogger;
+
+export default logger;

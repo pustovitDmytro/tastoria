@@ -1,3 +1,6 @@
+@value colors: "../../variables.css";
+@value primary_1, primary_2, error_1 from colors;
+
 .page {
     height: 100%;
     width: 100%;
@@ -12,6 +15,7 @@
     max-height: 600px;
     display: block;
     object-fit: contain;
+    pointer-events: none;
     z-index: 2;
 }
 
@@ -25,7 +29,7 @@
     width: 165px;
     left: calc(50% - 95px);
     top: calc(50% - 180px);
-    padding: 10px 25px 10px 20px;
+    padding: 10px 25px 10px 10px;
     z-index: 1;
 }
 
@@ -39,6 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
     margin-bottom: 0.4rem;
 }
 
@@ -53,14 +58,105 @@
 .header{
     height: 40px;
     width: 50%;
+    text-align: center;
+    font-weight: bold;
+    color: primary_1;
+    font-family: 'Playfair Display', serif;
 }
 
 .footer{
     height: 20px;
-    text-align: right;
     margin-right: 20px;
     font-size: 0.6rem;
     line-height: 20px;
+    display: flex;
+    justify-content: flex-end;
+    /* position: relative; */
+
+    .copyToClipboard {
+        height: 20px;
+        width: 20px;
+        margin-right: 5px;
+        svg {
+            stroke: primary_1;
+        }
+    }
+}
+
+.changlelog {
+    position: absolute;
+    z-index: 3;
+    height: calc(100vh - 100px);
+    width: 350px;
+    right: 0;
+    top: 0;
+    overflow-y:auto;
+
+    h3 {
+        font-weight: bold;
+        color: primary_2;
+    }
+
+    .release {
+        .releaseTitle {
+            display: flex;
+            .version {
+                font-weight: bold;
+                margin-right: 5px;
+            }
+
+            .date {
+                margin-right: 5px;
+            }
+            
+            .github {
+                height: 20px;
+                width: 20px;
+                display: pointer;
+            }
+        }
+
+        ul {
+            padding-left: 30px;
+            margin-top: 5px;
+        
+            li { 
+              padding-left: 5px;
+              margin-top: 5px;
+              position: relative;
+          
+              /* &::marker {} */
+              
+              &:before {
+                content: '';
+              }
+          
+              &.New{
+                  &::marker {
+                      color: primary_2;
+                  }
+              } 
+          
+              &.Fix{
+                  &::marker {
+                      color: error_1;
+                  }
+              } 
+
+              &.Update{
+                &::marker {
+                    color: primary_3;
+                }
+              }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1350px) {
+    .changlelog {
+        display: none;
+    }
 }
 
 @media screen and (min-width: 626px) {
@@ -127,10 +223,5 @@
 
     .content {
         font-size: 0.6rem;
-    }
-
-    .content .infoBox {
-        flex-direction: column;
-    }
-    
+    }    
 }
