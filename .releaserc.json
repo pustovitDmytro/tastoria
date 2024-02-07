@@ -20,7 +20,7 @@
         ],
         [
             "@semantic-release/exec", {
-                "prepareCmd": "./bin/bundle_changelog.js CHANGELOG.md public/changelog.json && zip -r build.v${nextRelease.version}.zip dist .netlify",
+                "prepareCmd": "./bin/bundle_changelog.js CHANGELOG.md dist/changelog.json && zip -r build.v${nextRelease.version}.zip dist .netlify",
                 "publishCmd": "npx netlify deploy --prod"
             }
         ],

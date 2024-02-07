@@ -1,5 +1,5 @@
 @value colors: "../../variables.css";
-@value primary_1, primary_2, error_1 from colors;
+@value primary_1, primary_2, error_1, background_2 from colors;
 
 .page {
     height: 100%;
@@ -17,6 +17,9 @@
     object-fit: contain;
     pointer-events: none;
     z-index: 2;
+    &.isMenuOpened{
+        opacity: 0.15;
+    }
 }
 
 .paper {
@@ -31,6 +34,10 @@
     top: calc(50% - 180px);
     padding: 10px 25px 10px 10px;
     z-index: 1;
+
+    &.isMenuOpened{
+        opacity: 0.1;
+    }
 }
 
 .content{
@@ -81,6 +88,28 @@
             stroke: primary_1;
         }
     }
+}
+
+.menu {
+    display: none;
+    .openBtn {
+        color: #878787;
+        border-color: #878787;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        background-color: transparent;
+    }
+}
+
+.closeBtn {
+    fill: error_1;
+    display: none;
+    width: 20px !important; 
+    height: 20px !important;
+    top: 15px;
+    right: 15px;
+    position: absolute !important;
 }
 
 .changlelog {
@@ -156,7 +185,22 @@
 @media screen and (max-width: 1350px) {
     .changlelog {
         display: none;
+        &.isMenuOpened{
+            display: block;
+            .closeBtn {
+                display: block;
+            }
+        }
+
     }
+    
+    .menu {
+        display: block;
+        &.isMenuOpened{
+            display: none;
+        }
+    }
+    
 }
 
 @media screen and (min-width: 626px) {

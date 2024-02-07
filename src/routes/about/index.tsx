@@ -10,6 +10,7 @@ import Image from '~/media/about.png?jsx';
 import logger from '~/logger';
 import GithubIcon from '~/components/Icons/github.svg';
 import CopyIcon from '~/components/Icons/copy.svg';
+import CloseIcon from '~/components/Icons/close.svg';
 import { languages } from '~/i18n';
 import { appContext } from '~/stores';
 import Button from '~/components/Button';
@@ -114,9 +115,15 @@ export default component$(() => {
         };
     });
 
+    const isOpened = useStore({
+        changeLog : false
+    });
+
+    const isMenuOpened = isOpened.changeLog;
+
     return (
         <div class={styles.page}>
-            <div class={styles.paper}>
+            <div class={[ styles.paper, { [styles.isMenuOpened]: isMenuOpened } ]}>
                 <div class={styles.header}>Tastoria</div>
                 <div class={styles.content}>
                     <InfoBox name={$localize `pages.about.LicenseLabel`} value={license} />
@@ -143,10 +150,16 @@ export default component$(() => {
                     <span>v.{version}</span>
                 </div>
             </div>
-            <Image class={styles.image}/>
+            <Image class={[ styles.image, { [styles.isMenuOpened]: isMenuOpened } ]}/>
+            <div class={[ styles.menu, { [styles.isMenuOpened]: isMenuOpened } ]}>
+                <Button class={styles.openBtn} onClick={$(() => isOpened.changeLog = true)}>{$localize `pages.about.changlelogTitle`}</Button>
+            </div>
             {
                 changeLog.value.length > 0
-                    ? <div class={styles.changlelog}>
+                    ? <div class={[ styles.changlelog, { [styles.isMenuOpened]: isMenuOpened } ]}>
+                        <Button class={styles.closeBtn} icon={true} onClick={$(() => isOpened.changeLog = false)}>
+                            <CloseIcon/>
+                        </Button>
                         <h3>{$localize `pages.about.changlelogTitle`}</h3>
                 {...changeLog.value.map(release => <div key={release.version} class={styles.release}>
                     <div class={styles.releaseTitle}>
@@ -161,7 +174,10 @@ export default component$(() => {
                             release.changes
                                 .filter(c => [ 'Fix', 'New', 'Update' ].includes(c.type))
                                 .map(
-                                    change => <li class={{ [styles[change.type]]: true } }>
+                                    change => <li
+                                        key={change.commit}
+                                        class={{ [styles[change.type]]: true }
+                                        }>
                                         {change.message}
                                     </li>
                                 )
