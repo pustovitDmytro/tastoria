@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/pustovitDmytro/tastoria/compare/v1.24.1...v1.25.0) (2024-02-07)
+
+
+### New
+
+* changelog for mobile ([0159365](https://github.com/pustovitDmytro/tastoria/commit/015936563353c51393c77a7d377eb01b1102d5c3))
+
 ## [1.24.1](https://github.com/pustovitDmytro/tastoria/compare/v1.24.0...v1.24.1) (2024-02-07)
 
 
