@@ -144,8 +144,10 @@ export default component$(() => {
                 </div>
             </div>
             <Image class={styles.image}/>
-            <div class={styles.changlelog}>
-                <h3>{$localize `pages.about.changlelogTitle`}</h3>
+            {
+                changeLog.value.length > 0
+                    ? <div class={styles.changlelog}>
+                        <h3>{$localize `pages.about.changlelogTitle`}</h3>
                 {...changeLog.value.map(release => <div key={release.version} class={styles.release}>
                     <div class={styles.releaseTitle}>
                         <span class={styles.version} >{release.version}</span>
@@ -166,8 +168,9 @@ export default component$(() => {
                         }
                     </ul>
                 </div>)}
-
-            </div>
+                    </div>
+                    : null
+            }
         </div>
     );
 });
