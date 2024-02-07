@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/pustovitDmytro/tastoria/compare/v1.24.0...v1.24.1) (2024-02-07)
+
+
+### Fix
+
+* version in about page ([93f1cbe](https://github.com/pustovitDmytro/tastoria/commit/93f1cbe3e0168f7b39651fbc602d4a7b62531321))
+
 # [1.24.0](https://github.com/pustovitDmytro/tastoria/compare/v1.23.1...v1.24.0) (2024-02-06)
 
 
