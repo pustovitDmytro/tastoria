@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/pustovitDmytro/tastoria/compare/v1.26.0...v1.26.1) (2024-02-11)
+
+
+### Fix
+
+* adds toast after import ([883765b](https://github.com/pustovitDmytro/tastoria/commit/883765bc375411af1a2cc24af8f02a0e08f13ea0))
+
 # [1.26.0](https://github.com/pustovitDmytro/tastoria/compare/v1.25.0...v1.26.0) (2024-02-11)
 
 
