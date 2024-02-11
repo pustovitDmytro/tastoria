@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/pustovitDmytro/tastoria/compare/v1.25.0...v1.26.0) (2024-02-11)
+
+
+### New
+
+* secure firebase requests ([6582fd7](https://github.com/pustovitDmytro/tastoria/commit/6582fd73ced2092f7f33aa75eab656111d126de1))
+
 # [1.25.0](https://github.com/pustovitDmytro/tastoria/compare/v1.24.1...v1.25.0) (2024-02-07)
 
 
