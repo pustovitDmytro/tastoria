@@ -2,49 +2,57 @@ import { $, component$,  useContext,  useSignal,  useStore } from '@builder.io/q
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Link, routeAction$, useLocation } from '@builder.io/qwik-city';
 import styles from './styles.module.css';
-import firebase from '~/firebase';
 import TextInput from '~/components/TextInput';
 import Button from '~/components/Button';
 import Glogo from '~/media/google-logo.png?jsx';
-import { appContext } from '~/stores';
+import { appContext, sessionContext, recipesContext } from '~/stores';
 import { qwikErrorDecorator } from '~/errors';
+import firebaseUI from '~/firebase/ui';
+import FirebaseServer from '~/firebase/server';
+import cookiesManager from '~/cookiesManager';
 
-export const useRedirect = routeAction$(async (user, { cookie, redirect }) => {
-    cookie.set('tastoria.session', user, {
-        path     : '/',
-        maxAge   : [ 365, 'days' ],
-        sameSite : 'strict'
-    });
+export const useSignIn = routeAction$(async ({ token }, { env, cookie, redirect }) => {
+    const firebaseServer = new FirebaseServer({ env });
+    const jwttoken = await firebaseServer.getToken(token as string);
+
+    cookiesManager.setSession(cookie, jwttoken);
 
     throw redirect(302, '/recipes');
 });
 
 export default component$(() => {
     const location = useLocation();
-    const action = useRedirect();
+    const action = useSignIn();
     const prefilledEmail = location.url.searchParams.get('email');
     const email = useSignal(prefilledEmail || '');
     const password = useSignal('');
     const app = useContext(appContext);
+    const session = useContext(sessionContext);
     const error = useSignal('');
+    const recipeContext = useContext(recipesContext);
 
     const handleLoginClick = $(() =>
         qwikErrorDecorator($(async () => {
-            const authorized = await firebase.signIn({
+            const authorized = await firebaseUI.signIn({
                 email    : email.value,
                 password : password.value
             });
 
-            action.submit(authorized);
+            session.user = authorized.user;
+            await action.submit(authorized);
+            recipeContext.lastChanged.value = new Date();
         }), { app, signals: { main: error } }));
 
 
     const googleLogin = $(async () => {
         qwikErrorDecorator(
             $(async () => {
-                const authorized = await firebase.googleSignIn();
+                const authorized = await firebaseUI.googleSignIn();
 
-                action.submit(authorized);
+                session.user = authorized.user;
+
+                await action.submit(authorized);
+                recipeContext.lastChanged.value = new Date();
             }),
             { app, signals: { main: error } }
         );

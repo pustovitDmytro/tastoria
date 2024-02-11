@@ -1,12 +1,12 @@
 /* eslint-disable qwik/valid-lexical-scope */
 import { $, Resource, component$, useContext, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import type { ActionStore } from '@builder.io/qwik-city';
-import { v4 as uuid } from 'uuid';
 import TextInput from '../TextInput';
 import styles from './EditPage.module.css';
 import type { Recipe } from '~/types';
 import Button from '~/components/Button';
 import { recipesContext } from '~/stores';
+import { getRecipePlaceHolder } from '~/utils/recipe';
 
 const version = TASTORIA_BUILD.VERSION;
 
@@ -34,34 +34,6 @@ const fields = [
     // { key: 'time', label: $localize `component.RecipePage_EditPage.timeLabel`, type: 'input' },
     { key: 'rating', label: $localize `component.RecipePage_EditPage.ratingLabel`, type: 'number' }
 ] as FieldConfig[];
-
-function getRecipePlaceHolder():Recipe {
-    return {
-        id          : uuid(),
-        title       : '',
-        description : '',
-        categories  : [],
-        tags        : [],
-        language    : 'en',
-        quantity    : '',
-        comment     : '',
-        ingredients : [],
-        steps       : [],
-        time        : {
-            total   : '',
-            prepare : '',
-            cook    : ''
-        },
-        version,
-        favorite : false,
-        visits   : 0,
-        rating   : 0,
-
-        updatedAt : (new Date()).toISOString(),
-        createdAt : (new Date()).toISOString()
-    };
-}
-
 
 // eslint-disable-next-line max-lines-per-function
 export default component$<Props>((props) => {

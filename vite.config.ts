@@ -25,7 +25,7 @@ export default defineConfig(() => {
                 enforce : 'pre',
                 filter  : {
                     files : {
-                        include : /firebase.ts$/
+                        include : /firebase\/ui.ts$/
                     }
                 },
                 tsconfig : {

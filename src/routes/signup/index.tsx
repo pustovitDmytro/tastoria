@@ -2,19 +2,21 @@ import { $, component$,  useContext,  useSignal,  useStore } from '@builder.io/q
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeAction$,  useLocation } from '@builder.io/qwik-city';
 import styles from './styles.module.css';
-import firebase from '~/firebase';
+import firebaseUI from '~/firebase/ui';
 import TextInput from '~/components/TextInput';
 import Button from '~/components/Button';
 import Glogo from '~/media/google-logo.png?jsx';
 import { appContext } from '~/stores';
 import { qwikErrorDecorator } from '~/errors';
+import cookiesManager from '~/cookiesManager';
+import FirebaseServer from '~/firebase/server';
 
-export const useRedirect = routeAction$(async (user, { cookie, redirect }) => {
-    cookie.set('tastoria.session', user, {
-        path     : '/',
-        maxAge   : [ 365, 'days' ],
-        sameSite : 'strict'
-    });
+export const useRedirect = routeAction$(async ({ token }, { env, cookie, redirect }) => {
+    const firebaseServer = new FirebaseServer({ env });
+
+    const jwttoken = await firebaseServer.getToken(token as string);
+
+    cookiesManager.setSession(cookie, jwttoken);
 
     throw redirect(302, '/recipes');
 });
@@ -30,7 +32,7 @@ export default component$(() => {
     const error = useSignal('');
 
     const handleSignUpClickInternal = $(async () => {
-        await firebase.signUp({
+        await firebaseUI.signUp({
             email    : email.value,
             password : password.value,
             fullName : fullName.value
@@ -43,9 +45,7 @@ export default component$(() => {
         qwikErrorDecorator(handleSignUpClickInternal, { app, signals: { main: error } }));
 
     const googleLogin = $(async () => {
-        const authorized = await firebase.googleSignIn();
-
-        console.log(`Signed In as ${authorized.email}`);
+        const authorized = await firebaseUI.googleSignIn();
 
         action.submit(authorized);
     });

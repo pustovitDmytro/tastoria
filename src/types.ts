@@ -44,3 +44,9 @@ declare global {
         DATE: string;
     };
 }
+
+export interface FireBaseTokenPayload {
+    uid : string
+    exp: number
+    authTime: number
+}

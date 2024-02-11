@@ -6,13 +6,13 @@ import { last } from 'myrmidon';
 import JSZip from 'jszip';
 import styles from './styles.module.css';
 import FileInput from '~/components/FileInput';
-import firebase from '~/firebase';
-import { sessionContext } from '~/stores';
+import firebaseUI from '~/firebase/ui';
+import { sessionContext, recipesContext } from '~/stores';
 import Button from '~/components/Button';
 import DownloadIcon from '~/components/Icons/download.svg?component';
-import Loader from '~/components/Loader.js';
+import { getRecipePlaceHolder } from '~/utils/recipe';
 
-async function uploadFile(file, user) {
+async function handleImport(file, user, recipeMap) {
     const reader = new ZipReader(new BlobReader(file));
     const entries = await reader.getEntries({});
 
@@ -25,19 +25,26 @@ async function uploadFile(file, user) {
         const data = JSON.parse(fileData);
         const imageNames = new Set(data.recipes.map(r => r.image).filter(Boolean));
 
-        await firebase.saveUserData(user, data);
-
         const images = entries.filter(f => imageNames.has(last(f.filename.split('/'))));
 
-        await Promise.all(images.map(async i => {
+        await Promise.all(images.map(async i => { // TODO: progress bar
             const imageName = last(i.filename.split('/'));
             const writer = new BlobWriter();
 
             if (!i.getData) return;
             const image = await i.getData(writer);
 
-            await firebase.saveImage(user, imageName, image);
+            await firebaseUI.saveImage(user, imageName, image);
         }));
+
+        data.forEach(recipe => {
+            const prepared = {
+                ...getRecipePlaceHolder(),
+                ...recipe
+            };
+
+            recipeMap[prepared.id] = prepared;
+        });
     }
 }
 
@@ -84,14 +91,13 @@ function saveAs(blob, name) {
     }, 0);
 }
 
-async function exportBackup(user) {
-    const recipes = await firebase.downloadRecipes(user.id);
+async function exportBackup(user, recipes) {
     const zip = new JSZip();
 
     zip.file('data.json', JSON.stringify({ recipes }));
     for (const r of recipes) {
         if (r.image) {
-            const image = await firebase.downloadImage(user.id, r.image);
+            const image = await firebaseUI.downloadImage(user.id, r.image);
 
             zip.file(r.image, image);
         }
@@ -104,7 +110,9 @@ async function exportBackup(user) {
 
 const Export = component$(() => {
     const session = useContext(sessionContext);
-    const userExportHanlder = $(() => exportBackup(session.user.value));
+    const recipes = useContext(recipesContext);
+    const recipesList = Object.values(recipes.all);
+    const userExportHanlder = $(() => exportBackup(session.user.value, recipesList));
 
     return <div class={styles.exportBox}>
         <span class={styles.exportText}>{$localize `pages.import.export_placeholder`}</span>
@@ -115,13 +123,13 @@ const Export = component$(() => {
     </div>;
 });
 
-
 export default component$(() => {
     const session = useContext(sessionContext);
     const file = useSignal<NoSerialize<Blob>[] | NoSerialize<File>[]>();
+    const recipeContext = useContext(recipesContext);
 
     if (file.value) {
-        uploadFile(file.value, session.user.value);
+        handleImport(file.value, session.user.value, recipeContext.all);
     }
 
     return (
@@ -143,4 +151,3 @@ export default component$(() => {
 export const head: DocumentHead = {
     title : $localize `pages.import.head_title`
 };
-

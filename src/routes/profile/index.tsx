@@ -7,11 +7,12 @@ import Button from '~/components/Button';
 import Select from '~/components/Select';
 import { sessionContext, appContext } from '~/stores';
 import { languages } from '~/i18n';
+import cookiesManager from '~/cookiesManager';
 
 const SelectLanguageOptions = languages.map(({ id, label }) => ({ id, label }));
 
-export const useSignOut = routeAction$((a, { cookie, redirect }) => {
-    cookie.delete('tastoria.session', { path: '/' });
+export const useSignOut = routeAction$(async (a, { cookie, redirect }) => {
+    await cookiesManager.deleteSession(cookie);
     cookie.delete('tastoria.app', { path: '/' });
 
     throw redirect(302, '/login');

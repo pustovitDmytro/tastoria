@@ -89,6 +89,7 @@
     "date-fns": "3.3.1",
     "file-saver": "2.0.5",
     "firebase": "10.6.0",
+    "jose": "^5.2.1",
     "jszip": "3.10.1",
     "logger-decorator": "1.8.0",
     "myrmidon": "1.9.0",

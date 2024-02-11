@@ -1,5 +1,5 @@
 /* eslint-disable no-secrets/no-secrets */
-import { component$, useContext, Slot } from '@builder.io/qwik';
+import { component$, useContext, Slot, useSignal } from '@builder.io/qwik';
 import { Link, useLocation } from '@builder.io/qwik-city';
 import styles from './header.module.css';
 import Hamburger from '~/components/Icons/hamburger';
@@ -30,6 +30,7 @@ export default component$((props: Props) => {
     const session = useContext(sessionContext);
     const app = useContext(appContext);
     const location = useLocation();
+    const avatarLoadFailed = useSignal(false);
 
     const isLoginPage = location.url.pathname.includes('/login');
 
@@ -43,8 +44,13 @@ export default component$((props: Props) => {
                 session.user.value
                     ? <Link href='/profile'>
                         {
-                            session.user.value.avatar
-                                ? <img src={session.user.value.avatar} class={styles.avatar} crossOrigin='anonymous'/>
+                            (session.user.value.avatar && !avatarLoadFailed.value)
+                                ? <img
+                                    onError$={() => avatarLoadFailed.value = true}
+                                    src={session.user.value.avatar}
+                                    class={styles.avatar}
+                                    crossOrigin='anonymous'
+                                />
                                 : <Avatar seed={getAvatarSeed(session.user.value.id)} class={styles.avatar}/>
                         }
                     </Link>

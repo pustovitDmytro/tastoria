@@ -10,7 +10,6 @@ const Cottus = CottusImport.default || CottusImport;
 // import defaultRulesInport  from 'cottus/lib/rules';
 // import CottusInport from 'cottus/lib/Cottus';
 
-
 const cottus = new Cottus({ rules: defaultRules });
 
 const e = import.meta.env;
@@ -25,6 +24,13 @@ const firebase = prefix => ({
     measurementId     : { $source: `{${prefix}_MEASUREMENT_ID}`, $validate: [ 'required', 'string' ] }
 });
 
+const firebaseToken = prefix => ({
+    privateKey : { $source: `{${prefix}_PRIVATE_KEY}`, validate: [ 'required', 'encryptionKey' ] },
+    sub        : { $source: `{${prefix}_SUB}`, validate: [ 'required', 'email' ] },
+    issuer     : { $source: `{${prefix}_SUB}`, validate: [ 'required', 'email' ] },
+    audience   : { $source: `{${prefix}_AUDIENCE}`, validate: [ 'required', 'string' ] }
+});
+
 const schema = {
     firebase : firebase('PUBLIC_FIREBASE')
 };
@@ -35,3 +41,20 @@ assembler.parse();
 const config = assembler.run(e);
 
 export default config;
+
+export function getFirebaseTokenConfig(env) {
+    const faSchema = firebaseToken('FIREBASE_TOKEN');
+    const dict = {};
+
+    for (const key of Object.keys(faSchema)) {
+        const envKey = faSchema[key].$source.replaceAll(/['{}]/g, '');
+
+        dict[envKey] = env.get(envKey);
+    }
+
+    const faAssembler = new Assembler(cottus, faSchema);
+
+    faAssembler.parse();
+
+    return faAssembler.run(dict);
+}

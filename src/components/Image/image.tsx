@@ -4,7 +4,7 @@ import { component$, useContext,
 import { isServer } from '@builder.io/qwik/build';
 import styles from './image.module.css';
 import Image from '~/media/placeholder.png?jsx';
-import firebase from '~/firebase';
+import  firebaseUI from '~/firebase/ui';
 import { sessionContext } from '~/stores';
 import Loader from '~/components/Loader.js';
 
@@ -25,10 +25,10 @@ export default component$<ItemProps>((props) => {
             const userId = props.userId || session.user.value.id;
 
             if (isServer) {
-                return firebase.getImageUrl(userId, props.src);
+                return firebaseUI.getImageUrl(userId, props.src);
             }
 
-            const blob = await firebase.downloadImage(userId, props.src);
+            const blob = await firebaseUI.downloadImage(userId, props.src);
 
             return URL.createObjectURL(blob);
         }

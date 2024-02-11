@@ -19,27 +19,38 @@ type ToastProps = {
   class?: ClassList | ClassList[];
 };
 
+const ERROR_TOAST_TO_SHOW_TIME = 10_000;
+const SUCCESS_TOAST_TO_SHOW_TIME = 5000;
+
+function getToastTimeToShow(type) {
+    if (type === 'error') return ERROR_TOAST_TO_SHOW_TIME;
+
+    return SUCCESS_TOAST_TO_SHOW_TIME;
+}
+
 export default component$((props: ToastProps) => {
     const app = useContext(appContext);
 
     useVisibleTask$(({ cleanup, track }) => {
         const time = new Date();
-        const tracked = track(() => Object.keys(app.toasts));
+
+        track(() => Object.keys(app.toasts));
 
         for (const toast of Object.values(app.toasts)) {
             if (!toast.time) toast.time = time;
         }
 
         const timeout = setTimeout(() => {
-            const toRemove = Object.values(app.toasts).filter(t => t.time && isAfter(
-                new Date(),
-                add(t.time, { seconds: 10 })
-            ));
+            const toRemove = Object.values(app.toasts)
+                .filter(t => t.time && isAfter(
+                    new Date(),
+                    add(t.time, { seconds: getToastTimeToShow(t.type) / 1000 })
+                ));
 
             for (const toast of toRemove) {
                 delete app.toasts[toast.id];
             }
-        }, 10_000);
+        }, Math.min(ERROR_TOAST_TO_SHOW_TIME, SUCCESS_TOAST_TO_SHOW_TIME) + 10);
 
         cleanup(() => clearTimeout(timeout));
     });

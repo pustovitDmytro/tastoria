@@ -40,7 +40,5 @@ export function dumpUserSessionData(user: User) {
 
         lastLoginAt : meta.lastSignInTime,
         createdAt   : meta.creationTime
-
-        // accessToken: user.accessToken
     };
 }

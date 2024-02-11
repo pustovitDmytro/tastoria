@@ -6,17 +6,17 @@ import Cipher from '~/utils/aes';
 import { slotContext, recipesContext } from '~/stores';
 import HeaderContent from '~/components/RecipeSinglePage/Header';
 import Page from '~/components/RecipeSinglePage/Page';
+import cookiesManager from '~/cookiesManager';
 
 export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) => {
-    const session = cookie.get('tastoria.session');
-    const user = session?.json() as any;
+    const session = await cookiesManager.getSession(cookie, env);
 
-    if (!user) return null;
+    if (!session) return null;
     const recipeId = params.id;
     const cipher = new Cipher({ key: env.get('SHARE_SECRET_KEY') });
 
     const sharedToken =  await cipher.encrypt([
-        user.id,
+        session.userId,
         recipeId,
         Date.now()
     ]);

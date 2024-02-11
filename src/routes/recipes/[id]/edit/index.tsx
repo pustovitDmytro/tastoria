@@ -3,12 +3,12 @@ import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeAction$, routeLoader$, server$, useLocation } from '@builder.io/qwik-city';
 import { recipesContext } from '~/stores';
 import Page from '~/components/RecipeSinglePage/EditPage';
+import cookiesManager from '~/cookiesManager';
 
 export const useRecipesDetails = routeLoader$(async ({ cookie, params, env }) => {
-    const session = cookie.get('tastoria.session');
-    const user = session?.json() as any;
+    const session = await cookiesManager.getSession(cookie, env);
 
-    if (!user) return null;
+    if (!session) return null;
     const recipeId = params.id;
 
     return { recipeId };

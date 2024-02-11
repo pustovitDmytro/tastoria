@@ -1,15 +1,18 @@
-import { syncUserRecipes } from '~/utils/sync';
+import cookiesManager from '~/cookiesManager';
+import FirebaseServer from '~/firebase/server';
 
-export const onPost = async ({ json, cookie, parseBody }) => {
-    const session = cookie.get('tastoria.session');
-    const user = session?.json() as any;
+export const onPost = async ({ json, env, cookie, parseBody }) => {
+    const session = await cookiesManager.getSession(cookie, env);
 
-    if (!user) return json(401, { code: 'SESSION_NOT_FOUND' });
+    if (!session) return json(401, { code: 'SESSION_NOT_FOUND' });
     const localRecipes = await parseBody();
+    const firebaseServer = new FirebaseServer({ env });
 
-    const res = await syncUserRecipes(user.id, localRecipes);
+    const user = await firebaseServer.signIn(session.token);
+
+    const res = await firebaseServer.syncUserRecipes(session.userId, localRecipes);
 
     const localImplement = res.filter(r => [ 'UPDATE_LOCAL', 'ADD_LOCAL' ].includes(r.type));
 
-    json(200, { implement: localImplement });
+    json(200, { implement: localImplement, user });
 };

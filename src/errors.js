@@ -157,7 +157,9 @@ const firebaseErrors = {
     'auth/unverified-email'           : 'FIREBASE_UNVERIFIED_EMAIL',
     'auth/user-not-found'             : 'FIREBASE_USER_DELETED',
     'auth/user-signed-out'            : 'FIREBASE_USER_SIGNED_OUT',
-    'auth/weak-password'              : 'FIREBASE_WEAK_PASSWORD'
+    'auth/weak-password'              : 'FIREBASE_WEAK_PASSWORD',
+
+    'Permission denied' : 'FIREBASE_PERMISSION_DENIED'
 };
 
 export const ERROR_MESSAGES =  {
@@ -184,5 +186,6 @@ export const ERROR_MESSAGES =  {
     FIREBASE_UNVERIFIED_EMAIL            : $localize `ERROR_FIREBASE_UNVERIFIED_EMAIL`,
     FIREBASE_USER_DELETED                : $localize `ERROR_FIREBASE_USER_DELETED`,
     FIREBASE_USER_SIGNED_OUT             : $localize `ERROR_FIREBASE_USER_SIGNED_OUT`,
-    FIREBASE_WEAK_PASSWORD               : $localize `ERROR_FIREBASE_WEAK_PASSWORD`
+    FIREBASE_WEAK_PASSWORD               : $localize `ERROR_FIREBASE_WEAK_PASSWORD`,
+    FIREBASE_PERMISSION_DENIED           : $localize `ERROR_FIREBASE_PERMISSION_DENIED`
 };

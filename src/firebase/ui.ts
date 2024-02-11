@@ -3,8 +3,7 @@ import { initializeApp } from 'firebase/app';
 import type { FirebaseStorage } from 'firebase/storage';
 import { getStorage, ref as refStorage, uploadBytes } from 'firebase/storage';
 import  * as firebaseAuth  from 'firebase/auth';
-import { getDatabase, ref as refDB, set, get } from 'firebase/database';
-import config from './config';
+import config from '../config';
 import { dumpRecipe, dumpUserSessionData } from '~/utils/dumpUtils';
 import { fireBaseErrorDecorator } from '~/errors';
 
@@ -17,11 +16,13 @@ const {
     sendSignInLinkToEmail,
     isSignInWithEmailLink,
     signInWithEmailLink,
+    signInWithCustomToken,
     EmailAuthProvider,
     updatePassword,
     updateProfile,
     sendEmailVerification,
-    applyActionCode
+    applyActionCode,
+    updateCurrentUser
 } = firebaseAuth;
 
 async function getDownloadURL(reference) {
@@ -36,7 +37,7 @@ async function getDownloadURL(reference) {
 }
 
 @fireBaseErrorDecorator()
-class FireBase {
+class FireBaseUI {
     _app: FirebaseApp;
 
     _storage: FirebaseStorage;
@@ -49,10 +50,6 @@ class FireBase {
         this._app = initializeApp(firebaseConfig);
         this._storage = getStorage(this._app);
         this._bucketName = this._app.options.storageBucket || '';
-    }
-
-    getHeaders() {
-        return {};
     }
 
     async getImageUrl(userId, imageName) {
@@ -69,44 +66,25 @@ class FireBase {
         return res.blob();
     }
 
-    async downloadRecipes(userId) {
-        const db = getDatabase();
-        const ref = refDB(db, `recipes/${userId}`);
-        const snapshot = await get(ref);
-
-        if (!snapshot.exists()) return [];
-
-        return Object.values(snapshot.val()).map(r => dumpRecipe(r));
-    }
-
-    async downloadRecipe(userId, recipeId) {
-        const db = getDatabase();
-        const ref = refDB(db, `recipes/${userId}/${recipeId}`);
-        const snapshot = await get(ref);
-
-        if (!snapshot.exists()) return null;
-
-        return dumpRecipe(snapshot.val());
-    }
-
     async googleSignIn() {
         const auth = getAuth(this._app);
-
         const provider = new GoogleAuthProvider();
 
         provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
         const result = await signInWithPopup(auth, provider);
+        const idToken = await result.user.getIdToken();
 
-        return dumpUserSessionData(result.user);
+        return { user: dumpUserSessionData(result.user), token: idToken };
     }
 
     async signIn({ email, password }) {
         const auth = getAuth(this._app);
         const credentials = await signInWithEmailAndPassword(auth, email, password);
         const user = credentials.user;
+        const idToken = await user.getIdToken();
 
-        return dumpUserSessionData(user);
+        return { user: dumpUserSessionData(user), token: idToken };
     }
 
     async signUp({ email, password, fullName }, appUrl) {
@@ -125,29 +103,9 @@ class FireBase {
         };
 
         await sendEmailVerification(user, actionCodeSettings);
+        const idToken = await user.getIdToken();
 
-        return dumpUserSessionData(user);
-    }
-
-    async saveUserData(user, data) {
-        const db = getDatabase();
-        const userRef = refDB(db, `users/${user.id}`);
-        const snapshot = await get(userRef);
-
-        if (snapshot.exists()) {
-            console.log('user', snapshot.val());
-        } else {
-            await set(userRef, user);
-        }
-
-        const promises = data.recipes.map(async r => {
-            if (!r.id) return;
-            const recipeRef = refDB(db, `recipes/${user.id}/${r.id}`);
-
-            await set(recipeRef, r);
-        });
-
-        await Promise.all(promises);
+        return { user: dumpUserSessionData(user), token: idToken };
     }
 
     async saveImage(user, name, blob) {
@@ -157,6 +115,4 @@ class FireBase {
     }
 }
 
-const firebase = new FireBase(config.firebase);
-
-export default firebase;
+export default new FireBaseUI(config.firebase);

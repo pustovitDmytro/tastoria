@@ -9,7 +9,6 @@ export const useCreate = routeAction$((recipe, { redirect }) => {
 });
 
 export default component$(() => {
-    const recipeContext = useContext(recipesContext);
     const onSave = useCreate();
 
     return <Page

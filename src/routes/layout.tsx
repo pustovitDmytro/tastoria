@@ -8,8 +8,9 @@ import { sessionContext, appContext, slotContext, recipesContext } from '~/store
 import type { SlotState } from '~/stores/slot';
 import Menu from '~/components/Menu/menu';
 import { extractLang, useI18n } from '~/i18n';
-import firebase from '~/firebase';
+import FirebaseServer from '~/firebase/server';
 import Toasts from '~/components/Toasts';
+import cookiesManager from '~/cookiesManager';
 
 // export const onGet: RequestHandler = async ({ cacheControl, cookie }) => {
 //     cacheControl({ // https://qwik.builder.io/docs/caching/
@@ -19,10 +20,14 @@ import Toasts from '~/components/Toasts';
 //     });
 // };
 
-export const useSession = routeLoader$(async ({ cookie }) => {
-    const session = cookie.get('tastoria.session');
+export const useSession = routeLoader$(async ({ cookie, env }) => {
+    const session = await cookiesManager.getSession(cookie, env);
 
-    return session?.json();
+    if (!session) return null;
+
+    const firebaseServer = new FirebaseServer({ env });
+
+    return firebaseServer.signIn(session.token);
 });
 
 export const useSettings = routeLoader$(async ({ locale, cookie }) => {
@@ -35,7 +40,7 @@ export const useSettings = routeLoader$(async ({ locale, cookie }) => {
     return { language };
 });
 
-function debounce(func, timeout = 1000) {
+function debounce(func, timeout = 10_000) {
     let timer;
 
     return (...args) => {
@@ -50,10 +55,11 @@ function debounce(func, timeout = 1000) {
     };
 }
 
-async function runBackgroundSync(time, mapping) {
+async function runBackgroundSync(time, mapping, sessionStore) {
     // const serviceWorkerExists = navigator.serviceWorker;
 
     // console.log('serviceWorkerExists:', !!serviceWorkerExists);
+
     const res = await fetch('/api/sync/recipes', {
         headers : {
             'Accept'       : 'application/json',
@@ -63,7 +69,10 @@ async function runBackgroundSync(time, mapping) {
         body   : JSON.stringify(Object.values(mapping))
     });
 
-    const { implement } = await res.json();
+    const { implement, user } = await res.json();
+
+    // eslint-disable-next-line no-param-reassign
+    sessionStore.user.value = user;
 
     implement.forEach(i => {
         if ([ 'UPDATE_LOCAL', 'ADD_LOCAL' ].includes(i.type)) {
@@ -81,15 +90,17 @@ async function runBackgroundSync(time, mapping) {
     // console.log('register:', register);
 }
 
-const debouncedSync = debounce((a, b) => runBackgroundSync(a, b));
+const debouncedSync = debounce((a, b, c) => runBackgroundSync(a, b, c));
 
-export const useRecipes = routeLoader$(async ({ cookie }) => {
-    const session = cookie.get('tastoria.session');
-    const user = session?.json() as any;
+export const useRecipes = routeLoader$(async ({ env, cookie }) => {
+    const session = await cookiesManager.getSession(cookie, env);
 
-    if (!user) return [];
+    if (!session) return [];
 
-    const recipes = await firebase.downloadRecipes(user.id);
+    const firebaseServer = new FirebaseServer({ env });
+
+    await firebaseServer.signIn(session.token);
+    const recipes = await firebaseServer.downloadRecipes(session.userId);
 
     return recipes.filter(f => !f.deletedAt);
 });
@@ -126,7 +137,7 @@ export default component$(() => {
     useVisibleTask$(({ track }) => {
         const changeTime = track(() => recipesStore.lastChanged.value);
 
-        debouncedSync(changeTime, recipesStore.all);
+        debouncedSync(changeTime, recipesStore.all, sessionStore);
     });
 
     return (
