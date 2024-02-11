@@ -57,6 +57,7 @@ id,en,key,ua
 35625434891051792,Before import of recipes it is recommended to backup existing recipes,pages.import.export_placeholder,"Перед виконанням імпорту, рекомендується зберегти попередні рецепти"
 8879685062443496521,Click or drag and drop file,pages.import.fileInput_placeholder,Обрати файл
 4148539808738930454,Import Recipes,pages.import.head_title,Імпортувати рецепти
+1698230223656802732,Import Completed,pages.import.import_completed_toast,Успішно додано
 3386771653296544465,Email,pages.login.email_key,Електронна скринька
 2405063527433899529,forgot password?,pages.login.forgot_password,нагадати пароль
 9102807079407818595,Log In,pages.login.head_title,Вхід

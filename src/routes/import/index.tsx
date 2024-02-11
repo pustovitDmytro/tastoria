@@ -7,7 +7,7 @@ import JSZip from 'jszip';
 import styles from './styles.module.css';
 import FileInput from '~/components/FileInput';
 import firebaseUI from '~/firebase/ui';
-import { sessionContext, recipesContext } from '~/stores';
+import { sessionContext, recipesContext, appContext } from '~/stores';
 import Button from '~/components/Button';
 import DownloadIcon from '~/components/Icons/download.svg?component';
 import { getRecipePlaceHolder } from '~/utils/recipe';
@@ -127,9 +127,21 @@ export default component$(() => {
     const session = useContext(sessionContext);
     const file = useSignal<NoSerialize<Blob>[] | NoSerialize<File>[]>();
     const recipeContext = useContext(recipesContext);
+    const app = useContext(appContext);
 
     if (file.value) {
-        handleImport(file.value, session.user.value, recipeContext.all);
+        // eslint-disable-next-line promise/catch-or-return
+        handleImport(file.value, session.user.value, recipeContext.all)
+            // eslint-disable-next-line promise/always-return, promise/prefer-await-to-then
+            .then(() => {
+                const toastId = 'import_completed';
+
+                app.toasts[toastId] = {
+                    id   : toastId,
+                    type : 'success',
+                    text : $localize `pages.import.import_completed_toast`
+                };
+            });
     }
 
     return (
