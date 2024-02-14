@@ -36,7 +36,6 @@ class CookieManager {
     }
 
     async getSession(cookie, env) {
-        const session = cookie.get(sessionCookieKey);
         const token = await this.isLoggedIn(cookie);
 
         if (!token) return null;

@@ -72,6 +72,8 @@ export default component$<HeaderProps>((props) => {
         onOpenRecipe.submit({ ...selected.recipe });
     });
 
+    const hasRecipes = list.some(l => l.isVisible.value);
+
     return (
         <div class={styles.header}>
             <FilterInput
@@ -80,13 +82,15 @@ export default component$<HeaderProps>((props) => {
                 options={options}
             />
             <div class={styles.headerButtons}>
-                <Button
-                    icon={true}
-                    class={styles.headerButton}
-                    onClick={handleRandom}
-                >
-                    <RandomIcon/>
-                </Button>
+                { hasRecipes &&
+                    <Button
+                        icon={true}
+                        class={styles.headerButton}
+                        onClick={handleRandom}
+                    >
+                        <RandomIcon/>
+                    </Button>
+                }
                 <Link class={styles.headerButton} href={'/recipes/create'}>
                     <AddIcon/>
                 </Link>
