@@ -1,3 +1,18 @@
+# [1.27.0](https://github.com/pustovitDmytro/tastoria/compare/v1.26.1...v1.27.0) (2024-02-15)
+
+
+### Chore
+
+* adds cypress to ci ([ca1d046](https://github.com/pustovitDmytro/tastoria/commit/ca1d0460486279d78ebaa529a614d560c3ade166))
+
+### Fix
+
+* dont show random if there are no recipes ([b591cdb](https://github.com/pustovitDmytro/tastoria/commit/b591cdb1c75f52300aa84634db515a3c9657fa25))
+
+### New
+
+* adds sorting by favorites in list page ([b1ce03f](https://github.com/pustovitDmytro/tastoria/commit/b1ce03f9dc0e356db43cbd8ae98511f534664717))
+
 ## [1.26.1](https://github.com/pustovitDmytro/tastoria/compare/v1.26.0...v1.26.1) (2024-02-11)
 
 
