@@ -9,6 +9,9 @@ cache-build: &cache-build
   keys:
     - -build_{{ .Revision }}
 
+orbs:
+  cypress: cypress-io/cypress@3
+
 parameters:
   skip-coveralls:
     type: boolean
@@ -81,6 +84,22 @@ jobs:
       - run:
           name: Run Lint
           command: "npm run test:lint"
+  test-cypress:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          <<: *cache-npm
+      - cypress/install:
+          package-manager: npm
+      - run:
+          name: Print machine info
+          command: npx cypress info
+      - run:
+          name: Run tests
+          command: npm run test:cypress
+      # - cypress/run:
+          # start-command: 'npm run test:cypress'
   test-leaks:
     resource_class: small
     docker:
@@ -120,6 +139,9 @@ workflows:
           requires:
             - install
       - test-lint:
+          requires:
+            - install
+      - test-cypress:
           requires:
             - install
       - deploy:

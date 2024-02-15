@@ -19,7 +19,8 @@
     "semantic-release": "npx semantic-release",
     "start": "vite --open --mode ssr",
     "start:build": "npx netlify serve",
-    "test:lint": "eslint \"src/**/*.ts*\""
+    "test:lint": "eslint \"src/**/*.ts*\"",
+    "test:cypress": "ELECTRON_ENABLE_LOGGING=1 npx cypress run --component"
   },
   "type": "module",
   "author": "",
