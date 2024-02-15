@@ -85,21 +85,22 @@ jobs:
           name: Run Lint
           command: "npm run test:lint"
   test-cypress:
-    <<: *defaults
+    resource_class: medium
+    docker:
+      - image: cypress/browsers:node-20.11.0-chrome-121.0.6167.85-1-ff-120.0-edge-121.0.2277.83-1
     steps:
       - checkout
       - restore_cache:
           <<: *cache-npm
-      - cypress/install:
-          package-manager: npm
       - run:
           name: Print machine info
           command: npx cypress info
-      - run:
-          name: Run tests
-          command: npm run test:cypress
-      # - cypress/run:
-          # start-command: 'npm run test:cypress'
+      - cypress/install:
+          package-manager: npm
+      - cypress/run-tests:
+          cypress-command: npm run test:cypress
+      - store_artifacts:
+          path: reports
   test-leaks:
     resource_class: small
     docker:
@@ -148,6 +149,7 @@ workflows:
           requires:
             - install
             - test-lint
+            - test-cypress
           context: npm-packages
           filters:
             branches:
