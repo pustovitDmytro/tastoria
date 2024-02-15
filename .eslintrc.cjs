@@ -50,6 +50,7 @@ module.exports = {
     },
     'globals' : {
         $localize      : 'writable',
-        TASTORIA_BUILD : 'readable'
+        TASTORIA_BUILD : 'readable',
+        expect         : 'readable'
     }
 };

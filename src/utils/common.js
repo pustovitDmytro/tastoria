@@ -12,3 +12,12 @@ export function toNumber(cipher, alphabet) {
 
     return result;
 }
+
+
+export function uuidToNumber(uuid) {
+    const alphabet = [ ...'abcdef', ...'0123456789' ];
+    const module = Number.MAX_SAFE_INTEGER;
+    const n = toNumber(uuid.replaceAll('-', '').toLowerCase(), alphabet);
+
+    return Number(n % BigInt(module));
+}

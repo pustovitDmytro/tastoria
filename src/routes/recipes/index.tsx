@@ -5,6 +5,7 @@ import List from '~/components/RecipesListPage/RecipesList';
 import Header from '~/components/RecipesListPage/Header';
 import { recipesContext, slotContext } from '~/stores';
 import type { Recipe } from '~/types';
+import { recipyFavoriteSorter } from '~/utils/sorter';
 
 export const useOpenRecipe = routeAction$((recipe, { redirect }) => {
     throw redirect(302, `/recipes/${recipe.id}`);
@@ -18,6 +19,7 @@ export default component$(() => {
     const list = Object.values(recipeContext.all)
         .map(r => ({
             recipe    : r,
+            sorter    : recipyFavoriteSorter(r),
             // eslint-disable-next-line qwik/use-method-usage
             isVisible : useSignal(true)
         }));
@@ -31,7 +33,14 @@ export default component$(() => {
     });
 
     return (
-        <List data={list.filter(l => l.isVisible.value && !l.recipe.deletedAt).map(r => r.recipe)}/>
+        <List
+            data={
+                list
+                    .filter(l => l.isVisible.value && !l.recipe.deletedAt)
+                    .sort((a, b) => b.sorter - a.sorter)
+                    .map(r => r.recipe)
+            }
+        />
     );
 });
 
