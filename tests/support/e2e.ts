@@ -1,3 +1,3 @@
-import '@cypress/code-coverage/support';
 
+// eslint-disable-next-line import/unambiguous
 beforeEach(function () {});

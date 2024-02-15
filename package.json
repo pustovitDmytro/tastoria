@@ -20,7 +20,9 @@
     "start": "vite --open --mode ssr",
     "start:build": "npx netlify serve",
     "test:lint": "eslint \"src/**/*.ts*\"",
-    "test:cypress": "ELECTRON_ENABLE_LOGGING=1 npx cypress run --component"
+    "test:e2e": "ELECTRON_ENABLE_LOGGING=1 npx cypress run",
+    "test:unit": "ELECTRON_ENABLE_LOGGING=1 npx cypress run --component",
+    "test:cypress": "npm run test:e2e && npm run test:unit"
   },
   "type": "module",
   "author": "",

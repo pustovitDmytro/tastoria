@@ -86,6 +86,7 @@ class FunctionDecorator extends BaseFunctionDecorator {
             payload.message = ERROR_MESSAGES[payload.code];
         }
 
+        console.log('payload:', payload, error.name);
         throw new TastoriaError(payload);
     }
 }
@@ -158,6 +159,7 @@ const firebaseErrors = {
     'auth/user-not-found'             : 'FIREBASE_USER_DELETED',
     'auth/user-signed-out'            : 'FIREBASE_USER_SIGNED_OUT',
     'auth/weak-password'              : 'FIREBASE_WEAK_PASSWORD',
+    'auth/invalid-login-credentials'  : 'FIREBASE_INVALID_CREDENTIALS',
 
     'Permission denied' : 'FIREBASE_PERMISSION_DENIED'
 };
@@ -165,6 +167,7 @@ const firebaseErrors = {
 export const ERROR_MESSAGES =  {
     FIREBASE_UNKNOWN_ERROR : $localize `ERROR_FIREBASE_UNKNOWN_ERROR`,
 
+    FIREBASE_INVALID_CREDENTIALS         : $localize `FIREBASE_INVALID_CREDENTIALS`,
     FIREBASE_ADMIN_ONLY_OPERATION        : $localize `ERROR_FIREBASE_ADMIN_ONLY_OPERATION`,
     FIREBASE_CODE_EXPIRED                : $localize `ERROR_FIREBASE_CODE_EXPIRED`,
     FIREBASE_EMAIL_EXISTS                : $localize `ERROR_FIREBASE_EMAIL_EXISTS`,

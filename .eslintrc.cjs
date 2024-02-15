@@ -51,6 +51,8 @@ module.exports = {
     'globals' : {
         $localize      : 'writable',
         TASTORIA_BUILD : 'readable',
-        expect         : 'readable'
+        expect         : 'readable',
+        cy             : 'readable',
+        Cypress        : 'readable'
     }
 };
