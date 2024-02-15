@@ -1,19 +1,25 @@
 import { defineConfig } from 'cypress';
 
+const e = process.env;
+
 export default defineConfig({
     retries : {
         runMode : 2
     },
-    // e2e : {
-    //     baseUrl     : 'http://localhost:1234',
-    //     supportFile : 'tests/support/e2e.ts'
-    // },
+    env : {
+        email    : e.TEST_USER_EMAIL,
+        password : e.TEST_USER_PASSWORD
+    },
+    e2e : {
+        baseUrl     : 'https://staging--tastoria.netlify.app',
+        supportFile : 'tests/support/e2e.ts',
+        specPattern : 'tests/e2e/*.test.ts'
+    },
     component : {
         devServer : {
             framework : 'react',
             bundler   : 'vite'
         },
-        // specPattern : 'src/**/*.cy.{js,jsx,ts,tsx}',
         specPattern   : 'tests/unit/*.test.ts',
         supportFile   : 'tests/support/component.ts',
         indexHtmlFile : 'tests/support/component-index.html',

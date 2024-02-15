@@ -71,6 +71,7 @@ async function runBackgroundSync(time, mapping, sessionStore) {
 
     const { implement, user } = await res.json();
 
+    if (!implement) return;
     // eslint-disable-next-line no-param-reassign
     sessionStore.user.value = user;
 

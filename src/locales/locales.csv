@@ -43,6 +43,7 @@ id,en,key,ua
 1322738374409609580,User Not Found,ERROR_FIREBASE_USER_DELETED,Користувача не знайдено
 4957061158928875695,User Signed Out,ERROR_FIREBASE_USER_SIGNED_OUT,Користувач вийшов із системи
 5555959723551271636,Weak Password,ERROR_FIREBASE_WEAK_PASSWORD,Слабкий пароль
+108715103319148686,Invalid Credentials,FIREBASE_INVALID_CREDENTIALS,Невірні email чи пароль. 
 5243211389958567300,About,menu.About,Про нас
 3374218623292627817,Import,menu.Import,Імпортувати
 4747233810145954506,Recipes,menu.Recipes,Мої Рецепти

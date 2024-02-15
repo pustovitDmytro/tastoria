@@ -73,6 +73,9 @@ jobs:
       - run: *install
       - run: *build
       - run: *danger-pr
+      - run:
+          name: Send to staging
+          command: "npx netlify deploy --alias staging"
       - save_cache: *cache-modules
       - save_cache: *cache-build
   test-lint:
@@ -98,7 +101,9 @@ jobs:
       - cypress/install:
           package-manager: npm
       - cypress/run-tests:
-          cypress-command: npm run test:cypress
+          cypress-command: npm run test:unit
+      - cypress/run-tests:
+          cypress-command: npm run test:e2e
       - store_artifacts:
           path: reports
   test-leaks:
