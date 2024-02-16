@@ -3,8 +3,8 @@ import { component$, useContext, useSignal, useTask$, useVisibleTask$ } from '@b
 import { routeAction$, type DocumentHead } from '@builder.io/qwik-city';
 import List from '~/components/RecipesListPage/RecipesList';
 import Header from '~/components/RecipesListPage/Header';
+import Stub from '~/components/RecipesListPage/Stub';
 import { recipesContext, slotContext } from '~/stores';
-import type { Recipe } from '~/types';
 import { recipyFavoriteSorter } from '~/utils/sorter';
 
 export const useOpenRecipe = routeAction$((recipe, { redirect }) => {
@@ -32,11 +32,18 @@ export default component$(() => {
         cleanup(() => slotCtx.header = null);
     });
 
+    const dataToShow = list.filter(l => l.isVisible.value && !l.recipe.deletedAt);
+
+    if (dataToShow.length === 0) {
+        const isFiltered = list.some(l => l.isVisible.value === false && !l.recipe.deletedAt);
+
+        return <Stub isFiltered={isFiltered}/>;
+    }
+
     return (
         <List
             data={
-                list
-                    .filter(l => l.isVisible.value && !l.recipe.deletedAt)
+                dataToShow
                     .sort((a, b) => b.sorter - a.sorter)
                     .map(r => r.recipe)
             }

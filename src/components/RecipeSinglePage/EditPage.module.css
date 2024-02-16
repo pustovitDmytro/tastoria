@@ -1,11 +1,6 @@
 @value colors: "../../variables.css";
 @value primary_1, primary_2, primary_3, text_1 from colors;
 
-
-h1, h2 {
-    color: primary_2
-}
-
 .content {
     .item {
         display: flex;

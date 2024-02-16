@@ -61,7 +61,7 @@ export default component$((props: Props) => {
                 })}
             />
             {
-                needOpen.value && <div
+                (options.length > 0  && needOpen.value) && <div
                     class={styles.options}
                     onClick$={event => event.stopPropagation()}
                 >
@@ -71,7 +71,7 @@ export default component$((props: Props) => {
                     >
                         <i class={[ styles.arrow, styles.up ]}/>
                     </Button>
-                {
+                    {
                     ...options.map(o => <CheckBox
                         key={o.id}
                         id={o.id}

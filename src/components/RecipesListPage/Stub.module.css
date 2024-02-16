@@ -1,0 +1,56 @@
+@value colors: "../../variables.css";
+@value background_2, text_1, primary_1 from colors;
+
+.component {
+  line-height: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+
+  h1, h2 {
+    color: primary_2
+  }
+}
+
+.icon {
+  height: 250px;
+  width: 250px;
+  stroke: primary_1;
+  opacity: 0.25;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  
+  .link:not(:last-child) {
+    margin-right: 25px;
+  }
+
+  .link {
+    background-color: background_2;
+    border-radius: 20px;
+    line-height: 2;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+
+    color: text_1;
+    font-weight: 400;
+    text-align: center;
+
+    svg {
+      height: 100px;
+      width: 100px;
+      fill: primary_1;
+      opacity: 0.75;
+    }
+}
+
+}
