@@ -1,3 +1,16 @@
+# [1.28.0](https://github.com/pustovitDmytro/tastoria/compare/v1.27.0...v1.28.0) (2024-02-16)
+
+
+### Chore
+
+* fixes cypress ci ([81e4126](https://github.com/pustovitDmytro/tastoria/commit/81e4126efbe5001f6eb0373dc2540ca2b89124d6))
+* fixes cypress ci ([51017aa](https://github.com/pustovitDmytro/tastoria/commit/51017aadaba0517123bde736ef50885edd0bb70e))
+* fixes start page test ([5684fd1](https://github.com/pustovitDmytro/tastoria/commit/5684fd1ccab96326662d8de4a35d1ad0e8ab473c))
+
+### New
+
+* adds stub page to recipes list ([677d8de](https://github.com/pustovitDmytro/tastoria/commit/677d8def925701ccbe9692478a3e703bda9e6e2c))
+
 # [1.27.0](https://github.com/pustovitDmytro/tastoria/compare/v1.26.1...v1.27.0) (2024-02-15)
 
 
