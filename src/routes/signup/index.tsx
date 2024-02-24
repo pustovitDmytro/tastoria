@@ -11,6 +11,7 @@ import { qwikErrorDecorator } from '~/errors';
 import cookiesManager from '~/cookiesManager';
 import FirebaseServer from '~/firebase/server';
 import Page from '~/components/Page';
+import Header from '~/components/Header/header';
 
 export const useRedirect = routeAction$(async ({ token }, { env, cookie, redirect }) => {
     const firebaseServer = new FirebaseServer({ env });
@@ -52,6 +53,7 @@ export default component$(() => {
     });
 
     return <Page>
+        <Header actions={[]} q:slot='header'></Header>
         <div q:slot='content' class={styles.page}>
             <div class={styles.header}>
                 <h1>{$localize `pages.signup.title`}</h1>

@@ -15,6 +15,7 @@ import { languages } from '~/i18n';
 import { appContext } from '~/stores';
 import Button from '~/components/Button';
 import Page from '~/components/Page';
+import Header from '~/components/Header/header';
 
 const version = TASTORIA_BUILD.VERSION;
 
@@ -123,6 +124,7 @@ export default component$(() => {
     const isMenuOpened = isOpened.changeLog;
 
     return <Page>
+        <Header actions={[]} q:slot='header'></Header>
         <div q:slot='content' class={styles.page}>
             <div class={[ styles.paper, { [styles.isMenuOpened]: isMenuOpened } ]}>
                 <div class={styles.header}>Tastoria</div>

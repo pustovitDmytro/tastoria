@@ -9,6 +9,7 @@ import { sessionContext, appContext } from '~/stores';
 import { languages } from '~/i18n';
 import cookiesManager from '~/cookiesManager';
 import Page from '~/components/Page';
+import Header from '~/components/Header/header';
 
 const SelectLanguageOptions = languages.map(({ id, label }) => ({ id, label }));
 
@@ -58,6 +59,7 @@ export default component$(() => {
     });
 
     return <Page>
+        <Header actions={[]} q:slot='header'></Header>
         <div q:slot='content' class={styles.page}>
             <div class={styles.header}>
                 <h1>{$localize `pages.profile.title`}</h1>

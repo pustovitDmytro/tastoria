@@ -12,6 +12,7 @@ import Button from '~/components/Button';
 import DownloadIcon from '~/components/Icons/download.svg?component';
 import { getRecipePlaceHolder } from '~/utils/recipe';
 import Page from '~/components/Page';
+import Header from '~/components/Header/header';
 
 async function handleImport(file, user, recipeMap) {
     const reader = new ZipReader(new BlobReader(file));
@@ -147,6 +148,7 @@ export default component$(() => {
 
 
     return <Page>
+        <Header actions={[]} q:slot='header'></Header>
         <div  q:slot='content' class={styles.page}>
             <div class={styles.infoPage}>
                 <Export/>
