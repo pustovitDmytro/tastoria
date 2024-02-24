@@ -1,3 +1,11 @@
+## [1.29.2](https://github.com/pustovitDmytro/tastoria/compare/v1.29.1...v1.29.2) (2024-02-24)
+
+
+### Fix
+
+* fix mobile styles for list page ([e4d16b3](https://github.com/pustovitDmytro/tastoria/commit/e4d16b353433073db79d805845709dfa7949f6f3))
+* headers for main pages ([f12ddac](https://github.com/pustovitDmytro/tastoria/commit/f12ddacc0fc64ae957ff473c8276ab861ab8a492))
+
 ## [1.29.1](https://github.com/pustovitDmytro/tastoria/compare/v1.29.0...v1.29.1) (2024-02-24)
 
 
