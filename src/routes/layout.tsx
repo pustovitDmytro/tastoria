@@ -2,10 +2,8 @@ import { component$, Slot, useStyles$, useStore, useContextProvider, useVisibleT
 import { routeLoader$ } from '@builder.io/qwik-city';
 import fonts from './fonts.css?inline';
 import styles from './styles.module.css';
-import Header from '~/components/Header/header';
 import Footer from '~/components/Footer/footer';
-import { sessionContext, appContext, slotContext, recipesContext } from '~/stores';
-import type { SlotState } from '~/stores/slot';
+import { sessionContext, appContext, recipesContext } from '~/stores';
 import Menu from '~/components/Menu/menu';
 import { extractLang, useI18n } from '~/i18n';
 import FirebaseServer from '~/firebase/server';
@@ -119,43 +117,30 @@ export default component$(() => {
 
     recipes.value.forEach(r => map[r.id] =  r);
 
-    const slotCtx = useStore<SlotState>({
-        header      : null,
-        contextMenu : null
-    });
-
     const sessionStore = useStore({ user: session });
     const appStore = useStore({ isMenuOpened: false, language: settings.value.language, toasts: {} });
     const recipesStore = useStore({ all: map, lastChanged: useSignal(new Date()) });
 
     useContextProvider(sessionContext, sessionStore);
     useContextProvider(appContext, appStore);
-    useContextProvider(slotContext, slotCtx);
     useContextProvider(recipesContext, recipesStore);
-
-    const HeaderContent = () => slotCtx.header;
 
     useVisibleTask$(({ track }) => {
         const changeTime = track(() => recipesStore.lastChanged.value);
 
-        debouncedSync(changeTime, recipesStore.all, sessionStore);
+        // debouncedSync(changeTime, recipesStore.all, sessionStore);
     });
 
     return (
         <>
-            <main class={styles.page}>
-                <Header class={styles.header}>
-                    <div class={styles.headerContent}>
-                        <HeaderContent/>
-                    </div>
-                </Header>
+            <div class={styles.page}>
                 <Menu/>
                 <div class={styles.content}>
                     <Slot/>
                 </div>
                 <Footer class={styles.footer}/>
                 <Toasts/>
-            </main>
+            </div>
         </>
     );
 });

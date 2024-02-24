@@ -5,12 +5,10 @@ import { $, component$, useContext, useSignal, useTask$ } from '@builder.io/qwik
 import { Link, type ActionStore } from '@builder.io/qwik-city';
 import { random } from 'myrmidon';
 import FilterInput from '../FilterInput';
+import Header from '../Header/header';
 import styles from './Header.module.css';
 import { handleVisibility } from './utils';
 import type { ReceipFilter, Recipe } from '~/types';
-import RandomIcon from '~/components/Icons/random.svg';
-import AddIcon from '~/components/Icons/add.svg';
-import Button from '~/components/Button';
 import { recipesContext } from '~/stores';
 
 interface HeaderProps {
@@ -74,27 +72,26 @@ export default component$<HeaderProps>((props) => {
 
     const hasRecipes = list.some(l => l.isVisible.value);
 
-    return (
-        <div class={styles.header}>
-            <FilterInput
-                class={styles.search}
-                search={search}
-                options={options}
-            />
-            <div class={styles.headerButtons}>
-                { hasRecipes &&
-                    <Button
-                        icon={true}
-                        class={styles.headerButton}
-                        onClick={handleRandom}
-                    >
-                        <RandomIcon/>
-                    </Button>
-                }
-                <Link class={styles.headerButton} href={'/recipes/create'}>
-                    <AddIcon/>
-                </Link>
-            </div>
-        </div>
-    );
+    const randomBtn = {
+        disabled : useSignal(!hasRecipes),
+        handler  : handleRandom,
+        icon     : 'random',
+        caption  : $localize `component.RecipesListPage_Header.random_caption`
+    };
+    const createLink = {
+        link    : '/recipes/create',
+        icon    : 'add',
+        caption : $localize `component.RecipesListPage_Header.create_caption`
+    };
+
+
+    return <Header
+        actions={[ randomBtn, createLink ]}
+    >
+        <FilterInput
+            class={styles.search}
+            search={search}
+            options={options}
+        />
+    </Header>;
 });

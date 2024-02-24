@@ -14,14 +14,17 @@ import Loader from './Loader';
 type ButtonProps = {
   inline?: boolean;
   icon?:boolean;
+  disabled?:boolean;
   class?: ClassList | ClassList[];
   onClick: () => any
 };
 
 export default component$((props: ButtonProps) => {
+    const { disabled } = props;
     const isLoading = useSignal(false);
     const isFailed = useSignal(false);
     const handleClick = $(async () => {
+        if (disabled) return;
         try {
             isFailed.value = false;
             isLoading.value = true;
@@ -44,7 +47,8 @@ export default component$((props: ButtonProps) => {
                     [styles.inline]    : props.inline,
                     [styles.icon]      : props.icon,
                     [styles.isLoading] : isLoading.value,
-                    [styles.error]     : isFailed.value
+                    [styles.error]     : isFailed.value,
+                    [styles.disabled]  : props.disabled
                 }
             ]}
             onClick$={handleClick}

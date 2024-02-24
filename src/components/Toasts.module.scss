@@ -1,6 +1,3 @@
-@value colors: "../variables.css";
-@value primary_1, error_1 from colors;
-
 .container {
   position: fixed;
   max-width: 450px;
@@ -34,22 +31,22 @@
     }
 
     &.error {
-      border-color: error_1;
+      border-color: var(--error_1);
       background-color: rgba(#c00026, 0.04);
       box-shadow: 0 5px 10px rgba(#c00026, 0.2);
 
       .icon {
-        stroke: error_1;
+        stroke: var(--error_1);
       }
     }
 
     &.success {
-      border-color: primary_1;
+      border-color: var(--primary_1);
       background-color: rgba(#00b27c, 0.04);
       box-shadow: 0 5px 10px rgba(#00b27c, 0.2);
       
       .icon {
-        fill: primary_1;
+        fill: var(--primary_1);
       }
     }
   }

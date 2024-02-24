@@ -14,10 +14,6 @@
     }
 }
 
-h1, h2 {
-    color: primary_2
-}
-
 .contentItem {
     margin-top: 5px;
 
@@ -173,41 +169,6 @@ ol.steps {
 
         h1 {
             text-align: center;
-        }
-    }
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    h1 {
-        color: primary_1;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .headerButtons{
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-    }
-
-    .headerButton {
-        width: 45px;
-        height: 45px;
-        
-        svg {
-            height: calc(100% - 10px);
-            width: calc(100% - 10px);
-            fill: primary_1;
         }
     }
 }

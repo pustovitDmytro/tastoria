@@ -1,0 +1,18 @@
+@value colors: "../../variables.css";
+@value background_2, text_1, primary_1 from colors;
+
+.component {
+  line-height: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.icon {
+  height: 250px;
+  width: 250px;
+  stroke: primary_1;
+  opacity: 0.25;
+}

@@ -1,5 +1,5 @@
 /* eslint-disable qwik/valid-lexical-scope */
-import { $, Resource, component$, useContext, useResource$, useStore, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import { $, Resource, component$, useContext, useResource$, useTask$, useVisibleTask$ } from '@builder.io/qwik';
 import QRCode from 'qrcode';
 import styles from './recipe.module.css';
 import type { Recipe } from '~/types';

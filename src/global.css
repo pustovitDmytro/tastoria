@@ -1,4 +1,4 @@
-/* :root {} */
+
 
 html {
   tab-size: 4;
@@ -18,6 +18,9 @@ html {
     "Segoe UI Emoji",
     "Segoe UI Symbol",
     "Noto Color Emoji";
+
+  overflow: hidden;
+
 }
 
 body {
@@ -25,6 +28,9 @@ body {
   margin: 0;
 }
 
+h1, h2 {
+  color: var(--primary_2);
+}
 
 a {
   color: unset;
@@ -49,4 +55,13 @@ a {
       font-size: 1rem;
       letter-spacing: normal;
   }
+
+  * { overflow: visible !important; }
+
+}
+
+@page{
+  size: A4;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }

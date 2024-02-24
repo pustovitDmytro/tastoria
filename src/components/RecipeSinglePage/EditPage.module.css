@@ -35,13 +35,20 @@
     }
 }
 
-.footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@media screen and (max-width: 480px) {
+.content {
 
-    .saveButton {
-        min-width: 100px;
+    .item {
+        flex-direction: column;
+        align-items: flex-start;
+        .itemLabel {
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        .input {
+            width: calc(100% - 20px);
+        }
     }
+}
 }
 

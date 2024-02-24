@@ -1,21 +1,12 @@
 /* eslint-disable sonarjs/no-nested-template-literals */
-/* eslint-disable qwik/valid-lexical-scope */
 import type { NoSerialize } from '@builder.io/qwik';
-import { $, component$, noSerialize, useContext, useSignal } from '@builder.io/qwik';
+import { $, component$, noSerialize, useContext, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { isFunction } from 'myrmidon';
 import type { ActionStore } from '@builder.io/qwik-city';
 import { v4 as uuid } from 'uuid';
-import styles from './recipe.module.css';
 import type { Recipe } from '~/types';
-import ShareIcon from '~/components/Icons/share.svg?component';
-import LockIcon from '~/components/Icons/lock.svg?component';
-import UnlockIcon from '~/components/Icons/unlock.svg?component';
-import PrintIcon from '~/components/Icons/print.svg?component';
-import DeleteIcon from '~/components/Icons/delete.svg';
-import EditIcon from '~/components/Icons/edit.svg';
-import DuplicateIcon from '~/components/Icons/duplicate.svg';
-import Button from '~/components/Button';
 import { recipesContext, appContext } from '~/stores';
+import Header from '~/components/Header/header';
 
 const version = TASTORIA_BUILD.VERSION;
 
@@ -25,6 +16,7 @@ interface HeaderProps {
     onEdit?: ActionStore<never, Record<string, unknown>, true>
     onRemove?: ActionStore<never, Record<string, unknown>, true>
     onDuplicate?: ActionStore<never, Record<string, unknown>, true>
+    sharedBy?: string
 }
 
 function prepareSharedText(recipe: Recipe) {
@@ -40,15 +32,19 @@ function prepareSharedText(recipe: Recipe) {
 
 // eslint-disable-next-line max-lines-per-function
 export default component$<HeaderProps>((props) => {
-    const { recipe, onRemove, onDuplicate, onEdit } = props;
+    const { recipe, onRemove, onDuplicate, sharedBy } = props;
     const isLocked = useSignal(false);
     const wakeLock = useSignal<NoSerialize<WakeLockSentinel> | null>(null);
     const recipeContext = useContext(recipesContext);
     const app = useContext(appContext);
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const canBeShared = isFunction(navigator.share) || isFunction(navigator.clipboard.writeText);
-    const canBeLocked = !!navigator.wakeLock;
+    const canBeShared = useSignal(false);
+    const canBeLocked = useSignal(false);
+
+    useVisibleTask$(() => {
+        canBeLocked.value = !!navigator.wakeLock;
+        canBeShared.value = isFunction(navigator.share) || isFunction(navigator.clipboard.writeText);
+    });
 
     const shareData = {
         title : $localize `component.RecipePage_ViewHeader.title`,
@@ -119,71 +115,70 @@ export default component$<HeaderProps>((props) => {
         recipeContext.lastChanged.value = new Date();
     });
 
-    return <div class={styles.header}>
-        <h1></h1>
-        <div class={styles.headerButtons}>
-            {
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                canBeLocked && <Button
-                    icon={true}
-                    class={styles.headerButton}
-                    onClick={handleLockClick}
-                >
-                    { isLocked.value ? <UnlockIcon/> : <LockIcon/> }
-                </Button>
-            }
-            {
-                canBeShared && <Button
-                    icon={true}
-                    class={styles.headerButton}
-                    onClick={handleShareClick}
-                >
-                    <ShareIcon/>
-                </Button>
-            }
-            <Button
-                icon={true}
-                class={styles.headerButton}
-                onClick={handlePrintClick}
-            >
-                <PrintIcon/>
-            </Button>
-            {
-                onEdit && <Button
-                    icon={true}
-                    class={styles.headerButton}
-                    onClick={$(() => onEdit.submit())}
-                >
-                    <EditIcon/>
-                </Button>
-            }
-            {
-                onRemove && <Button
-                    icon={true}
-                    class={styles.headerButton}
-                    onClick={$(async () => {
-                        await handleRemove();
+    const lockBtn = {
+        visible      : useSignal(canBeLocked.value && !isLocked.value),
+        handler      : handleLockClick,
+        icon         : 'lock',
+        caption      : $localize `component.RecipePage_ViewHeader.lock_caption`,
+        // eslint-disable-next-line no-secrets/no-secrets
+        successToast : $localize `component.RecipePage_ViewHeader.lock_successToast`
+    };
+    const unLockBtn = {
+        visible      : useSignal(canBeLocked.value && !isLocked.value),
+        handler      : handleLockClick,
+        icon         : 'unlock',
+        caption      : $localize `component.RecipePage_ViewHeader.unlock_caption`,
+        // eslint-disable-next-line no-secrets/no-secrets
+        successToast : $localize `component.RecipePage_ViewHeader.unLock_successToast`
+    };
+    const shareBtn = {
+        visible : canBeShared,
+        handler : handleShareClick,
+        icon    : 'share',
+        caption : $localize `component.RecipePage_ViewHeader.shareBtn_caption`
+    };
+    const printBtn = {
+        handler : handlePrintClick,
+        icon    : 'print',
+        caption : $localize `component.RecipePage_ViewHeader.print_caption`
+    };
 
-                        onRemove.submit();
-                    })}
-                >
-                    <DeleteIcon/>
-                </Button>
-            }
-            {
-                onDuplicate && <Button
-                    icon={true}
-                    class={styles.headerButton}
-                    onClick={$(async () => {
-                        const duplicated = await handleDuplicate();
+    const editBtn = {
+        visible : useSignal(!sharedBy),
+        link    : `/recipes/${recipe.id}/edit`,
+        icon    : 'edit',
+        caption : $localize `component.RecipePage_ViewHeader.edit_caption`
+    };
 
-                        onDuplicate.submit(duplicated);
-                    })}
-                >
-                    <DuplicateIcon/>
-                </Button>
-            }
-        </div>
-    </div>;
+    const removeBtn = {
+        visible : useSignal(!!onRemove),
+        handler : $(async () => {
+            if (!onRemove) return;
+            await handleRemove();
+
+            onRemove.submit();
+        }),
+        icon         : 'delete',
+        caption      : $localize `component.RecipePage_ViewHeader.remove_caption`,
+        successToast : $localize `component.RecipePage_ViewHeader.remove_successToast`
+    };
+
+    const duplicateBtn = {
+        visible : useSignal(!!onDuplicate),
+        handler : $(async () => {
+            if (!onDuplicate) return;
+            const duplicated = await handleDuplicate();
+
+            onDuplicate.submit(duplicated);
+        }),
+        icon         : 'duplicate',
+        caption      : $localize `component.RecipePage_ViewHeader.duplicate_caption`,
+        // eslint-disable-next-line no-secrets/no-secrets
+        successToast : $localize `component.RecipePage_ViewHeader.duplicate_successToast`
+    };
+
+    return <Header
+        actions={[ lockBtn, unLockBtn, shareBtn, printBtn, editBtn, removeBtn, duplicateBtn ]}
+    />;
 });
 

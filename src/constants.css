@@ -1,0 +1,18 @@
+:root {
+    --header_icon_size: 45px;
+
+    --primary_1: #00b27c;
+    --primary_2: #1a602e;
+    --primary_3: #134741;
+
+    --alt_1: #ffb100;
+    --error_1: #c00026;
+
+    --white_1: #FFF;
+    --white_2: #aaa;
+
+    --text_1: #2e2d32;
+
+    --background_1: #c5c5c3;
+    --background_2: #bbc4c3;
+}

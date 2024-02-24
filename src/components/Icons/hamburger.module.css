@@ -1,5 +1,5 @@
 @value colors: "../../variables.css";
-@value primary_1, text_1 from colors;
+@value primary_1, primary_2, text_1 from colors;
 
   .container,
   .container span {
@@ -16,6 +16,12 @@
     border: none;
     appearance: none;
     cursor: pointer;
+    
+    &:hover {
+      span {
+        background-color: primary_2;
+      }
+  }
   }
 
   .container span {

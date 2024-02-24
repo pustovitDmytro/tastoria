@@ -1,38 +1,140 @@
 @value colors: "../../variables.css";
-@value primary_1 from colors;
-
-:root {
-  --size: 45px;
-}
+@value primary_1, primary_2, background_1, background_2 from colors;
 
 .container {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   position: relative;
-}
 
-.avatar {
-  width: var(--size);
-  object-fit: contain;
-  border-radius: 50%;
-  margin: 0 5px;
+  .mainContent {
+    margin-left: 5px;
+    display: flex;
 
-  svg {
-    stroke: primary_1;
+    .hamburgerSlot{
+      height: var(--header_icon_size);
+      width: var(--header_icon_size);
+    }
+  }
+
+  .headerButtonsPanel{
+    width: 100%;
+    
+    .headerButtons{
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      
+      .headerButton {
+        width: var(--header_icon_size);
+        height: var(--header_icon_size);
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            height: calc(100% - 10px);
+            width: calc(100% - 10px);
+            fill: primary_1;
+        }
+    
+        &:hover {
+          svg {
+            fill: primary_2;
+          }
+        }
+      }
+    }
+  }
+  
+  .contextMenu {
+    width: 20px;
+    padding: 0 5px !important;
+    svg {
+      height: 100%;
+      width: 100%;
+      fill: primary_1;
+      opacity: 0.75;
+    }
+  
+    &:hover {
+      svg {
+        fill: primary_2;
+      }
+    }
+  }
+  
+  .avatar {
+    width: var(--header_icon_size);
+    object-fit: contain;
+    border-radius: 50%;
+    margin: 0 5px;
+  
+    svg {
+      stroke: primary_1;
+    }
+  
+    &:hover {
+      box-shadow: 0 5px 10px primary_2;
+    }
+  }
+  
+  .menu {
+    position: absolute;
+    z-index: 6;
+    top: 5px;
+    left: 5px;
+    height: var(--header_icon_size);
+    width: var(--header_icon_size);
+    cursor: pointer;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .contextMenuOptions {
+    position: absolute;
+    z-index: 4;
+    width: 200px;
+    right: 5px;
+    top: calc(var(--header_icon_size) + 10px);
+    background-color: background_2;
+    border-radius: 20px;
+    border: 1px solid primary_1;
+    
+    .contextOption {
+      display: flex;
+      height: var(--header_icon_size);
+      width: 100%;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 5px 10px;
+      margin-bottom: 10px;
+      
+      svg {
+        height: calc(var(--header_icon_size) - 10px);
+        width: calc(var(--header_icon_size) - 10px);
+        fill: primary_1;
+        margin-right: 10px;
+      }
+
+      span {
+        width: calc(100% - var(--header_icon_size));
+        overflow-wrap: break-word;
+      }
+  
+      &:hover {
+        background: background_1;
+        padding-left: 15px;
+        svg {
+          fill: primary_2;
+        }
+      }
+    }
   }
 }
 
-.menu {
-  position: absolute;
-  z-index: 6;
-  top: 5px;
-  left: 5px;
-  height: var(--size);
-  width: var(--size);
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}

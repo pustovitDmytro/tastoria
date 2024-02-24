@@ -1,13 +1,14 @@
 /* eslint-disable qwik/valid-lexical-scope */
-import { component$, useContext, useVisibleTask$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeAction$, routeLoader$, useLocation } from '@builder.io/qwik-city';
 import FirebaseServer from '~/firebase/server';
 import Cipher from '~/utils/aes';
-import { slotContext } from '~/stores';
-import HeaderContent from '~/components/RecipeSinglePage/Header';
-import Page from '~/components/RecipeSinglePage/Page';
+import ViewPage from '~/components/RecipeSinglePage/Page';
 import cookiesManager from '~/cookiesManager';
+import Page from '~/components/Page';
+import Header from '~/components/RecipeSinglePage/Header';
+import Stub from '~/components/RecipeSinglePage/Stub';
 
 export const useRecipesDetails = routeLoader$(async ({ params, env, cookie, redirect }) => {
     const sharedToken = params.token;
@@ -37,23 +38,27 @@ export const useDuplicate = routeAction$((recipe, { redirect }) => {
 export default component$(() => {
     const signal = useRecipesDetails();
 
-    if (!signal.value) return <div>{$localize `pages.shared.notfound`}</div>;
-    const slotCtx = useContext(slotContext);
+    if (!signal.value) return <Stub title={$localize `pages.shared.notfound`}/>;
     const location = useLocation();
     const sharedUrl = new URL(`shared/${signal.value.sharedToken}`, location.url.origin);
     const recipe = signal.value.recipe;
     const onDuplicate = useDuplicate();
 
-    useVisibleTask$(({ cleanup }) => {
-        slotCtx.header = <HeaderContent
-            recipe={signal.value.recipe}
+    return <Page>
+        <Header
+            q:slot='header'
+            recipe={recipe}
             shareURL={sharedUrl}
-            onDuplicate={onDuplicate}
-        />;
-        cleanup(() => slotCtx.header = null);
-    });
-
-    return <Page recipe={recipe} shareURL={sharedUrl} sharedBy={signal.value.sharedBy}/>;
+            onDuplicate={signal.value.isLoggedIn ? onDuplicate : undefined}
+            sharedBy={signal.value.sharedBy}
+        />
+        <ViewPage
+            q:slot='content'
+            recipe={recipe}
+            shareURL={sharedUrl}
+            sharedBy={signal.value.sharedBy}
+        />
+    </Page>;
 });
 
 

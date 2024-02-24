@@ -1,11 +1,11 @@
-/* eslint-disable qwik/valid-lexical-scope */
-import { component$, useContext, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik';
+import { component$, useContext, useSignal } from '@builder.io/qwik';
 import { routeAction$, type DocumentHead } from '@builder.io/qwik-city';
 import List from '~/components/RecipesListPage/RecipesList';
 import Header from '~/components/RecipesListPage/Header';
 import Stub from '~/components/RecipesListPage/Stub';
-import { recipesContext, slotContext } from '~/stores';
+import { recipesContext } from '~/stores';
 import { recipyFavoriteSorter } from '~/utils/sorter';
+import Page from '~/components/Page';
 
 export const useOpenRecipe = routeAction$((recipe, { redirect }) => {
     throw redirect(302, `/recipes/${recipe.id}`);
@@ -13,7 +13,6 @@ export const useOpenRecipe = routeAction$((recipe, { redirect }) => {
 
 export default component$(() => {
     const recipeContext = useContext(recipesContext);
-    const slotCtx = useContext(slotContext);
     const onOpenRecipe = useOpenRecipe();
 
     const list = Object.values(recipeContext.all)
@@ -24,14 +23,6 @@ export default component$(() => {
             isVisible : useSignal(true)
         }));
 
-    useVisibleTask$(({ cleanup }) => {
-        slotCtx.header = <Header
-            list={list}
-            onOpenRecipe={onOpenRecipe}
-        />;
-        cleanup(() => slotCtx.header = null);
-    });
-
     const dataToShow = list.filter(l => l.isVisible.value && !l.recipe.deletedAt);
 
     if (dataToShow.length === 0) {
@@ -40,15 +31,21 @@ export default component$(() => {
         return <Stub isFiltered={isFiltered}/>;
     }
 
-    return (
+    return <Page>
+        <Header
+            q:slot='header'
+            list={list}
+            onOpenRecipe={onOpenRecipe}
+        />
         <List
+            q:slot='content'
             data={
                 dataToShow
                     .sort((a, b) => b.sorter - a.sorter)
                     .map(r => r.recipe)
             }
         />
-    );
+    </Page>;
 });
 
 export const head: DocumentHead = {
