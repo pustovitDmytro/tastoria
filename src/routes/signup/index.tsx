@@ -10,6 +10,7 @@ import { appContext } from '~/stores';
 import { qwikErrorDecorator } from '~/errors';
 import cookiesManager from '~/cookiesManager';
 import FirebaseServer from '~/firebase/server';
+import Page from '~/components/Page';
 
 export const useRedirect = routeAction$(async ({ token }, { env, cookie, redirect }) => {
     const firebaseServer = new FirebaseServer({ env });
@@ -50,34 +51,31 @@ export default component$(() => {
         action.submit(authorized);
     });
 
-
-    return (
-        <>
-            <div class={styles.page}>
-                <div class={styles.header}>
-                    <h1>{$localize `pages.signup.title`}</h1>
-                    <h2>{$localize `pages.signup.subtitle`}</h2>
-                    <p class={styles.error}>{error}</p>
-                </div>
-                <div class={styles.content}>
-                    {
-                        step.value === 'verify-email' && <div>{$localize `pages.signup.verify_email_sent`}</div>
-                    }
-                    {
-                        step.value === 'create-user' && <>
-                            <TextInput type='email' value={email} label={$localize `pages.signup.email_key`} class={styles.input}/>
-                            <TextInput type='text' value={fullName} label={$localize `pages.signup.fullName_key`} class={styles.input}/>
-                            <TextInput type='password' value={password} label={$localize `pages.signup.password_key`} class={styles.input}/>
-                            <Button class={styles.signUpBtn} onClick={handleSignUpClick}>{$localize `pages.signup.SignUp_btn`}</Button>
-                            <div class={styles.providers}>
-                                <Button icon={true} class={styles.googleBtn} onClick={googleLogin}><Glogo/></Button>
-                            </div>
-                        </>
-                    }
-                </div>
+    return <Page>
+        <div q:slot='content' class={styles.page}>
+            <div class={styles.header}>
+                <h1>{$localize `pages.signup.title`}</h1>
+                <h2>{$localize `pages.signup.subtitle`}</h2>
+                <p class={styles.error}>{error}</p>
             </div>
-        </>
-    );
+            <div class={styles.content}>
+                {
+                    step.value === 'verify-email' && <div>{$localize `pages.signup.verify_email_sent`}</div>
+                }
+                {
+                    step.value === 'create-user' && <>
+                        <TextInput type='email' value={email} label={$localize `pages.signup.email_key`} class={styles.input}/>
+                        <TextInput type='text' value={fullName} label={$localize `pages.signup.fullName_key`} class={styles.input}/>
+                        <TextInput type='password' value={password} label={$localize `pages.signup.password_key`} class={styles.input}/>
+                        <Button class={styles.signUpBtn} onClick={handleSignUpClick}>{$localize `pages.signup.SignUp_btn`}</Button>
+                        <div class={styles.providers}>
+                            <Button icon={true} class={styles.googleBtn} onClick={googleLogin}><Glogo/></Button>
+                        </div>
+                    </>
+                }
+            </div>
+        </div>
+    </Page>;
 });
 
 export const head: DocumentHead = {

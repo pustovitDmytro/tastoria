@@ -9,8 +9,9 @@
   position: relative;
 
   .mainContent {
-    margin-left: 5px;
     display: flex;
+    padding-left: 10px;
+    overflow: hidden;
 
     .hamburgerSlot{
       height: var(--header_icon_size);
@@ -19,8 +20,9 @@
   }
 
   .headerButtonsPanel{
-    width: 100%;
-    
+    /* width: 100%; */
+    flex-grow: 1;
+
     .headerButtons{
       margin: 0;
       display: flex;

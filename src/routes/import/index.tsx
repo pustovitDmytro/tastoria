@@ -11,6 +11,7 @@ import { sessionContext, recipesContext, appContext } from '~/stores';
 import Button from '~/components/Button';
 import DownloadIcon from '~/components/Icons/download.svg?component';
 import { getRecipePlaceHolder } from '~/utils/recipe';
+import Page from '~/components/Page';
 
 async function handleImport(file, user, recipeMap) {
     const reader = new ZipReader(new BlobReader(file));
@@ -144,20 +145,19 @@ export default component$(() => {
             });
     }
 
-    return (
-        <>
-            <div class={styles.page}>
-                <div class={styles.infoPage}>
-                    <Export/>
-                </div>
-                <FileInput
-                    class={styles.uploader}
-                    value={file}
-                    label={$localize `pages.import.fileInput_placeholder`}
-                />
+
+    return <Page>
+        <div  q:slot='content' class={styles.page}>
+            <div class={styles.infoPage}>
+                <Export/>
             </div>
-        </>
-    );
+            <FileInput
+                class={styles.uploader}
+                value={file}
+                label={$localize `pages.import.fileInput_placeholder`}
+            />
+        </div>
+    </Page>;
 });
 
 export const head: DocumentHead = {

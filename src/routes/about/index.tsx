@@ -14,6 +14,7 @@ import CloseIcon from '~/components/Icons/close.svg';
 import { languages } from '~/i18n';
 import { appContext } from '~/stores';
 import Button from '~/components/Button';
+import Page from '~/components/Page';
 
 const version = TASTORIA_BUILD.VERSION;
 
@@ -121,8 +122,8 @@ export default component$(() => {
 
     const isMenuOpened = isOpened.changeLog;
 
-    return (
-        <div class={styles.page}>
+    return <Page>
+        <div q:slot='content' class={styles.page}>
             <div class={[ styles.paper, { [styles.isMenuOpened]: isMenuOpened } ]}>
                 <div class={styles.header}>Tastoria</div>
                 <div class={styles.content}>
@@ -188,7 +189,7 @@ export default component$(() => {
                     : null
             }
         </div>
-    );
+    </Page>;
 });
 
 export const head: DocumentHead = {

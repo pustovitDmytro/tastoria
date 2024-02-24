@@ -10,6 +10,7 @@ import { qwikErrorDecorator } from '~/errors';
 import firebaseUI from '~/firebase/ui';
 import FirebaseServer from '~/firebase/server';
 import cookiesManager from '~/cookiesManager';
+import Page from '~/components/Page';
 
 export const useSignIn = routeAction$(async ({ token }, { env, cookie, redirect }) => {
     const firebaseServer = new FirebaseServer({ env });
@@ -58,33 +59,31 @@ export default component$(() => {
         );
     });
 
-    return (
-        <>
-            <div class={styles.page}>
-                <div class={styles.header}>
-                    <h1>{$localize `pages.login.title`}</h1>
-                    <h2>{$localize `pages.login.subtitle`}</h2>
-                    <p class={styles.error}>{error}</p>
+    return <Page>
+        <div q:slot='content' class={styles.page}>
+            <div class={styles.header}>
+                <h1>{$localize `pages.login.title`}</h1>
+                <h2>{$localize `pages.login.subtitle`}</h2>
+                <p class={styles.error}>{error}</p>
+            </div>
+            <div class={styles.content}>
+                <TextInput type='email' value={email} label={$localize `pages.login.email_key`} class={styles.input}/>
+                <TextInput type='password' value={password} label={$localize `pages.login.password_key`} class={styles.input}/>
+                <div class={styles.hints}>
+                    <Link class={styles.signUpLink} prefetch href={'/forgot_password'}>
+                        {$localize `pages.login.forgot_password`}
+                    </Link>
                 </div>
-                <div class={styles.content}>
-                    <TextInput type='email' value={email} label={$localize `pages.login.email_key`} class={styles.input}/>
-                    <TextInput type='password' value={password} label={$localize `pages.login.password_key`} class={styles.input}/>
-                    <div class={styles.hints}>
-                        <Link class={styles.signUpLink} prefetch href={'/forgot_password'}>
-                            {$localize `pages.login.forgot_password`}
-                        </Link>
-                    </div>
-                    <Button class={styles.loginBtn} onClick={handleLoginClick}>{$localize `pages.login.logIn_btn`}</Button>
-                    <div class={styles.providers}>
-                        <Glogo onClick$={googleLogin}/>
-                    </div>
-                </div>
-                <div class={styles.footer}>{$localize `pages.login.signUp_text`}
-                    <Link class={styles.signUpLink} prefetch href={'/signup'}>{$localize `pages.login.signUp_btn`}</Link>
+                <Button class={styles.loginBtn} onClick={handleLoginClick}>{$localize `pages.login.logIn_btn`}</Button>
+                <div class={styles.providers}>
+                    <Glogo onClick$={googleLogin}/>
                 </div>
             </div>
-        </>
-    );
+            <div class={styles.footer}>{$localize `pages.login.signUp_text`}
+                <Link class={styles.signUpLink} prefetch href={'/signup'}>{$localize `pages.login.signUp_btn`}</Link>
+            </div>
+        </div>
+    </Page>;
 });
 
 export const head: DocumentHead = {

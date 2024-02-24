@@ -8,6 +8,7 @@ import Select from '~/components/Select';
 import { sessionContext, appContext } from '~/stores';
 import { languages } from '~/i18n';
 import cookiesManager from '~/cookiesManager';
+import Page from '~/components/Page';
 
 const SelectLanguageOptions = languages.map(({ id, label }) => ({ id, label }));
 
@@ -56,8 +57,8 @@ export default component$(() => {
         }
     });
 
-    return (
-        <div class={styles.page}>
+    return <Page>
+        <div q:slot='content' class={styles.page}>
             <div class={styles.header}>
                 <h1>{$localize `pages.profile.title`}</h1>
             </div>
@@ -80,7 +81,7 @@ export default component$(() => {
                 <Button class={styles.button} onClick={handleSignOut}>{$localize `pages.profile.sign_out_btn`}</Button>
             </div>
         </div>
-    );
+    </Page>;
 });
 
 export const head: DocumentHead = {
