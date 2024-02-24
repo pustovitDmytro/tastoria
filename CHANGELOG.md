@@ -1,3 +1,10 @@
+## [1.29.1](https://github.com/pustovitDmytro/tastoria/compare/v1.29.0...v1.29.1) (2024-02-24)
+
+
+### Fix
+
+* enable sync ([202493b](https://github.com/pustovitDmytro/tastoria/commit/202493b3ecc0147ef8b882cbc071ea470734465d))
+
 # [1.29.0](https://github.com/pustovitDmytro/tastoria/compare/v1.28.0...v1.29.0) (2024-02-24)
 
 
