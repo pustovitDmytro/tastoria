@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/pustovitDmytro/tastoria/compare/v1.28.0...v1.29.0) (2024-02-24)
+
+
+### New
+
+* adds context menu for small screens ([ac25b70](https://github.com/pustovitDmytro/tastoria/commit/ac25b708c8c44e537b87ad9b010fc88877d3c230))
+
 # [1.28.0](https://github.com/pustovitDmytro/tastoria/compare/v1.27.0...v1.28.0) (2024-02-16)
 
 
