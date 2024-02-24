@@ -32,7 +32,10 @@ const firebaseToken = prefix => ({
 });
 
 const schema = {
-    firebase : firebase('PUBLIC_FIREBASE')
+    firebase : firebase('PUBLIC_FIREBASE'),
+    sync     : {
+        disable : { $source: '{PUBLIC_DISABLE_SYNC}', validate: [ 'required', 'boolean' ] }
+    }
 };
 
 const assembler = new Assembler(cottus, schema);

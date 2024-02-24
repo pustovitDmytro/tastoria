@@ -13,7 +13,6 @@ const version = TASTORIA_BUILD.VERSION;
 interface HeaderProps {
     recipe: Recipe;
     shareURL: URL,
-    onEdit?: ActionStore<never, Record<string, unknown>, true>
     onRemove?: ActionStore<never, Record<string, unknown>, true>
     onDuplicate?: ActionStore<never, Record<string, unknown>, true>
     sharedBy?: string

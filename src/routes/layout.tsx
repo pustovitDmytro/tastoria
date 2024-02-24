@@ -9,6 +9,7 @@ import { extractLang, useI18n } from '~/i18n';
 import FirebaseServer from '~/firebase/server';
 import Toasts from '~/components/Toasts';
 import cookiesManager from '~/cookiesManager';
+import config from '~/config';
 
 // export const onGet: RequestHandler = async ({ cacheControl, cookie }) => {
 //     cacheControl({ // https://qwik.builder.io/docs/caching/
@@ -104,6 +105,7 @@ export const useRecipes = routeLoader$(async ({ env, cookie }) => {
     return recipes.filter(f => !f.deletedAt);
 });
 
+const disableSync = config.sync.disable;
 
 export default component$(() => {
     useI18n();
@@ -128,7 +130,9 @@ export default component$(() => {
     useVisibleTask$(({ track }) => {
         const changeTime = track(() => recipesStore.lastChanged.value);
 
-        // debouncedSync(changeTime, recipesStore.all, sessionStore);
+        if (!disableSync) {
+            debouncedSync(changeTime, recipesStore.all, sessionStore);
+        }
     });
 
     return (
