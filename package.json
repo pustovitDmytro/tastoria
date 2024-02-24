@@ -13,7 +13,7 @@
     "deploy": "netlify deploy --build",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
-    "i18n-extract": "npm run build && node_modules/.bin/localize-extract -s \"dist/build/*.js\" -l key -f json -o src/locales/message.key.json && ./bin/localization.js json_to_csv",
+    "i18n-extract": "npm run build && node_modules/.bin/localize-extract -s \"dist/build/*.js\" -l key -f json -o locales/message.key.json && ./bin/localization.js json_to_csv",
     "i18n-translate": "node_modules/.bin/localize-translate -s \"*.js\" -t src/locales/message.*.json -o dist/build/{{LOCALE}} -r ./dist/build",
     "preview": "qwik build preview && vite preview --open",
     "semantic-release": "npx semantic-release",

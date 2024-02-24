@@ -9,8 +9,9 @@ import { toArray } from 'myrmidon';
 import Papa from 'papaparse';
 import pkg from '../package.json' assert { type: 'json' };
 
-const directory = path.resolve('src/locales');
-const csvFile = path.resolve(directory, 'locales.csv');
+const srcDirectory = path.resolve('locales');
+const distDirectory = path.resolve('src/locales');
+const csvFile = path.resolve(srcDirectory, 'locales.csv');
 
 const doc = `
 Usage:
@@ -24,11 +25,14 @@ Options:
 `;
 
 async function jsonToCSV() {
-    const translationFiles = await fs.readdir(directory);
+    const translationFiles = [
+        ...await fs.readdir(srcDirectory),
+        ...await fs.readdir(distDirectory)
+    ];
     const jsonFiles = translationFiles.filter(f => f.includes('.json'));
 
     const translations =  await Promise.all(
-        jsonFiles.map(f => fs.readJSON(path.join(directory, f)))
+        jsonFiles.map(f => fs.readJSON(path.join(distDirectory, f)))
     );
 
     const texts = [];
@@ -84,7 +88,7 @@ async function csvToJSON() {
                 content.translations[t.id] = t[l];
             }
 
-            const file = path.join(directory, `message.${l}.json`);
+            const file = path.join(distDirectory, `message.${l}.json`);
 
             await fs.writeJSON(file, content);
             console.log(`Written ${file}`);
@@ -102,4 +106,5 @@ async function main(opts) {
     }
 }
 
+// eslint-disable-next-line unicorn/prefer-top-level-await
 main(docopt(doc));
