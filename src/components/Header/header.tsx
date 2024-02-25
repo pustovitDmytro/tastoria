@@ -1,8 +1,8 @@
 /* eslint-disable no-secrets/no-secrets */
-import type { NoSerialize, QRL, Signal } from '@builder.io/qwik';
 import { $, component$, useContext, Slot, useSignal, useVisibleTask$, noSerialize } from '@builder.io/qwik';
 import { Link, useLocation } from '@builder.io/qwik-city';
 import styles from './header.module.css';
+import type { HeaderAction } from './types';
 import Button from '~/components/Button';
 import Hamburger from '~/components/Icons/hamburger';
 import { sessionContext, appContext } from '~/stores';
@@ -13,17 +13,6 @@ import ContextMenu from '~/components/Icons/contextMenu.svg';
 import Icon from '~/components/Icons/Icon';
 import { HEADER_BUTTON_WIDTH, DEFAULT_HEADER_BUTTONS_COUNT } from '~/constants';
 import logger from '~/logger';
-
-type HeaderAction = {
-    disabled?: Signal<boolean>
-    visible?: Signal<boolean>
-    // handler?:() => any
-    handler?:NoSerialize<() => any> | QRL<() => void>
-    link?: string
-    icon: string
-    caption: string
-    successToast?:string
-}
 
 type Props = {
     class?: string;

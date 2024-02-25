@@ -1,3 +1,4 @@
+/* eslint-disable import/unambiguous */
 module.exports = {
     root : true,
     env  : {
@@ -35,7 +36,6 @@ module.exports = {
         '@typescript-eslint/ban-ts-comment'                 : 'off',
         'prefer-spread'                                     : 'off',
         'no-case-declarations'                              : 'off',
-        '@typescript-eslint/no-unused-vars'                 : [ 'error' ],
         '@typescript-eslint/consistent-type-imports'        : 'warn',
         '@typescript-eslint/no-unnecessary-condition'       : 'warn',
         'censor/no-swear'                                   : 0,
@@ -55,5 +55,11 @@ module.exports = {
         expect         : 'readable',
         cy             : 'readable',
         Cypress        : 'readable'
-    }
+    },
+    'overrides' : [ {
+        'files' : [ 'src/components/Header/header.tsx' ],
+        'rules' : {
+            'qwik/valid-lexical-scope' : 0
+        }
+    } ]
 };
