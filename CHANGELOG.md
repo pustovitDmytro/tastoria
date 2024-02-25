@@ -1,3 +1,14 @@
+## [1.29.3](https://github.com/pustovitDmytro/tastoria/compare/v1.29.2...v1.29.3) (2024-02-25)
+
+
+### Chore
+
+* move locale sources to separate file ([102385b](https://github.com/pustovitDmytro/tastoria/commit/102385b88aa0fabd8f2000943baa87a31c118a7f))
+
+### Fix
+
+* fix list search styles ([3fc4da1](https://github.com/pustovitDmytro/tastoria/commit/3fc4da18e42127e93a394cb71bc7d3260a79b8b3))
+
 ## [1.29.2](https://github.com/pustovitDmytro/tastoria/compare/v1.29.1...v1.29.2) (2024-02-24)
 
 
