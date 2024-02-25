@@ -32,17 +32,19 @@ function prepareSharedText(recipe: Recipe) {
 // eslint-disable-next-line max-lines-per-function
 export default component$<HeaderProps>((props) => {
     const { recipe, onRemove, onDuplicate, sharedBy } = props;
-    const isLocked = useSignal(false);
     const wakeLock = useSignal<NoSerialize<WakeLockSentinel> | null>(null);
     const recipeContext = useContext(recipesContext);
     const app = useContext(appContext);
 
-    const canBeShared = useSignal(false);
+    const canBeShared = useSignal(true);
     const canBeLocked = useSignal(false);
+    const canBeUnLocked = useSignal(false);
 
     useVisibleTask$(() => {
-        canBeLocked.value = !!navigator.wakeLock;
+        /* eslint-disable @typescript-eslint/no-unnecessary-condition*/
+        if (!!navigator.wakeLock && !canBeUnLocked.value) canBeLocked.value = true;
         canBeShared.value = isFunction(navigator.share) || isFunction(navigator.clipboard.writeText);
+        /* eslint-enable @typescript-eslint/no-unnecessary-condition*/
     });
 
     const shareData = {
@@ -51,18 +53,22 @@ export default component$<HeaderProps>((props) => {
         url   : props.shareURL.href
     };
 
+
     const handleLockClick = $(async () => {
+        // eslint-disable-next-line unicorn/consistent-function-scoping
         function onLockRelease() {
-            isLocked.value = false;
+            canBeLocked.value = true;
+            canBeUnLocked.value = false;
         }
 
-        if (isLocked.value && wakeLock.value) {
+        if (canBeUnLocked.value && wakeLock.value) {
             wakeLock.value.release();
         } else {
             /* eslint-disable require-atomic-updates */
             const w = await navigator.wakeLock.request('screen');
 
-            isLocked.value = true;
+            canBeLocked.value = false;
+            canBeUnLocked.value = true;
 
             w.addEventListener('release', onLockRelease);
             wakeLock.value = noSerialize(w);
@@ -115,7 +121,7 @@ export default component$<HeaderProps>((props) => {
     });
 
     const lockBtn = {
-        visible      : useSignal(canBeLocked.value && !isLocked.value),
+        visible      : canBeLocked,
         handler      : handleLockClick,
         icon         : 'lock',
         caption      : $localize `component.RecipePage_ViewHeader.lock_caption`,
@@ -123,7 +129,7 @@ export default component$<HeaderProps>((props) => {
         successToast : $localize `component.RecipePage_ViewHeader.lock_successToast`
     };
     const unLockBtn = {
-        visible      : useSignal(canBeLocked.value && !isLocked.value),
+        visible      : canBeUnLocked,
         handler      : handleLockClick,
         icon         : 'unlock',
         caption      : $localize `component.RecipePage_ViewHeader.unlock_caption`,
