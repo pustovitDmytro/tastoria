@@ -10,18 +10,17 @@
 
   .mainContent {
     display: flex;
-    padding-left: 10px;
-    overflow: hidden;
+    justify-content: flex-start;
 
     .hamburgerSlot{
       height: var(--header_icon_size);
-      width: var(--header_icon_size);
+      width: calc(var(--header_icon_size) + 8px);
     }
   }
 
   .headerButtonsPanel{
-    /* width: 100%; */
     flex-grow: 1;
+    overflow-y: scroll;
 
     .headerButtons{
       margin: 0;
@@ -107,6 +106,10 @@
     background-color: background_2;
     border-radius: 20px;
     border: 1px solid primary_1;
+
+    .contextOption:not(:last-child) {
+      margin-bottom: 10px;
+    }
     
     .contextOption {
       display: flex;
@@ -115,7 +118,6 @@
       align-items: center;
       justify-content: flex-start;
       padding: 5px 10px;
-      margin-bottom: 10px;
       
       svg {
         height: calc(var(--header_icon_size) - 10px);
