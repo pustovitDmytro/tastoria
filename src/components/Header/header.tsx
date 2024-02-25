@@ -1,5 +1,5 @@
 /* eslint-disable no-secrets/no-secrets */
-import type { NoSerialize, Signal } from '@builder.io/qwik';
+import type { NoSerialize, QRL, Signal } from '@builder.io/qwik';
 import { $, component$, useContext, Slot, useSignal, useVisibleTask$, noSerialize } from '@builder.io/qwik';
 import { Link, useLocation } from '@builder.io/qwik-city';
 import styles from './header.module.css';
@@ -12,11 +12,13 @@ import SignInIcon from '~/components/Icons/signIn.svg';
 import ContextMenu from '~/components/Icons/contextMenu.svg';
 import Icon from '~/components/Icons/Icon';
 import { HEADER_BUTTON_WIDTH, DEFAULT_HEADER_BUTTONS_COUNT } from '~/constants';
+import logger from '~/logger';
 
 type HeaderAction = {
     disabled?: Signal<boolean>
     visible?: Signal<boolean>
-    handler?:() => any
+    // handler?:() => any
+    handler?:NoSerialize<() => any> | QRL<() => void>
     link?: string
     icon: string
     caption: string
@@ -66,33 +68,27 @@ const HeaderActionItem = component$((props:ActionProps) => {
     const { action, isContextMenu } = props;
     const className = isContextMenu ? styles.contextOption : styles.headerButton;
     const app = useContext(appContext);
+    const { successToast, caption, handler } = action;
 
-    // const noSerialized = noSerialize(() => action.handler());
+    const onClick = $(async () => {
+        if (!handler) return logger.error(`No handler for ${caption}`);
+        await handler();
+        if (successToast) {
+            const toastId = `${caption}.toast`;
 
-    const { successToast, caption } = action;
-
-    // console.log('noSerialized:', caption, noSerialized);
-
-    // const onClick = $(async () => {
-    //     console.log('noSerialized:', caption, noSerialized);
-    //     if (!noSerialized) return;
-    //     await noSerialized();
-    //     if (successToast) {
-    //         const toastId = `${caption}.toast`;
-
-    //         app.toasts[toastId] = {
-    //             id   : toastId,
-    //             type : 'success',
-    //             text : successToast
-    //         };
-    //     }
-    // });
+            app.toasts[toastId] = {
+                id   : toastId,
+                type : 'success',
+                text : successToast
+            };
+        }
+    });
 
     return action.handler
         ? <Button
             icon={true}
             class={className}
-            onClick={action.handler}
+            onClick={onClick}
             disabled={action.disabled ? action.disabled.value : false}
         >
             <Icon name={action.icon}/>
