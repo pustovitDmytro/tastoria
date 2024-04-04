@@ -1,115 +1,117 @@
-id,en,key,ua
-2480342317161667903,Search,component.FilterInput.searchLabel,Знайти
-2039021515265108710,Comment,component.RecipePage_EditPage.commentLabel,Коментарі
-6082804499388572687,Create Recipe,component.RecipePage_EditPage.create_title,Створити рецепт
-2330381719439020400,Description,component.RecipePage_EditPage.descriptionLabel,Опис
-8007566936968300367,Ingredients,component.RecipePage_EditPage.ingredientsLabel,Інгредієнти
-1052097821206541703,Quantity,component.RecipePage_EditPage.quantityLabel,Кількість
-3333136804410967485,Rating,component.RecipePage_EditPage.ratingLabel,Рейтинг
-6299960686489723221,Save,component.RecipePage_EditPage.save_btn,Зберегти
-6660771426380574738,Recipe saved,component.RecipePage_EditPage.save_successToast,Рецепт збережено
-8144997804518442563,Steps,component.RecipePage_EditPage.stepsLabel,Кроки
-2102064060603598482,Edit Recipe,component.RecipePage_EditPage.title,Редагувати рецепт
-3654005871061026259,Title,component.RecipePage_EditPage.titleLabel,Назва
-5351086426857767883,Source,component.RecipePage_EditPage.urlLabel,Джерело
-7982773027193738087,Copied to Clipboard,component.RecipePage_ViewHeader.copied_to_clipboard,Скопійовано в буфер обміну
-5413862053013467254,Duplicate,component.RecipePage_ViewHeader.duplicate_caption,Дублювати
-4835588300781740467,Recipe duplicated,component.RecipePage_ViewHeader.duplicate_successToast,Рецепт продубльовано
-6769951333907169591,Edit,component.RecipePage_ViewHeader.edit_caption,Редагувати
-6462603258769598950,Ingredients,component.RecipePage_ViewHeader.ingredientsLabel,Інгредієнти
-8592183451018717147,Lock,component.RecipePage_ViewHeader.lock_caption,Зафіксувати екран
-1869928813158881768,Screen locked,component.RecipePage_ViewHeader.lock_successToast,екран зафіксовано 
-5902979728113215088,Print,component.RecipePage_ViewHeader.print_caption,Друкувати
-7778474053793816167,Remove,component.RecipePage_ViewHeader.remove_caption,Видалити
-114241313731984984,Recipe removed,component.RecipePage_ViewHeader.remove_successToast,Рецепт видалено
-3789001162020143894,Share,component.RecipePage_ViewHeader.shareBtn_caption,Поділитися
-7183414116130184102,Steps,component.RecipePage_ViewHeader.stepsLabel,Кроки
-7871448920656156096,Tastoria Recipe,component.RecipePage_ViewHeader.title,Рецепт Tastoria
-2320285191173053521,Unlock,component.RecipePage_ViewHeader.unlock_caption,Розблокувати
-2510107205742017148,Screen unlocked,component.RecipePage_ViewHeader.unLock_successToast,Екран розблоковано
-1001257716202028138,Ingredients,component.RecipePage_ViewPage.ingredientsLabel,Інгредієнти
-4658353484491812875,Quantity,component.RecipePage_ViewPage.quantityLabel,Кількість
-4650903528543833426,Source,component.RecipePage_ViewPage.sourceLabel,Джерело
-5705116752623815839,Steps,component.RecipePage_ViewPage.stepsLabel,Кроки
-7623134886286204559,Create Recipe,component.RecipesListPage_Header.create_caption,Створити рецепт
-4596535969459942389,Pick Random,component.RecipesListPage_Header.random_caption,Випадковий вибір
-3361888939372457093,Ready to create your first recipe? Let's get started!,component.RecipesPage_Stub.create_recipe_text,Готові створити свій перший рецепт? Давайте почнемо!
-7589773966686931307,Please try another query,component.RecipesPage_Stub.filteredSubtitle,"Будь ласка, спробуйте інший запит"
-582614606495307085,No matching recipes found,component.RecipesPage_Stub.filteredTitle,Не знайдено жодного відповідного рецепту
-8046581454431589756,"If you have a backup, feel free to import it.",component.RecipesPage_Stub.import_text,"Якщо у вас є резервна копія, ви можете її імпортувати"
-1075120892243740128,Explore and save your favorites!,component.RecipesPage_Stub.subtitle,Досліджуйте та зберігайте свої улюблені!
-5076019241942076595,You haven't saved any recipes yet,component.RecipesPage_Stub.title,Ви ще не зберегли жодного рецепту
-4236136619794542356,Admin Only Operation,ERROR_FIREBASE_ADMIN_ONLY_OPERATION,Тільки для адміністраторів
-176774566442809400,Code Expired,ERROR_FIREBASE_CODE_EXPIRED,Термін дії коду закінчився
-4668349082736715583,Email Already Exists,ERROR_FIREBASE_EMAIL_EXISTS,Електронна пошта вже існує
-3880691444767968768,Expired OOB Code,ERROR_FIREBASE_EXPIRED_OOB_CODE,Термін дії коду закінчився
-7737052254869964490,Internal Server Error,ERROR_FIREBASE_INTERNAL_ERROR,Внутрішня помилка сервера
-7339256980490794339,Invalid Authentication,ERROR_FIREBASE_INVALID_AUTH,Неправильна аутентифікація
-4707217017575566954,Invalid Code,ERROR_FIREBASE_INVALID_CODE,Неправильний код
-3797702890437021927,Invalid Email,ERROR_FIREBASE_INVALID_EMAIL,Неправильна електронна пошта
-1489367329696169074,Invalid Login Credentials,ERROR_FIREBASE_INVALID_LOGIN_CREDENTIALS,Неправильні облікові дані для входу
-5866302122084818846,Invalid OOB Code,ERROR_FIREBASE_INVALID_OOB_CODE,Неправильний зовнішній код
-4941573491216098836,Invalid Password,ERROR_FIREBASE_INVALID_PASSWORD,Неправильний пароль
-7466819402592819925,Missing Code,ERROR_FIREBASE_MISSING_CODE,Відсутній код
-2111998227502058872,Missing Session Info,ERROR_FIREBASE_MISSING_SESSION_INFO,Відсутня інформація про сеанс
-7106064751016864463,Network Request Failed,ERROR_FIREBASE_NETWORK_REQUEST_FAILED,Не вдалось виконати мережевий запит
-9060710985264630546,Permission Denied,ERROR_FIREBASE_PERMISSION_DENIED,У дозволі відмовлено
-165580488283847478,Quota Exceeded,ERROR_FIREBASE_QUOTA_EXCEEDED,Перевищено квоту
-5425125509842092477,Timeout,ERROR_FIREBASE_TIMEOUT,Таймаут
-7855586582448434398,Token Expired,ERROR_FIREBASE_TOKEN_EXPIRED,Термін дії токена закінчився
-4515137648508416271,"Too Many Attempts, Try Later",ERROR_FIREBASE_TOO_MANY_ATTEMPTS_TRY_LATER,"Забагато спроб, спробуйте пізніше"
-9039817998329289062,Unknown Error,ERROR_FIREBASE_UNKNOWN_ERROR,Невідома помилка
-1132414157822879852,Unverified Email,ERROR_FIREBASE_UNVERIFIED_EMAIL,Електронна пошта не підтверджена
-1322738374409609580,User Not Found,ERROR_FIREBASE_USER_DELETED,Користувача не знайдено
-4957061158928875695,User Signed Out,ERROR_FIREBASE_USER_SIGNED_OUT,Користувач вийшов із системи
-5555959723551271636,Weak Password,ERROR_FIREBASE_WEAK_PASSWORD,Слабкий пароль
-108715103319148686,Invalid Credentials,FIREBASE_INVALID_CREDENTIALS,Невірні email чи пароль
-5243211389958567300,About,menu.About,Про нас
-3374218623292627817,Import,menu.Import,Імпортувати
-4747233810145954506,Recipes,menu.Recipes,Мої Рецепти
-1470636646523941683,Architecture,pages.about.architectureLabel,Архітектура
-3686460665643313009,What's New?,pages.about.changlelogTitle,Що нового?
-2822903074087296942,Copied to Clipboard,pages.about.deviceInfo_copied_to_clipboard,Інформацію скопійовано в буфер обміну
-8804550834504208424,Device,pages.about.deviceLabel,Пристрій
-7516280592864477890,About,pages.about.head_title,Про нас
-5199124990398657897,Height,pages.about.heightLabel,Висота
-7936290702523486872,License,pages.about.LicenseLabel,Ліцензія
-9166265674843585566,Width,pages.about.widthLabel,Ширина
-35625434891051792,Before import of recipes it is recommended to backup existing recipes,pages.import.export_placeholder,"Перед виконанням імпорту, рекомендується зберегти попередні рецепти"
-8879685062443496521,Click or drag and drop file,pages.import.fileInput_placeholder,Обрати файл
-4148539808738930454,Import Recipes,pages.import.head_title,Імпортувати рецепти
-1698230223656802732,Import Completed,pages.import.import_completed_toast,Успішно додано
-3386771653296544465,Email,pages.login.email_key,Електронна скринька
-2405063527433899529,forgot password?,pages.login.forgot_password,нагадати пароль
-9102807079407818595,Log In,pages.login.head_title,Вхід
-1975137463963122681,Log In,pages.login.logIn_btn,Увійти
-3600505066039878153,Password,pages.login.password_key,Пароль
-1828433699778992027,Sign Up,pages.login.signUp_btn,Зареєструватись
-6587778258360430022,Dont have an account?,pages.login.signUp_text,Поки без аккаунта?
-80659794385992600,Please login to using app,pages.login.subtitle,Будь ласка увійдіть в свій аккаунт
-6271147126785959794,Log In,pages.login.title,Увійти
-5433578825624245250,Email address,pages.profile.email_key,Електронна скринька
-6372840712435657545,Full Name,pages.profile.fullName_key,Ім'я
-6613832474988089359,Profile,pages.profile.head_title,Профіль
-8534426176771316877,Language,pages.profile.language_key,Мова
-7858988313881362203,Last login,pages.profile.lastLoginAt_key,Останній вхід
-4977660148846081836,Personal Information,pages.profile.personal_info_title,Персональні дані
-5178814728918508488,Settings,pages.profile.settings_title,Налаштування
-5730284166112008943,Sign Out,pages.profile.sign_out_btn,Вийти
-1816896085722253318,Profile,pages.profile.title,Профіль
-3868144566054937925,Tastoria Recipe,pages.recipe.head_title,Рецепт Tastoria
-4271335781364480953,Not Found,pages.recipe.notfound,Не знайдено
-258000378672733393,Create Recipe,pages.recipeCreate.head_title,Створити рецепт
-3681288560322490113,Edit Recipe,pages.recipeEdit.head_title,Редагувати рецепт
-8900761381169893282,Not Found,pages.recipeEdit.notfound,Не знайдено
-6427225241485476050,My recipes,pages.recipeList.head_title,Мої pецепти
-286750953181174850,Shared Recipe,pages.shared.head_title,Поширений рецепт
-8666022368985534088,Link not longer exists,pages.shared.notfound,Посилання не існує
-7281479044872185903,Email,pages.signup.email_key,Електронна скринька
-5236010107479578886,Full Name,pages.signup.fullName_key,Ім'я
-6863644611684467188,Sign Up,pages.signup.head_title,Зареєструватись
-1460103689053291231,Password,pages.signup.password_key,Пароль
-1894930952407334569,Create Account,pages.signup.SignUp_btn,Приєднатися
-3437508990078887479,Welcome to tastoria,pages.signup.subtitle,Ласкаво просимо в Tastoria
-6116359827668725042,Sign Up,pages.signup.title,Реєстрація
-4366555974862707223,"We've just sent a verification email to your registered address. Please check your inbox (and spam folder) and click on the verification link to complete the process. If you don't receive the email within a few minutes, or need assistance, kindly contact our support team.",pages.signup.verify_email_sent,"Ми щойно відправили вам електронний лист для верифікації адреси. Будь ласка, перевірте свою скриньку (в тому числі папку Спам) та натисніть на посилання для завершення процесу. Якщо ви не отримаєте листа протягом кількох хвилин або потребуєте допомоги, будь ласка, зверніться до нашої служби підтримки."
+id,key,en,ua
+2480342317161667903,component.FilterInput.searchLabel,Search,Знайти
+8715020959815355421,component.RecipePage_EditPage.categoriesLabel,Categories,Категорії
+2039021515265108710,component.RecipePage_EditPage.commentLabel,Comment,Коментарі
+6082804499388572687,component.RecipePage_EditPage.create_title,Create Recipe,Створити рецепт
+2330381719439020400,component.RecipePage_EditPage.descriptionLabel,Description,Опис
+8007566936968300367,component.RecipePage_EditPage.ingredientsLabel,Ingredients,Інгредієнти
+1052097821206541703,component.RecipePage_EditPage.quantityLabel,Quantity,Кількість
+3333136804410967485,component.RecipePage_EditPage.ratingLabel,Rating,Рейтинг
+6299960686489723221,component.RecipePage_EditPage.save_btn,Save,Зберегти
+6660771426380574738,component.RecipePage_EditPage.save_successToast,Recipe saved,Рецепт збережено
+8144997804518442563,component.RecipePage_EditPage.stepsLabel,Steps,Кроки
+4578595275406934583,component.RecipePage_EditPage.tagsLabel,Tags,Теги
+2102064060603598482,component.RecipePage_EditPage.title,Edit Recipe,Редагувати рецепт
+3654005871061026259,component.RecipePage_EditPage.titleLabel,Title,Назва
+5351086426857767883,component.RecipePage_EditPage.urlLabel,Source,Джерело
+7982773027193738087,component.RecipePage_ViewHeader.copied_to_clipboard,Copied to Clipboard,Скопійовано в буфер обміну
+5413862053013467254,component.RecipePage_ViewHeader.duplicate_caption,Duplicate,Дублювати
+4835588300781740467,component.RecipePage_ViewHeader.duplicate_successToast,Recipe duplicated,Рецепт продубльовано
+6769951333907169591,component.RecipePage_ViewHeader.edit_caption,Edit,Редагувати
+6462603258769598950,component.RecipePage_ViewHeader.ingredientsLabel,Ingredients,Інгредієнти
+8592183451018717147,component.RecipePage_ViewHeader.lock_caption,Lock,Зафіксувати екран
+1869928813158881768,component.RecipePage_ViewHeader.lock_successToast,Screen locked,"екран зафіксовано "
+5902979728113215088,component.RecipePage_ViewHeader.print_caption,Print,Друкувати
+7778474053793816167,component.RecipePage_ViewHeader.remove_caption,Remove,Видалити
+114241313731984984,component.RecipePage_ViewHeader.remove_successToast,Recipe removed,Рецепт видалено
+3789001162020143894,component.RecipePage_ViewHeader.shareBtn_caption,Share,Поділитися
+7183414116130184102,component.RecipePage_ViewHeader.stepsLabel,Steps,Кроки
+7871448920656156096,component.RecipePage_ViewHeader.title,Tastoria Recipe,Рецепт Tastoria
+2320285191173053521,component.RecipePage_ViewHeader.unlock_caption,Unlock,Розблокувати
+2510107205742017148,component.RecipePage_ViewHeader.unLock_successToast,Screen unlocked,Екран розблоковано
+1001257716202028138,component.RecipePage_ViewPage.ingredientsLabel,Ingredients,Інгредієнти
+4658353484491812875,component.RecipePage_ViewPage.quantityLabel,Quantity,Кількість
+4650903528543833426,component.RecipePage_ViewPage.sourceLabel,Source,Джерело
+5705116752623815839,component.RecipePage_ViewPage.stepsLabel,Steps,Кроки
+7623134886286204559,component.RecipesListPage_Header.create_caption,Create Recipe,Створити рецепт
+4596535969459942389,component.RecipesListPage_Header.random_caption,Pick Random,Випадковий вибір
+3361888939372457093,component.RecipesPage_Stub.create_recipe_text,Ready to create your first recipe? Let's get started!,Готові створити свій перший рецепт? Давайте почнемо!
+7589773966686931307,component.RecipesPage_Stub.filteredSubtitle,Please try another query,"Будь ласка, спробуйте інший запит"
+582614606495307085,component.RecipesPage_Stub.filteredTitle,No matching recipes found,Не знайдено жодного відповідного рецепту
+8046581454431589756,component.RecipesPage_Stub.import_text,"If you have a backup, feel free to import it.","Якщо у вас є резервна копія, ви можете її імпортувати"
+1075120892243740128,component.RecipesPage_Stub.subtitle,Explore and save your favorites!,Досліджуйте та зберігайте свої улюблені!
+5076019241942076595,component.RecipesPage_Stub.title,You haven't saved any recipes yet,Ви ще не зберегли жодного рецепту
+4236136619794542356,ERROR_FIREBASE_ADMIN_ONLY_OPERATION,Admin Only Operation,Тільки для адміністраторів
+176774566442809400,ERROR_FIREBASE_CODE_EXPIRED,Code Expired,Термін дії коду закінчився
+4668349082736715583,ERROR_FIREBASE_EMAIL_EXISTS,Email Already Exists,Електронна пошта вже існує
+3880691444767968768,ERROR_FIREBASE_EXPIRED_OOB_CODE,Expired OOB Code,Термін дії коду закінчився
+7737052254869964490,ERROR_FIREBASE_INTERNAL_ERROR,Internal Server Error,Внутрішня помилка сервера
+7339256980490794339,ERROR_FIREBASE_INVALID_AUTH,Invalid Authentication,Неправильна аутентифікація
+4707217017575566954,ERROR_FIREBASE_INVALID_CODE,Invalid Code,Неправильний код
+3797702890437021927,ERROR_FIREBASE_INVALID_EMAIL,Invalid Email,Неправильна електронна пошта
+1489367329696169074,ERROR_FIREBASE_INVALID_LOGIN_CREDENTIALS,Invalid Login Credentials,Неправильні облікові дані для входу
+5866302122084818846,ERROR_FIREBASE_INVALID_OOB_CODE,Invalid OOB Code,Неправильний зовнішній код
+4941573491216098836,ERROR_FIREBASE_INVALID_PASSWORD,Invalid Password,Неправильний пароль
+7466819402592819925,ERROR_FIREBASE_MISSING_CODE,Missing Code,Відсутній код
+2111998227502058872,ERROR_FIREBASE_MISSING_SESSION_INFO,Missing Session Info,Відсутня інформація про сеанс
+7106064751016864463,ERROR_FIREBASE_NETWORK_REQUEST_FAILED,Network Request Failed,Не вдалось виконати мережевий запит
+9060710985264630546,ERROR_FIREBASE_PERMISSION_DENIED,Permission Denied,У дозволі відмовлено
+165580488283847478,ERROR_FIREBASE_QUOTA_EXCEEDED,Quota Exceeded,Перевищено квоту
+5425125509842092477,ERROR_FIREBASE_TIMEOUT,Timeout,Таймаут
+7855586582448434398,ERROR_FIREBASE_TOKEN_EXPIRED,Token Expired,Термін дії токена закінчився
+4515137648508416271,ERROR_FIREBASE_TOO_MANY_ATTEMPTS_TRY_LATER,"Too Many Attempts, Try Later","Забагато спроб, спробуйте пізніше"
+9039817998329289062,ERROR_FIREBASE_UNKNOWN_ERROR,Unknown Error,Невідома помилка
+1132414157822879852,ERROR_FIREBASE_UNVERIFIED_EMAIL,Unverified Email,Електронна пошта не підтверджена
+1322738374409609580,ERROR_FIREBASE_USER_DELETED,User Not Found,Користувача не знайдено
+4957061158928875695,ERROR_FIREBASE_USER_SIGNED_OUT,User Signed Out,Користувач вийшов із системи
+5555959723551271636,ERROR_FIREBASE_WEAK_PASSWORD,Weak Password,Слабкий пароль
+108715103319148686,FIREBASE_INVALID_CREDENTIALS,Invalid Credentials,Невірні email чи пароль
+5243211389958567300,menu.About,About,Про нас
+3374218623292627817,menu.Import,Import,Імпортувати
+4747233810145954506,menu.Recipes,Recipes,Мої Рецепти
+1470636646523941683,pages.about.architectureLabel,Architecture,Архітектура
+3686460665643313009,pages.about.changlelogTitle,What's New?,Що нового?
+2822903074087296942,pages.about.deviceInfo_copied_to_clipboard,Copied to Clipboard,Інформацію скопійовано в буфер обміну
+8804550834504208424,pages.about.deviceLabel,Device,Пристрій
+7516280592864477890,pages.about.head_title,About,Про нас
+5199124990398657897,pages.about.heightLabel,Height,Висота
+7936290702523486872,pages.about.LicenseLabel,License,Ліцензія
+9166265674843585566,pages.about.widthLabel,Width,Ширина
+35625434891051792,pages.import.export_placeholder,Before import of recipes it is recommended to backup existing recipes,"Перед виконанням імпорту, рекомендується зберегти попередні рецепти"
+8879685062443496521,pages.import.fileInput_placeholder,Click or drag and drop file,Обрати файл
+4148539808738930454,pages.import.head_title,Import Recipes,Імпортувати рецепти
+1698230223656802732,pages.import.import_completed_toast,Import Completed,Успішно додано
+3386771653296544465,pages.login.email_key,Email,Електронна скринька
+2405063527433899529,pages.login.forgot_password,forgot password?,нагадати пароль
+9102807079407818595,pages.login.head_title,Log In,Вхід
+1975137463963122681,pages.login.logIn_btn,Log In,Увійти
+3600505066039878153,pages.login.password_key,Password,Пароль
+1828433699778992027,pages.login.signUp_btn,Sign Up,Зареєструватись
+6587778258360430022,pages.login.signUp_text,Dont have an account?,Поки без аккаунта?
+80659794385992600,pages.login.subtitle,Please login to using app,Будь ласка увійдіть в свій аккаунт
+6271147126785959794,pages.login.title,Log In,Увійти
+5433578825624245250,pages.profile.email_key,Email address,Електронна скринька
+6372840712435657545,pages.profile.fullName_key,Full Name,Ім'я
+6613832474988089359,pages.profile.head_title,Profile,Профіль
+8534426176771316877,pages.profile.language_key,Language,Мова
+7858988313881362203,pages.profile.lastLoginAt_key,Last login,Останній вхід
+4977660148846081836,pages.profile.personal_info_title,Personal Information,Персональні дані
+5178814728918508488,pages.profile.settings_title,Settings,Налаштування
+5730284166112008943,pages.profile.sign_out_btn,Sign Out,Вийти
+1816896085722253318,pages.profile.title,Profile,Профіль
+3868144566054937925,pages.recipe.head_title,Tastoria Recipe,Рецепт Tastoria
+4271335781364480953,pages.recipe.notfound,Not Found,Не знайдено
+258000378672733393,pages.recipeCreate.head_title,Create Recipe,Створити рецепт
+3681288560322490113,pages.recipeEdit.head_title,Edit Recipe,Редагувати рецепт
+8900761381169893282,pages.recipeEdit.notfound,Not Found,Не знайдено
+6427225241485476050,pages.recipeList.head_title,My recipes,Мої pецепти
+286750953181174850,pages.shared.head_title,Shared Recipe,Поширений рецепт
+8666022368985534088,pages.shared.notfound,Link not longer exists,Посилання не існує
+7281479044872185903,pages.signup.email_key,Email,Електронна скринька
+5236010107479578886,pages.signup.fullName_key,Full Name,Ім'я
+6863644611684467188,pages.signup.head_title,Sign Up,Зареєструватись
+1460103689053291231,pages.signup.password_key,Password,Пароль
+1894930952407334569,pages.signup.SignUp_btn,Create Account,Приєднатися
+3437508990078887479,pages.signup.subtitle,Welcome to tastoria,Ласкаво просимо в Tastoria
+6116359827668725042,pages.signup.title,Sign Up,Реєстрація
+4366555974862707223,pages.signup.verify_email_sent,"We've just sent a verification email to your registered address. Please check your inbox (and spam folder) and click on the verification link to complete the process. If you don't receive the email within a few minutes, or need assistance, kindly contact our support team.","Ми щойно відправили вам електронний лист для верифікації адреси. Будь ласка, перевірте свою скриньку (в тому числі папку Спам) та натисніть на посилання для завершення процесу. Якщо ви не отримаєте листа протягом кількох хвилин або потребуєте допомоги, будь ласка, зверніться до нашої служби підтримки."

@@ -1,0 +1,67 @@
+@value colors: "../variables.css";
+@value primary_1, background_2, error_1 from colors;
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.input {
+  flex-grow: 1;
+  width: auto !important;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40px;
+  z-index: 1;
+  background-color: background_2;
+  border-radius: 20px;
+  opacity: 0.95;
+  padding-bottom: 20px;
+  min-width: 300px;
+  
+  .option {
+    padding: 0.5rem 0 0 1rem;
+    cursor: pointer;
+  }
+}
+
+
+.chip {
+  display: inline-block;
+  background: background_2;
+  padding: 10px 12px;
+  border-radius: 20px;
+  height: 40px;
+  box-shadow: inset 0 0 0 1px primary_1;
+  margin-right: 12px;
+  text-align: center;
+  color: primary_1;
+  font-weight: bold;
+
+  .dropChipButton {
+    position: relative;
+    top: -5px;
+    right: -5px;
+    width: 15px;
+    height: 15px;
+
+    svg {
+      stroke: error_1;
+      fill: error_1;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .options {
+    left: -20px;
+    width: calc(100vw - 20px);
+  }
+}

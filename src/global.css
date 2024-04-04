@@ -19,8 +19,7 @@ html {
     "Segoe UI Symbol",
     "Noto Color Emoji";
 
-  overflow: hidden;
-
+    overflow: hidden;
 }
 
 body {
@@ -39,6 +38,10 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+* {
+  box-sizing: border-box;
 }
 
 

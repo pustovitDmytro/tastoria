@@ -33,9 +33,15 @@ export default component$<HeaderProps>((props) => {
             };
 
             fields.forEach(f => {
-                edited[f.key] = f.linesToArray
-                    ? f.signal.value.split('\n')
-                    : f.signal.value;
+                if (f.linesToArray) {
+                    return edited[f.key] = f.signal.value.split('\n');
+                }
+
+                if (f.type === 'chips') {
+                    return edited[f.key] = [ ...f.store ];
+                }
+
+                edited[f.key] = f.signal.value;
             });
 
             recipeContext.all[edited.id] = edited;

@@ -34,7 +34,7 @@ export interface Recipe {
     deletedAt?: string
 }
 
-export interface ReceipFilter {
+export interface ReceiptFilter {
     value: string,
     items: Array<string>
 }

@@ -1,16 +1,20 @@
-import { useSignal, type Signal } from '@builder.io/qwik';
+/* eslint-disable qwik/use-method-usage */
+import { useSignal, type Signal, useStore } from '@builder.io/qwik';
 
 export interface Field {
-    type: 'text' | 'number' | 'multiline',
+    type: 'chips' | 'text' | 'number' | 'multiline',
     key: string,
     label: string,
     linesToArray?: boolean,
-    signal: Signal<string>
+    signal: Signal<string>,
+    store: Array<string>
 }
 
 export const fields = [
     { key: 'title', label: $localize `component.RecipePage_EditPage.titleLabel`, type: 'text' },
     { key: 'description', label: $localize `component.RecipePage_EditPage.descriptionLabel`, type: 'multiline' },
+    { key: 'categories', label: $localize `component.RecipePage_EditPage.categoriesLabel`, type: 'chips', options: 'categories' },
+    { key: 'tags', label: $localize `component.RecipePage_EditPage.tagsLabel`, type: 'chips', options: 'tags' },
     { key: 'url', label: $localize `component.RecipePage_EditPage.urlLabel`, type: 'text' },
     // { key: 'language', label: $localize `component.RecipePage_EditPage.languageLabel`, type: 'input' },
     { key: 'quantity', label: $localize `component.RecipePage_EditPage.quantityLabel`, type: 'number' },
@@ -22,14 +26,17 @@ export const fields = [
 ];
 
 export function addSignal(field, recipe):Field {
+    let signal;
+    let store;
+
+    if (field.linesToArray) signal = useSignal(recipe[field.key].join('\n'));
+    if (field.type === 'chips') store = useStore([ ...recipe[field.key] ]);
+    if (!signal) signal = useSignal(recipe[field.key]);
+
     return {
         ...field,
-        // eslint-disable-next-line qwik/use-method-usage
-        signal : useSignal(
-            field.linesToArray
-                ? recipe[field.key].join('\n')
-                : recipe[field.key]
-        )
+        signal,
+        store
     };
 }
 

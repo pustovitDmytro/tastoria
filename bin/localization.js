@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable unicorn/no-await-expression-member */
 /* eslint-disable no-param-reassign */
 
 import path from 'path';
@@ -26,14 +27,11 @@ Options:
 
 async function jsonToCSV() {
     const translationFiles = [
-        ...await fs.readdir(srcDirectory),
-        ...await fs.readdir(distDirectory)
+        ...(await fs.readdir(srcDirectory)).map(f => path.join(srcDirectory, f)),
+        ...(await fs.readdir(distDirectory)).map(f => path.join(distDirectory, f))
     ];
     const jsonFiles = translationFiles.filter(f => f.includes('.json'));
-
-    const translations =  await Promise.all(
-        jsonFiles.map(f => fs.readJSON(path.join(distDirectory, f)))
-    );
+    const translations =  await Promise.all(jsonFiles.map(f => fs.readJSON(f)));
 
     const texts = [];
 

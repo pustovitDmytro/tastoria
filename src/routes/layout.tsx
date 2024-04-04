@@ -10,6 +10,7 @@ import FirebaseServer from '~/firebase/server';
 import Toasts from '~/components/Toasts';
 import cookiesManager from '~/cookiesManager';
 import config from '~/config';
+import type { ReceiptFilter, Recipe } from '~/types';
 
 // export const onGet: RequestHandler = async ({ cacheControl, cookie }) => {
 //     cacheControl({ // https://qwik.builder.io/docs/caching/
@@ -107,6 +108,23 @@ export const useRecipes = routeLoader$(async ({ env, cookie }) => {
 
 const disableSync = config.sync.disable;
 
+function fill(resultArray, category, id) {
+    const found  = resultArray.find(t => t.value === category);
+
+    if (found) {
+        found.items.push(id);
+    } else {
+        resultArray.push({ value: category, items: [ id ] });
+    }
+}
+
+function fillRecipes(r: Recipe, result) {
+    if (r.deletedAt) return;
+    r.tags.forEach(tag => fill(result.tags, tag, r.id));
+    r.categories.forEach(tag => fill(result.categories, tag, r.id));
+}
+
+
 export default component$(() => {
     useI18n();
     useStyles$(fonts);
@@ -121,7 +139,18 @@ export default component$(() => {
 
     const sessionStore = useStore({ user: session });
     const appStore = useStore({ isMenuOpened: false, language: settings.value.language, toasts: {} });
-    const recipesStore = useStore({ all: map, lastChanged: useSignal(new Date()) });
+    const result = {
+        tags       : [] as ReceiptFilter[],
+        categories : [] as ReceiptFilter[]
+    };
+
+    Object.values(map).forEach(r => fillRecipes(r as Recipe, result));
+
+    const recipesStore = useStore({
+        all         : map,
+        ...result,
+        lastChanged : useSignal(new Date())
+    });
 
     useContextProvider(sessionContext, sessionStore);
     useContextProvider(appContext, appStore);

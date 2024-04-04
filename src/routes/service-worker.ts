@@ -4,8 +4,10 @@ import {
     precacheAndRoute
 } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
+// import { ExpirationPlugin } from 'workbox-expiration';
 // import { BackgroundSyncPlugin } from 'workbox-background-sync';
 
 declare const self: ServiceWorkerGlobalScope;
@@ -13,6 +15,7 @@ declare const self: ServiceWorkerGlobalScope;
 const buildDate = TASTORIA_BUILD.DATE;
 const version = TASTORIA_BUILD.VERSION;
 const host = self.location.hostname;
+// const dayInSeconds = 60 * 60 * 24;
 
 const revision = `${version} (${buildDate})`;
 const prefix = `tastoria v.${revision}`;
@@ -53,7 +56,7 @@ try {
 
     registerRoute(
         /.*\/q-data.json$/,
-        new StaleWhileRevalidate({
+        new NetworkFirst({
             cacheName : 'q-data'
         })
     );
@@ -65,7 +68,12 @@ try {
             && request.url.includes(host);
         },
         new StaleWhileRevalidate({
-            cacheName : 'pages'
+            cacheName : 'pages',
+            plugins   : [
+                new CacheableResponsePlugin({
+                    statuses : [ 200, 302 ]
+                })
+            ]
         })
     );
 

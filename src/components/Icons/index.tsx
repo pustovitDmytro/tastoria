@@ -22,6 +22,7 @@ import signIn from './signIn.svg?component';
 import success from './success.svg?component';
 import unlock from './unlock.svg?component';
 import save from './save.svg?component';
+import closeMin from './closeMin.svg?component';
 
 export {
     add,
@@ -46,5 +47,6 @@ export {
     share,
     signIn,
     success,
-    unlock
+    unlock,
+    closeMin
 };
