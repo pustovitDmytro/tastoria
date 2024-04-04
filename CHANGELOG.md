@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/pustovitDmytro/tastoria/compare/v1.30.0...v1.31.0) (2024-04-04)
+
+
+### New
+
+* allow to edit categories and tags ([ab80ad2](https://github.com/pustovitDmytro/tastoria/commit/ab80ad2177d2798792a0f7878c39619438413968))
+
 # [1.30.0](https://github.com/pustovitDmytro/tastoria/compare/v1.29.3...v1.30.0) (2024-02-25)
 
 
