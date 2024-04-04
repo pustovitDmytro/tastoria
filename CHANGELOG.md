@@ -1,3 +1,18 @@
+# [1.30.0](https://github.com/pustovitDmytro/tastoria/compare/v1.29.3...v1.30.0) (2024-02-25)
+
+
+### Chore
+
+* fixes lint ([e1d6f91](https://github.com/pustovitDmytro/tastoria/commit/e1d6f91a324ed2bd6e2d6fe445abd596e65ac2b2))
+
+### Fix
+
+* fixes screen lock ([b94ebcb](https://github.com/pustovitDmytro/tastoria/commit/b94ebcbd3455b9119864b9fef75b831b9f923420))
+
+### New
+
+* adds toasts after header actions ([ee16710](https://github.com/pustovitDmytro/tastoria/commit/ee167106da79c43b1e550d8da1f6cf935a495214))
+
 ## [1.29.3](https://github.com/pustovitDmytro/tastoria/compare/v1.29.2...v1.29.3) (2024-02-25)
 
 

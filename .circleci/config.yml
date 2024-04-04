@@ -95,11 +95,11 @@ jobs:
       - checkout
       - restore_cache:
           <<: *cache-npm
+      - cypress/install:
+          package-manager: npm
       - run:
           name: Print machine info
           command: npx cypress info
-      - cypress/install:
-          package-manager: npm
       - cypress/run-tests:
           cypress-command: npm run test:unit
       - cypress/run-tests:
