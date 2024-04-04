@@ -25,16 +25,16 @@ const firebase = prefix => ({
 });
 
 const firebaseToken = prefix => ({
-    privateKey : { $source: `{${prefix}_PRIVATE_KEY}`, validate: [ 'required', 'encryptionKey' ] },
-    sub        : { $source: `{${prefix}_SUB}`, validate: [ 'required', 'email' ] },
-    issuer     : { $source: `{${prefix}_SUB}`, validate: [ 'required', 'email' ] },
-    audience   : { $source: `{${prefix}_AUDIENCE}`, validate: [ 'required', 'string' ] }
+    privateKey : { $source: `{${prefix}_PRIVATE_KEY}`, $validate: [ 'required', 'encryptionKey' ] },
+    sub        : { $source: `{${prefix}_SUB}`, $validate: [ 'required', 'email' ] },
+    issuer     : { $source: `{${prefix}_SUB}`, $validate: [ 'required', 'email' ] },
+    audience   : { $source: `{${prefix}_AUDIENCE}`, $validate: [ 'required', 'string' ] }
 });
 
 const schema = {
     firebase : firebase('PUBLIC_FIREBASE'),
     sync     : {
-        disable : { $source: '{PUBLIC_DISABLE_SYNC}', validate: [ 'required', 'boolean' ] }
+        disable : { $source: '{PUBLIC_DISABLE_SYNC}', $validate: [ 'required', 'boolean' ] }
     }
 };
 
