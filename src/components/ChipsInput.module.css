@@ -5,14 +5,15 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
+
+  .input {
+    flex-grow: 1;
+    width: auto;
+  }
 }
 
-.input {
-  flex-grow: 1;
-  width: auto !important;
-}
 
 .options {
   display: flex;
@@ -37,10 +38,12 @@
   display: inline-block;
   background: background_2;
   padding: 10px 12px;
+  margin-right: 12px;
+  margin-bottom: 5px;
+  margin-top: 5px;
   border-radius: 20px;
   height: 40px;
   box-shadow: inset 0 0 0 1px primary_1;
-  margin-right: 12px;
   text-align: center;
   color: primary_1;
   font-weight: bold;
