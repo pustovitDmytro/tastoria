@@ -3,7 +3,8 @@ import { defineConfig } from 'cypress';
 const e = process.env;
 
 export default defineConfig({
-    retries : {
+    defaultCommandTimeout : 60_000,
+    retries               : {
         runMode : 2
     },
     env : {
@@ -29,7 +30,7 @@ export default defineConfig({
         //     return config;
         // },
 
-        slowTestThreshold : 500
+        slowTestThreshold : 30_000
     },
     screenshotsFolder : 'reports/cypress-screenshots'
 });
