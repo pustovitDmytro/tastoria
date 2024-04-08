@@ -1,3 +1,16 @@
+## [1.31.1](https://github.com/pustovitDmytro/tastoria/compare/v1.31.0...v1.31.1) (2024-04-08)
+
+
+### Chore
+
+* fixes tests ([88aeed1](https://github.com/pustovitDmytro/tastoria/commit/88aeed1ee967b5f9afc0cf8b8e360388273e00db))
+* ignore encryptionKey validaton for deno ([62b8aa7](https://github.com/pustovitDmytro/tastoria/commit/62b8aa7fe1bf56eee58232f5066cd677a881a7d7))
+
+### Fix
+
+* auto sync enable ([005e301](https://github.com/pustovitDmytro/tastoria/commit/005e301534c49ef7c755852516b1391cf376c956))
+* fixes inputs styes ([937f000](https://github.com/pustovitDmytro/tastoria/commit/937f00011ffb770070a32ae503a21889e1b1ac74))
+
 # [1.31.0](https://github.com/pustovitDmytro/tastoria/compare/v1.30.0...v1.31.0) (2024-04-04)
 
 
