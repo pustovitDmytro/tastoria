@@ -158,6 +158,8 @@ export default component$(() => {
         handleImport(file.value, session.user.value, recipeContext.all, progress)
             // eslint-disable-next-line promise/always-return, promise/prefer-await-to-then
             .then(() => {
+                recipeContext.lastChanged.value = new Date();
+
                 const toastId = 'import_completed';
 
                 app.toasts[toastId] = {
