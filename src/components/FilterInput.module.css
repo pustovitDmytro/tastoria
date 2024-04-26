@@ -1,5 +1,5 @@
 @value colors: "../variables.css";
-@value primary_1, background_2 from colors;
+@value primary_1, primary_2, background_2 from colors;
 
 .container {
   position: relative;
@@ -22,6 +22,8 @@
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
+  height: 15px;
+  width: 15px;
 }
 
 .up {
@@ -41,21 +43,29 @@
   top: 40px;
   z-index: 1;
   background-color: background_2;
+  border: 1px solid primary_2;
   border-radius: 20px;
   opacity: 0.95;
-  padding-bottom: 20px;
+  padding: 0px 15px 20px 15px;
   min-width: 300px;
+
+  .closeButton {
+    background-color: transparent;
+    border: none;
+    height: 30px;
+    margin-top: 10px;
+  }
 }
 
 .option {
 	padding-top: 0.5rem;
   font-size: 1.2rem;
+  
+  label {
+    cursor: pointer;
+  }
 }
 
-.closeButton {
-  background-color: transparent !important;
-  border: none !important;
-}
 
 @media screen and (max-width: 450px) {
   .options {

@@ -139,7 +139,8 @@ export default class FireBaseServer {
             goOnline(db);
             const ref = refDB(db, `recipes/${userId}`);
             const snapshot = await get(ref);
-            const inDBMapping = snapshot.val() as dbResult;
+            const inDBMapping = (snapshot.val() as dbResult | null) || {};
+
             const results = [] as compareResult[];
             const checked = new Set();
 
@@ -177,8 +178,9 @@ export default class FireBaseServer {
             return results;
         } catch (error) {
             logger.error(`RECIPES_SYNC_FAILED ${syncId}`);
-
-            logger.error(error);
+            if (error instanceof Error) {
+                logger.error({ error: error.toString(), stack: error.stack });
+            }
 
             return [];
         }
