@@ -1,3 +1,14 @@
+# [1.32.0](https://github.com/pustovitDmytro/tastoria/compare/v1.31.1...v1.32.0) (2024-04-26)
+
+
+### Fix
+
+* disable prefetch for single recipe ([2bb433d](https://github.com/pustovitDmytro/tastoria/commit/2bb433d4f2f5534025405ac9a552a5d4dd5b73cd))
+
+### New
+
+* adds progress bar for import ([2753fa8](https://github.com/pustovitDmytro/tastoria/commit/2753fa808267efe0fd1dc96b8337f060c3e323b2))
+
 ## [1.31.1](https://github.com/pustovitDmytro/tastoria/compare/v1.31.0...v1.31.1) (2024-04-08)
 
 
