@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { $, component$, useStore, useVisibleTask$, useContext, useSignal, noSerialize, useTask$,  type NoSerialize  } from '@builder.io/qwik';
+import type { Signal, NoSerialize } from '@builder.io/qwik';
+import { $, component$, useContext, useSignal  } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { BlobReader, ZipReader, BlobWriter, TextWriter } from '@zip.js/zip.js';
 import { last } from 'myrmidon';
