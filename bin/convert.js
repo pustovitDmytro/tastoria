@@ -14,12 +14,12 @@ const tmpDirectory = path.resolve('tmp');
 
 const doc = `
 Usage:
-   convert <from> [--directory <directory> | -d <directory>]
+   convert <from> [--directory=<directory>]
    convert -h | --help
 
 Options:
-    <from>                                  File to convert
-   -d <directory> | --directory <directory> Out directory [default: ${tmpDirectory}]
+    <from>                    File to convert
+   --directory=<directory>    Out directory [default: ${tmpDirectory}]
 `;
 
 async function streamToBuffer(stream) {
@@ -65,34 +65,36 @@ class CookMateParser {
         }
 
 
-        await new Promise((resolve, reject) => {
+        const xml = await new Promise((resolve, reject) => {
             const parser = this;
+            let xmlBuff;
 
             fs.createReadStream(this._input)
                 .pipe(unzipper.Parse())
                 .on('error', reject)
-                .on('finish', resolve)
+                .on('finish', () => resolve(xmlBuff))
                 .on('entry', async (entry) => {
                     const fileName = entry.path;
 
+                    console.log('fileName:', fileName);
                     if (path.extname(fileName) === '.xml') {
-                        parser.handleXML(
-                            await streamToBuffer(entry)
-                        );
+                        xmlBuff = await streamToBuffer(entry);
+                        console.log('xmlBuff:', xmlBuff);
 
                         return;
                     }
 
-                    // if (path.extname(fileName) === '.jpg') {
-                    //     parser.handleImage(entry);
+                    if ([ '.jpg', '.png' ].includes(path.extname(fileName).toLowerCase())) {
+                        parser.handleImage(entry);
 
-                    //     return;
-                    // }
+                        return;
+                    }
 
                     entry.autodrain();
                 });
         });
 
+        this.handleXML(xml);
         await fs.writeJSON(
             path.join(this.savePath, 'data.json'),
             { recipes: this._items }
@@ -152,7 +154,7 @@ class CookMateParser {
             const data = {
                 id          : uuid(),
                 title       : recipe.title._text,
-                description : recipe.description._text,
+                description : recipe.description?._text,
                 ingredients : this.parseList(recipe.ingredient),
                 steps       : this.parseList(recipe.recipetext),
                 url         : recipe.url._text,
@@ -165,13 +167,13 @@ class CookMateParser {
                     cook    : recipe.cooktime._text
                 },
                 quantity  : recipe.quantity._text,
-                comment   : recipe.comments._text,
+                comment   : recipe.comments?._text,
                 language  : recipe.lang._text,
                 version   : pkg.version,
                 createdAt : this._date.toISOString()
             };
 
-            if (recipe.imagepath._text) {
+            if (recipe.imagepath?._text) {
                 data.image = this._images.get(path.basename(recipe.imagepath._text));
             }
 
@@ -188,6 +190,7 @@ class CookMateParser {
 
 
 async function main(opts) {
+    console.log('opts:', opts);
     const parser = new CookMateParser(opts['<from>']);
     const stats = await parser.parse(opts['--directory']);
 

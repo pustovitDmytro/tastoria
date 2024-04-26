@@ -12,11 +12,15 @@ import Button from '~/components/Button';
 import DownloadIcon from '~/components/Icons/download.svg?component';
 import { getRecipePlaceHolder } from '~/utils/recipe';
 import Page from '~/components/Page';
+import Progress from '~/components/Progress';
 import Header from '~/components/Header/header';
+import type { Recipe } from '~/types';
 
-async function handleImport(file, user, recipeMap) {
+async function handleImport(file, user: any, recipeMap: { [x: string]: Recipe; }, progress: Signal<number>) {
     const reader = new ZipReader(new BlobReader(file));
     const entries = await reader.getEntries({});
+
+    progress.value += 0.25;
 
     if (entries.length > 0) {
         const fileEntry = entries.find(f => f.filename.includes('data.json'));
@@ -24,22 +28,35 @@ async function handleImport(file, user, recipeMap) {
         if (!fileEntry?.getData) throw new Error('no data');
         const zipFileWriter = new TextWriter();
         const fileData = await fileEntry.getData(zipFileWriter);
+
+        progress.value += 0.2;
+
         const data = JSON.parse(fileData);
         const imageNames = new Set(data.recipes.map(r => r.image).filter(Boolean));
 
         const images = entries.filter(f => imageNames.has(last(f.filename.split('/'))));
 
-        await Promise.all(images.map(async i => { // TODO: progress bar
+        const progressPerImage = images.length > 0 ? (1 - progress.value - 0.1) / images.length : 0;
+
+        await Promise.all(images.map(async i => {
             const imageName = last(i.filename.split('/'));
             const writer = new BlobWriter();
 
-            if (!i.getData) return;
+            if (!i.getData) {
+                progress.value += progressPerImage;
+
+                return;
+            }
+
             const image = await i.getData(writer);
 
+            progress.value += progressPerImage / 2;
+
             await firebaseUI.saveImage(user, imageName, image);
+            progress.value += progressPerImage / 2;
         }));
 
-        data.forEach(recipe => {
+        data.recipes.forEach(recipe => {
             const prepared = {
                 ...getRecipePlaceHolder(),
                 ...recipe
@@ -48,6 +65,9 @@ async function handleImport(file, user, recipeMap) {
             recipeMap[prepared.id] = prepared;
         });
     }
+
+    // eslint-disable-next-line require-atomic-updates
+    progress.value = 1;
 }
 
 function click(node) {
@@ -130,10 +150,11 @@ export default component$(() => {
     const file = useSignal<NoSerialize<Blob>[] | NoSerialize<File>[]>();
     const recipeContext = useContext(recipesContext);
     const app = useContext(appContext);
+    const progress = useSignal(0);
 
     if (file.value) {
         // eslint-disable-next-line promise/catch-or-return
-        handleImport(file.value, session.user.value, recipeContext.all)
+        handleImport(file.value, session.user.value, recipeContext.all, progress)
             // eslint-disable-next-line promise/always-return, promise/prefer-await-to-then
             .then(() => {
                 const toastId = 'import_completed';
@@ -146,18 +167,20 @@ export default component$(() => {
             });
     }
 
-
     return <Page>
         <Header actions={[]} q:slot='header'></Header>
         <div  q:slot='content' class={styles.page}>
             <div class={styles.infoPage}>
                 <Export/>
             </div>
-            <FileInput
-                class={styles.uploader}
-                value={file}
-                label={$localize `pages.import.fileInput_placeholder`}
-            />
+            <div class={styles.importBlock}>
+                <FileInput
+                    class={styles.uploader}
+                    value={file}
+                    label={$localize `pages.import.fileInput_placeholder`}
+                />
+                {file.value ? <Progress value={progress}></Progress> : null}
+            </div>
         </div>
     </Page>;
 });

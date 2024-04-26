@@ -1,0 +1,15 @@
+.container {
+  width   : 100%;
+  height: 1.75rem;
+  overflow: hidden;
+
+  background-color: rgba(#00b27c, 0.15);
+
+  .indicator {
+    height: 100%;
+    width: 100%;
+    background-color: var(--primary_1);
+    transition   : transform 0.5s ease;
+  }
+}
+
