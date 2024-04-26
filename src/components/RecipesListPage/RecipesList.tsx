@@ -12,7 +12,7 @@ export default component$<ItemProps>((props) => {
     return (
         <div class={styles.component}>
             {props.data.map((recepy) => (
-                <Link prefetch href={`/recipes/${recepy.id}`} key={recepy.id}>
+                <Link href={`/recipes/${recepy.id}`} key={recepy.id}>
                     <Card
                         title={recepy.title}
                         categories={recepy.categories}
