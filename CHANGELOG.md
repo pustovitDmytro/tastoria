@@ -1,3 +1,11 @@
+## [1.32.1](https://github.com/pustovitDmytro/tastoria/compare/v1.32.0...v1.32.1) (2024-04-26)
+
+
+### Fix
+
+* fixes import ([e32fa34](https://github.com/pustovitDmytro/tastoria/commit/e32fa34fbbf82d6a39b1c3469e16877899d2328b))
+* styles for filterinput ([d683348](https://github.com/pustovitDmytro/tastoria/commit/d683348682659e3e77057e1a086398bbf1ea5688))
+
 # [1.32.0](https://github.com/pustovitDmytro/tastoria/compare/v1.31.1...v1.32.0) (2024-04-26)
 
 
