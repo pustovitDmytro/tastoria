@@ -34,9 +34,7 @@ async function handleImport(file, user: any, recipeMap: { [x: string]: Recipe; }
 
         const data = JSON.parse(fileData);
         const imageNames = new Set(data.recipes.map(r => r.image).filter(Boolean));
-
         const images = entries.filter(f => imageNames.has(last(f.filename.split('/'))));
-
         const progressPerImage = images.length > 0 ? (1 - progress.value - 0.1) / images.length : 0;
 
         await Promise.all(images.map(async i => {

@@ -6,8 +6,8 @@ import {
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { ExpirationPlugin } from 'workbox-expiration';
 
-// import { ExpirationPlugin } from 'workbox-expiration';
 // import { BackgroundSyncPlugin } from 'workbox-background-sync';
 
 declare const self: ServiceWorkerGlobalScope;
@@ -15,7 +15,7 @@ declare const self: ServiceWorkerGlobalScope;
 const buildDate = TASTORIA_BUILD.DATE;
 const version = TASTORIA_BUILD.VERSION;
 const host = self.location.hostname;
-// const dayInSeconds = 60 * 60 * 24;
+const daySeconds = 60 * 60 * 24;
 
 const revision = `${version} (${buildDate})`;
 const prefix = `tastoria v.${revision}`;
@@ -50,14 +50,24 @@ try {
     registerRoute(
         /\/build\/*$/,
         new StaleWhileRevalidate({
-            cacheName : 'static-resources'
+            cacheName : 'static-resources',
+            plugins   : [
+                new ExpirationPlugin({
+                    maxAgeSeconds : 30 * daySeconds
+                })
+            ]
         })
     );
 
     registerRoute(
         /.*\/q-data.json$/,
-        new NetworkFirst({
-            cacheName : 'q-data'
+        new StaleWhileRevalidate({
+            cacheName : 'q-data',
+            plugins   : [
+                new ExpirationPlugin({
+                    maxAgeSeconds : 7 * daySeconds
+                })
+            ]
         })
     );
 
@@ -72,6 +82,9 @@ try {
             plugins   : [
                 new CacheableResponsePlugin({
                     statuses : [ 200, 302 ]
+                }),
+                new ExpirationPlugin({
+                    maxAgeSeconds : 7 * daySeconds
                 })
             ]
         })
@@ -82,7 +95,16 @@ try {
             return request.destination === 'image';
         },
         new CacheFirst({
-            cacheName : 'image'
+            cacheName : 'image',
+            plugins   : [
+                new CacheableResponsePlugin({
+                    statuses : [ 200, 302 ]
+                }),
+                new ExpirationPlugin({
+                    maxAgeSeconds : 90 * daySeconds
+                })
+            ]
+
         })
     );
 

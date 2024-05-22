@@ -171,9 +171,11 @@ export default class FireBaseServer {
                 return null;
             });
 
+            const updates = results.filter(r => ![ 'KEEP', 'CANT_COMPARE' ].includes(r.type));
+
             await Promise.all(promises);
             goOffline(db);
-            logger.info(`RECIPES_SYNC_FINISHED ${ syncId}`);
+            logger.info(`RECIPES_SYNC_FINISHED ${syncId} (${updates.length})`);
 
             return results;
         } catch (error) {
