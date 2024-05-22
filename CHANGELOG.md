@@ -1,3 +1,10 @@
+## [1.32.2](https://github.com/pustovitDmytro/tastoria/compare/v1.32.1...v1.32.2) (2024-05-22)
+
+
+### Fix
+
+* fixes randomly opened pages ([1e3f9e7](https://github.com/pustovitDmytro/tastoria/commit/1e3f9e74ea1ef643655f3d48c75aecfc456824b6))
+
 ## [1.32.1](https://github.com/pustovitDmytro/tastoria/compare/v1.32.0...v1.32.1) (2024-04-26)
 
 
