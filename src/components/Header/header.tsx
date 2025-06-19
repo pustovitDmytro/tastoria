@@ -1,8 +1,9 @@
 /* eslint-disable no-secrets/no-secrets */
 import { $, component$, useContext, Slot, useSignal, useVisibleTask$, noSerialize } from '@builder.io/qwik';
-import { Link, useLocation } from '@builder.io/qwik-city';
+import { useLocation } from '@builder.io/qwik-city';
 import styles from './header.module.css';
 import type { HeaderAction } from './types';
+import { Link } from '~/components/Link';
 import Button from '~/components/Button';
 import Hamburger from '~/components/Icons/hamburger';
 import { sessionContext, appContext } from '~/stores';

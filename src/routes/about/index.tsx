@@ -1,11 +1,12 @@
 import { $, component$, useContext, useSignal, useStore, useVisibleTask$  } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link, routeLoader$ } from '@builder.io/qwik-city';
+import { routeLoader$ } from '@builder.io/qwik-city';
 import uaparser from 'ua-parser-js';
 import { format } from 'date-fns';
 import { isFunction } from 'myrmidon';
 import { license } from '../../../package.json';
 import styles from './styles.module.css';
+import { Link } from '~/components/Link';
 import Image from '~/media/about.png?jsx';
 import logger from '~/logger';
 import GithubIcon from '~/components/Icons/github.svg';

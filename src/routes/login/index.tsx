@@ -1,7 +1,8 @@
 import { $, component$,  useContext,  useSignal,  useStore } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link, routeAction$, useLocation } from '@builder.io/qwik-city';
+import { routeAction$, useLocation } from '@builder.io/qwik-city';
 import styles from './styles.module.css';
+import { Link } from '~/components/Link';
 import TextInput from '~/components/TextInput';
 import Button from '~/components/Button';
 import Glogo from '~/media/google-logo.png?jsx';
@@ -72,7 +73,7 @@ export default component$(() => {
                 <TextInput type='email' value={email} label={$localize `pages.login.email_key`} class={styles.input}/>
                 <TextInput type='password' value={password} label={$localize `pages.login.password_key`} class={styles.input}/>
                 <div class={styles.hints}>
-                    <Link class={styles.signUpLink} prefetch href={'/forgot_password'}>
+                    <Link class={styles.signUpLink} href={'/forgot_password'}>
                         {$localize `pages.login.forgot_password`}
                     </Link>
                 </div>
@@ -82,7 +83,7 @@ export default component$(() => {
                 </div>
             </div>
             <div class={styles.footer}>{$localize `pages.login.signUp_text`}
-                <Link class={styles.signUpLink} prefetch href={'/signup'}>{$localize `pages.login.signUp_btn`}</Link>
+                <Link class={styles.signUpLink} href={'/signup'}>{$localize `pages.login.signUp_btn`}</Link>
             </div>
         </div>
     </Page>;

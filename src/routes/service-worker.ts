@@ -59,17 +59,17 @@ try {
         })
     );
 
-    registerRoute(
-        /.*\/q-data.json$/,
-        new StaleWhileRevalidate({
-            cacheName : 'q-data',
-            plugins   : [
-                new ExpirationPlugin({
-                    maxAgeSeconds : 7 * daySeconds
-                })
-            ]
-        })
-    );
+    // registerRoute(
+    //     /.*\/q-data.json$/,
+    //     new StaleWhileRevalidate({
+    //         cacheName : 'q-data',
+    //         plugins   : [
+    //             new ExpirationPlugin({
+    //                 maxAgeSeconds : 7 * daySeconds
+    //             })
+    //         ]
+    //     })
+    // );
 
     registerRoute(
         ({ request }) => {

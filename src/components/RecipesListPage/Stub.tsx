@@ -1,8 +1,8 @@
 import { component$ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
 import Page from '../Page';
 import Header from '../Header/header';
 import styles from './Stub.module.css';
+import { Link } from '~/components/Link';
 import RecipeIcon from '~/components/Icons/recipe.svg?component';
 import ImportIcon from '~/components/Icons/import.svg?component';
 import AddIcon from '~/components/Icons/add.svg?component';
