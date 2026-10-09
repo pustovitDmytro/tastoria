@@ -13,10 +13,11 @@ import FirebaseServer from '~/firebase/server';
 import Page from '~/components/Page';
 import Header from '~/components/Header/header';
 
-export const useRedirect = routeAction$(async ({ token }, { env, cookie, redirect }) => {
+export const useRedirect = routeAction$(async ({ token }, { env, cookie, redirect, fail }) => {
     const firebaseServer = new FirebaseServer({ env });
+    const jwttoken = await firebaseServer.getToken(token as string).catch(() => null);
 
-    const jwttoken = await firebaseServer.getToken(token as string);
+    if (!jwttoken) return fail(401, { code: 'INVALID_ID_TOKEN' });
 
     cookiesManager.setSession(cookie, jwttoken);
 
