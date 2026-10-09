@@ -24,12 +24,7 @@ export default component$(() => {
         }));
 
     const dataToShow = list.filter(l => l.isVisible.value && !l.recipe.deletedAt);
-
-    if (dataToShow.length === 0) {
-        const isFiltered = list.some(l => l.isVisible.value === false && !l.recipe.deletedAt);
-
-        return <Stub isFiltered={isFiltered}/>;
-    }
+    const isFiltered = list.some(l => l.isVisible.value === false && !l.recipe.deletedAt);
 
     return <Page>
         <Header
@@ -37,14 +32,17 @@ export default component$(() => {
             list={list}
             onOpenRecipe={onOpenRecipe}
         />
-        <List
-            q:slot='content'
-            data={
-                dataToShow
-                    .sort((a, b) => b.sorter - a.sorter)
-                    .map(r => r.recipe)
-            }
-        />
+        {dataToShow.length === 0
+            ? <Stub q:slot='content' isFiltered={isFiltered}/>
+            : <List
+                q:slot='content'
+                data={
+                    dataToShow
+                        .sort((a, b) => b.sorter - a.sorter)
+                        .map(r => r.recipe)
+                }
+            />
+        }
     </Page>;
 });
 

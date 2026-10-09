@@ -7,6 +7,7 @@ import { sessionContext, appContext, recipesContext } from '~/stores';
 import Menu from '~/components/Menu/menu';
 import { extractLang, useI18n } from '~/i18n';
 import FirebaseServer from '~/firebase/server';
+import { createEntityStorage } from '~/entityStorage/server';
 import Toasts from '~/components/Toasts';
 import cookiesManager from '~/cookiesManager';
 import config from '~/config';
@@ -72,8 +73,9 @@ async function runBackgroundSync(time, mapping, sessionStore) {
     const { implement, user } = await res.json();
 
     if (!implement) return;
+    // Supabase driver keeps auth on firebase and returns no user from sync
     // eslint-disable-next-line no-param-reassign
-    sessionStore.user.value = user;
+    if (user) sessionStore.user.value = user;
 
     implement.forEach(i => {
         if ([ 'UPDATE_LOCAL', 'ADD_LOCAL' ].includes(i.type)) {
@@ -98,10 +100,10 @@ export const useRecipes = routeLoader$(async ({ env, cookie }) => {
 
     if (!session) return [];
 
-    const firebaseServer = new FirebaseServer({ env });
+    const entityStorage = createEntityStorage({ env });
 
-    await firebaseServer.signIn(session.token);
-    const recipes = await firebaseServer.downloadRecipes(session.userId);
+    await entityStorage.signIn(session.token);
+    const recipes = await entityStorage.downloadRecipes(session.userId);
 
     return recipes.filter(f => !f.deletedAt);
 });

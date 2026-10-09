@@ -1,7 +1,7 @@
 import type { FirebaseApp } from 'firebase/app';
 import { initializeApp } from 'firebase/app';
 import type { FirebaseStorage } from 'firebase/storage';
-import { getStorage, ref as refStorage } from 'firebase/storage';
+import { getStorage, ref as refStorage, uploadBytes } from 'firebase/storage';
 import  * as firebaseAuth  from 'firebase/auth';
 import { getDatabase, ref as refDB, set, get,  goOnline, goOffline } from 'firebase/database';
 import { SignJWT, decodeJwt, importPKCS8 } from 'jose';
@@ -67,6 +67,12 @@ export default class FireBaseServer {
         const starsRef = refStorage(this._storage, file);
 
         return getDownloadURL(starsRef);
+    }
+
+    async saveImage(userId, imageName, data) {
+        const storageRef = refStorage(this._storage, `${userId}/${imageName}`);
+
+        await uploadBytes(storageRef, data);
     }
 
     async downloadRecipe(userId, recipeId) {

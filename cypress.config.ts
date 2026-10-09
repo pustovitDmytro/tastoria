@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress';
 
 const e = process.env;
+const port = Number(e.CYPRESS_PORT ?? 5173);
 
 export default defineConfig({
     defaultCommandTimeout : 60_000,
@@ -12,7 +13,7 @@ export default defineConfig({
         password : e.TEST_USER_PASSWORD
     },
     e2e : {
-        baseUrl     : 'https://staging--tastoria.netlify.app',
+        baseUrl     : e.CYPRESS_BASE_URL ?? `http://localhost:${port}`,
         supportFile : 'tests/support/e2e.ts',
         specPattern : 'tests/e2e/*.test.ts'
     },

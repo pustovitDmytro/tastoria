@@ -36,6 +36,7 @@ interface Props {
     recipe: Recipe;
     shareURL: URL;
     sharedBy?: string;
+    shareToken?: string;
 }
 
 const MAX_RATING = 5;
@@ -43,7 +44,7 @@ const IS_VISITED_TIMEOUT = 60 * 1000;
 
 // eslint-disable-next-line max-lines-per-function
 export default component$<Props>((props) => {
-    const { shareURL, sharedBy, recipe } = props;
+    const { shareURL, sharedBy, shareToken, recipe } = props;
     const recipesCtx = useContext(recipesContext);
     const recipeCtx = recipesCtx.all[recipe.id];
 
@@ -74,7 +75,7 @@ export default component$<Props>((props) => {
     return (
         <div class={styles.component}>
             <div class={styles.preview}>
-                <Image class={styles.image} src={recipe.image} userId={sharedBy}/>
+                <Image class={styles.image} src={recipe.image} userId={sharedBy} shareToken={shareToken}/>
                 <div class={styles.content}>
                     <h1>{recipe.title}</h1>
                     <div class={styles.contentItem}>

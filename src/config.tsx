@@ -33,7 +33,10 @@ const firebaseToken = prefix => ({
 
 const schema = {
     firebase : firebase('PUBLIC_FIREBASE'),
-    sync     : {
+    storage  : {
+        driver : { $source: '{PUBLIC_STORAGE_DRIVER}', $validate: [ { default: 'firebase' }, 'string', { 'enum': [ 'firebase', 'supabase' ] } ] }
+    },
+    sync : {
         disable : { $source: '{PUBLIC_DISABLE_SYNC}', $validate: [ 'required', 'boolean' ] }
     }
 };
@@ -44,6 +47,24 @@ assembler.parse();
 const config = assembler.run(e);
 
 export default config;
+
+export function getSupabaseConfig(env) {
+    const supabaseSchema = {
+        url        : { $source: '{SUPABASE_URL}', $validate: [ 'required', 'string' ] },
+        serviceKey : { $source: '{SUPABASE_SERVICE_KEY}', $validate: [ 'required', 'string' ] }
+    };
+
+    const dict = {
+        SUPABASE_URL         : env.get('SUPABASE_URL'),
+        SUPABASE_SERVICE_KEY : env.get('SUPABASE_SERVICE_KEY')
+    };
+
+    const sbAssembler = new Assembler(cottus, supabaseSchema);
+
+    sbAssembler.parse();
+
+    return sbAssembler.run(dict);
+}
 
 export function getFirebaseTokenConfig(env) {
     const faSchema = firebaseToken('FIREBASE_TOKEN');
