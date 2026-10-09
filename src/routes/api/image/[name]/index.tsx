@@ -3,6 +3,14 @@ import cookiesManager from '~/cookiesManager';
 import Cipher from '~/utils/aes';
 import { createEntityStorage } from '~/entityStorage/server';
 
+const IMAGE_NAME_PATTERN = /^[\w.-]+$/;
+const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+
+// The name becomes part of the storage path `${userId}/${name}`, so it must stay a single segment
+function isValidImageName(name: string) {
+    return IMAGE_NAME_PATTERN.test(name) && !name.includes('..');
+}
+
 // Owner-only access: the session user gets their own images; anyone else must
 // present a valid share token that decrypts to the requested owner id.
 async function resolveOwnerId({ query, cookie, env }) {
@@ -29,6 +37,12 @@ async function resolveOwnerId({ query, cookie, env }) {
 }
 
 export const onGet: RequestHandler = async ({ params, query, cookie, env, json, redirect }) => {
+    if (!isValidImageName(params.name)) {
+        json(400, { code: 'INVALID_IMAGE_NAME' });
+
+        return;
+    }
+
     const ownerId = await resolveOwnerId({ query, cookie, env });
 
     if (!ownerId) {
@@ -52,8 +66,34 @@ export const onPost: RequestHandler = async ({ params, cookie, env, json, reques
         return;
     }
 
+    if (!isValidImageName(params.name)) {
+        json(400, { code: 'INVALID_IMAGE_NAME' });
+
+        return;
+    }
+
+    const contentType = request.headers.get('content-type') || '';
+
+    if (!contentType.startsWith('image/')) {
+        json(415, { code: 'UNSUPPORTED_IMAGE_TYPE' });
+
+        return;
+    }
+
+    if (Number(request.headers.get('content-length')) > MAX_UPLOAD_BYTES) {
+        json(413, { code: 'IMAGE_TOO_LARGE' });
+
+        return;
+    }
+
     const data = await request.arrayBuffer();
-    const contentType = request.headers.get('content-type') || undefined;
+
+    if (data.byteLength > MAX_UPLOAD_BYTES) {
+        json(413, { code: 'IMAGE_TOO_LARGE' });
+
+        return;
+    }
+
     const storage = createEntityStorage({ env });
 
     await storage.saveImage(session.userId, params.name, data, contentType);

@@ -10,6 +10,15 @@ function buildImagePath(userId: string, imageName: string, ctx?: ImageContext) {
     return `/api/image/${encodeURIComponent(imageName)}?${search.toString()}`;
 }
 
+const IMAGE_TYPES = { png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp', gif: 'image/gif' };
+
+// Blobs unpacked from a backup zip carry no type, while /api/image accepts only image/*
+function getImageType(imageName: string, blob: Blob) {
+    const extension = imageName.split('.').pop()?.toLowerCase() ?? '';
+
+    return blob.type || IMAGE_TYPES[extension] || 'application/octet-stream';
+}
+
 const supabaseDriver: EntityStorageUI = {
     async getImageUrl(userId, imageName, ctx) {
         return buildImagePath(userId, imageName, ctx);
@@ -25,8 +34,9 @@ const supabaseDriver: EntityStorageUI = {
 
     async saveImage(user, imageName, blob) {
         const res = await fetch(`/api/image/${encodeURIComponent(imageName)}`, {
-            method : 'POST',
-            body   : blob
+            method  : 'POST',
+            headers : { 'Content-Type': getImageType(imageName, blob) },
+            body    : blob
         });
 
         if (!res.ok) throw new Error(`IMAGE_UPLOAD_FAILED (${res.status})`);
