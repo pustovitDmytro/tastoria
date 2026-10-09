@@ -1,6 +1,6 @@
 /* eslint-disable import/unambiguous */
 
-const recipeLink = 'a[href^="/recipes/"]:not([href="/recipes/create"]):not([href*="/edit"])';
+const recipeLink = 'a[href^="/recipes/"]:has(h3)';
 
 describe('recipes', function () {
     beforeEach(function () {
