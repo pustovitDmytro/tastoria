@@ -1,10 +1,10 @@
 import type { FirebaseApp } from 'firebase/app';
 import { initializeApp } from 'firebase/app';
 import type { FirebaseStorage } from 'firebase/storage';
-import { getStorage, ref as refStorage } from 'firebase/storage';
+import { getStorage, ref as refStorage, uploadBytes } from 'firebase/storage';
 import  * as firebaseAuth  from 'firebase/auth';
 import { getDatabase, ref as refDB, set, get,  goOnline, goOffline } from 'firebase/database';
-import { SignJWT, decodeJwt, importPKCS8 } from 'jose';
+import { SignJWT, createRemoteJWKSet, importPKCS8, jwtVerify } from 'jose';
 import config, { getFirebaseTokenConfig } from '../config';
 import { dumpRecipe, dumpUserSessionData } from '~/utils/dumpUtils';
 import logger from '~/logger';
@@ -17,6 +17,10 @@ const {
     initializeAuth,
     signInWithCustomToken
 } = firebaseAuth;
+
+const firebaseIdTokenKeys = createRemoteJWKSet(
+    new URL('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com')
+);
 
 async function getDownloadURL(reference) {
     const service = reference.storage;
@@ -69,6 +73,12 @@ export default class FireBaseServer {
         return getDownloadURL(starsRef);
     }
 
+    async saveImage(userId, imageName, data) {
+        const storageRef = refStorage(this._storage, `${userId}/${imageName}`);
+
+        await uploadBytes(storageRef, data);
+    }
+
     async downloadRecipe(userId, recipeId) {
         const db = getDatabase(this._app);
 
@@ -98,12 +108,18 @@ export default class FireBaseServer {
     }
 
     async getToken(idToken):Promise<string> {
-        const decoded = decodeJwt(idToken); // TODO: verify
-        const k = this._tokenConfig.privateKey;
+        const { projectId } = config.firebase;
+        const { payload: decoded } = await jwtVerify(idToken, firebaseIdTokenKeys, {
+            issuer   : `https://securetoken.google.com/${projectId}`,
+            audience : projectId
+        });
+
+        if (!decoded.sub) throw new Error('INVALID_ID_TOKEN');
+
         const key = await importPKCS8(this._tokenConfig.privateKey, 'RS256');
 
         return new SignJWT({
-            uid      : decoded.user_id,
+            uid      : decoded.sub,
             authTime : decoded.auth_time,
             sub      : this._tokenConfig.sub
         })

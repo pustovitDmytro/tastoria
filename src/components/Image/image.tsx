@@ -4,13 +4,14 @@ import { component$, useContext,
 import { isServer } from '@builder.io/qwik/build';
 import styles from './image.module.css';
 import Image from '~/media/placeholder.png?jsx';
-import  firebaseUI from '~/firebase/ui';
+import entityStorage from '~/entityStorage/ui';
 import { sessionContext } from '~/stores';
 import Loader from '~/components/Loader.js';
 
 interface ItemProps {
     src?:string;
     userId?: string;
+    shareToken?: string;
     class?:string
 }
 
@@ -18,17 +19,19 @@ export const placeholder = <Image class={styles.placeholder}/>;
 
 export default component$<ItemProps>((props) => {
     if (!props.src) return placeholder;
+    const src = props.src;
     const session = useContext(sessionContext);
 
     const url = useResource$<string>(
         async () => {
             const userId = props.userId || session.user.value.id;
+            const ctx = { shareToken: props.shareToken };
 
             if (isServer) {
-                return firebaseUI.getImageUrl(userId, props.src);
+                return entityStorage.getImageUrl(userId, src, ctx);
             }
 
-            const blob = await firebaseUI.downloadImage(userId, props.src);
+            const blob = await entityStorage.downloadImage(userId, src, ctx);
 
             return URL.createObjectURL(blob);
         }

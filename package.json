@@ -18,9 +18,11 @@
     "preview": "qwik build preview && vite preview --open",
     "semantic-release": "npx semantic-release",
     "start": "vite --open --mode ssr",
+    "start:server": "vite --mode ssr --host --port 5173",
     "start:build": "npx netlify serve",
     "test:lint": "eslint \"src/**/*.ts*\"",
-    "test:e2e": "ELECTRON_ENABLE_LOGGING=1 npx cypress run",
+    "test:e2e": "npm run prepare && start-server-and-test start:server http://localhost:5173 test:e2e:run",
+    "test:e2e:run": "ELECTRON_ENABLE_LOGGING=1 cypress run",
     "test:unit": "ELECTRON_ENABLE_LOGGING=1 npx cypress run --component",
     "test:cypress": "npm run test:e2e && npm run test:unit"
   },
@@ -78,6 +80,7 @@
     "semantic-release": "^19.0.3",
     "semantic-release-bundle": "^1.2.0",
     "semantic-release-telegram": "^1.0.5",
+    "start-server-and-test": "^2.1.5",
     "typescript": "^5.1",
     "unified": "^11.0.4",
     "unzipper": "^0.10.14",
@@ -88,6 +91,7 @@
   },
   "dependencies": {
     "@angular/localize": "16.2.2",
+    "@supabase/supabase-js": "^2.110.5",
     "@zip.js/zip.js": "2.7.31",
     "base-api-client": "1.5.10",
     "cottus": "1.11.0",

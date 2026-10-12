@@ -7,7 +7,7 @@ import { last } from 'myrmidon';
 import JSZip from 'jszip';
 import styles from './styles.module.css';
 import FileInput from '~/components/FileInput';
-import firebaseUI from '~/firebase/ui';
+import entityStorage from '~/entityStorage/ui';
 import { sessionContext, recipesContext, appContext } from '~/stores';
 import Button from '~/components/Button';
 import DownloadIcon from '~/components/Icons/download.svg?component';
@@ -51,7 +51,7 @@ async function handleImport(file, user: any, recipeMap: { [x: string]: Recipe; }
 
             progress.value += progressPerImage / 2;
 
-            await firebaseUI.saveImage(user, imageName, image);
+            await entityStorage.saveImage(user, imageName, image);
             progress.value += progressPerImage / 2;
         }));
 
@@ -118,7 +118,7 @@ async function exportBackup(user, recipes) {
     zip.file('data.json', JSON.stringify({ recipes }));
     for (const r of recipes) {
         if (r.image) {
-            const image = await firebaseUI.downloadImage(user.id, r.image);
+            const image = await entityStorage.downloadImage(user.id, r.image);
 
             zip.file(r.image, image);
         }

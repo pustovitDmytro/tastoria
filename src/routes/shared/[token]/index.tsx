@@ -2,7 +2,7 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { routeAction$, routeLoader$, useLocation } from '@builder.io/qwik-city';
-import FirebaseServer from '~/firebase/server';
+import { createEntityStorage } from '~/entityStorage/server';
 import Cipher from '~/utils/aes';
 import ViewPage from '~/components/RecipeSinglePage/Page';
 import cookiesManager from '~/cookiesManager';
@@ -21,10 +21,10 @@ export const useRecipesDetails = routeLoader$(async ({ params, env, cookie, redi
         throw redirect(302, `/recipes/${recipeId}`);
     }
 
-    const firebaseServer = new FirebaseServer({ env });
+    const entityStorage = createEntityStorage({ env });
 
-    await firebaseServer.signIn(session?.token);
-    const recipe = await firebaseServer.downloadRecipe(userId, recipeId);
+    await entityStorage.signIn(session?.token);
+    const recipe = await entityStorage.downloadRecipe(userId, recipeId);
 
     if (!recipe) return null;
 
@@ -57,6 +57,7 @@ export default component$(() => {
             recipe={recipe}
             shareURL={sharedUrl}
             sharedBy={signal.value.sharedBy}
+            shareToken={signal.value.sharedToken}
         />
     </Page>;
 });

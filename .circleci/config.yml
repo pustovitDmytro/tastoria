@@ -103,7 +103,7 @@ jobs:
       - cypress/run-tests:
           cypress-command: npm run test:unit
       - cypress/run-tests:
-          cypress-command: npm run test:e2e
+          cypress-command: CYPRESS_BASE_URL=https://staging--tastoria.netlify.app npm run test:e2e:run
       - store_artifacts:
           path: reports
   test-leaks:
