@@ -1,3 +1,26 @@
+## [1.32.3](https://github.com/pustovitDmytro/tastoria/compare/v1.32.2...v1.32.3) (2026-10-13)
+
+
+### Chore
+
+* drops unused package.json import from localization script ([769db38](https://github.com/pustovitDmytro/tastoria/commit/769db385776f6e8345529608ba42609a9d56bc06))
+* runs ci e2e against staging ([00d035f](https://github.com/pustovitDmytro/tastoria/commit/00d035fd1960b2cd1b32c471c5fa9649a488ec55))
+
+### Feat
+
+* adds entity storage drivers with supabase backend (wip) ([13fb798](https://github.com/pustovitDmytro/tastoria/commit/13fb7985e32a9b59f1d7de96bda53d8c18391608))
+* adds supabase schema and hardens image endpoint ([092be77](https://github.com/pustovitDmytro/tastoria/commit/092be777703ee730e6255983829b3ff5cd84fcfc))
+* splits data and files storage drivers ([f68239b](https://github.com/pustovitDmytro/tastoria/commit/f68239b800610fbf70334ab77f7234fd4b8fa246))
+
+### Fix
+
+* stabilizes recipes e2e ([9a9809c](https://github.com/pustovitDmytro/tastoria/commit/9a9809cf31e8fba88c199e0e1dfb5064007d0797))
+* verifies session and firebase id tokens ([5e56866](https://github.com/pustovitDmytro/tastoria/commit/5e5686678cf924322fc022d578b8d2af18c53bec))
+
+### FIx
+
+* fixes qwik prefetch ([daf1d9a](https://github.com/pustovitDmytro/tastoria/commit/daf1d9a1c68be4fc8646e6f585942c276d6f78c8))
+
 ## [1.32.2](https://github.com/pustovitDmytro/tastoria/compare/v1.32.1...v1.32.2) (2024-05-22)
 
 
