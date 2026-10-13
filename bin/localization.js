@@ -8,7 +8,6 @@ import fs from 'fs-extra';
 import { v4 as uuid } from 'uuid';
 import { toArray } from 'myrmidon';
 import Papa from 'papaparse';
-import pkg from '../package.json' assert { type: 'json' };
 
 const srcDirectory = path.resolve('locales');
 const distDirectory = path.resolve('src/locales');
