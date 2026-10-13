@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
 import cookiesManager from '~/cookiesManager';
 import Cipher from '~/utils/aes';
-import { createEntityStorage } from '~/entityStorage/server';
+import { createFilesStorage } from '~/entityStorage/server';
 
 const IMAGE_NAME_PATTERN = /^[\w.-]+$/;
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
@@ -51,7 +51,7 @@ export const onGet: RequestHandler = async ({ params, query, cookie, env, json, 
         return;
     }
 
-    const storage = createEntityStorage({ env });
+    const storage = createFilesStorage({ env });
     const signedUrl = await storage.getImageUrl(ownerId, params.name);
 
     throw redirect(302, signedUrl);
@@ -94,7 +94,7 @@ export const onPost: RequestHandler = async ({ params, cookie, env, json, reques
         return;
     }
 
-    const storage = createEntityStorage({ env });
+    const storage = createFilesStorage({ env });
 
     await storage.saveImage(session.userId, params.name, data, contentType);
 

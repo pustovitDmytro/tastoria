@@ -25,12 +25,4 @@ export default class FirebaseEntityStorage implements EntityStorageServer {
     syncUserRecipes(userId: string, recipes: Recipe[]): Promise<compareResult[]> {
         return this._server.syncUserRecipes(userId, recipes);
     }
-
-    getImageUrl(userId: string, imageName: string): Promise<string> {
-        return this._server.getImageUrl(userId, imageName);
-    }
-
-    saveImage(userId: string, imageName: string, data: Blob | ArrayBuffer): Promise<void> {
-        return this._server.saveImage(userId, imageName, data);
-    }
 }

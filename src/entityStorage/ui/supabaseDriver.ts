@@ -1,4 +1,4 @@
-import type { EntityStorageUI, ImageContext } from '../types';
+import type { FilesStorageUI, ImageContext } from '../types';
 
 // Browser never talks to supabase directly: the service key lives server-side,
 // so all image traffic goes through the session-protected /api/image endpoint.
@@ -19,7 +19,7 @@ function getImageType(imageName: string, blob: Blob) {
     return blob.type || IMAGE_TYPES[extension] || 'application/octet-stream';
 }
 
-const supabaseDriver: EntityStorageUI = {
+const supabaseDriver: FilesStorageUI = {
     async getImageUrl(userId, imageName, ctx) {
         return buildImagePath(userId, imageName, ctx);
     },

@@ -1,4 +1,4 @@
--- Schema for the supabase storage driver (src/entityStorage/server/supabaseDriver.ts).
+-- Schema for the supabase drivers: recipes table for DATA_DRIVER=supabase, recipe-images bucket for PUBLIC_FILES_DRIVER=supabase.
 -- Idempotent: psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/schema.sql
 
 create table if not exists public.recipes (
