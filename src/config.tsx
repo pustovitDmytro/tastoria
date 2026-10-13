@@ -34,7 +34,7 @@ const firebaseToken = prefix => ({
 const schema = {
     firebase : firebase('PUBLIC_FIREBASE'),
     storage  : {
-        driver : { $source: '{PUBLIC_STORAGE_DRIVER}', $validate: [ { default: 'firebase' }, 'string', { 'enum': [ 'firebase', 'supabase' ] } ] }
+        files : { $source: '{PUBLIC_FILES_DRIVER}', $validate: [ { default: 'supabase' }, 'string', { 'enum': [ 'firebase', 'supabase' ] } ] }
     },
     sync : {
         disable : { $source: '{PUBLIC_DISABLE_SYNC}', $validate: [ 'required', 'boolean' ] }
@@ -64,6 +64,18 @@ export function getSupabaseConfig(env) {
     sbAssembler.parse();
 
     return sbAssembler.run(dict);
+}
+
+export function getDataDriver(env): 'firebase' | 'supabase' {
+    const dataSchema = {
+        driver : { $source: '{DATA_DRIVER}', $validate: [ { default: 'firebase' }, 'string', { 'enum': [ 'firebase', 'supabase' ] } ] }
+    };
+
+    const dataAssembler = new Assembler(cottus, dataSchema);
+
+    dataAssembler.parse();
+
+    return dataAssembler.run({ DATA_DRIVER: env.get('DATA_DRIVER') }).driver;
 }
 
 export function getFirebaseTokenConfig(env) {

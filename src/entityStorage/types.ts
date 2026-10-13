@@ -6,6 +6,9 @@ export interface EntityStorageServer {
     downloadRecipe(userId: string, recipeId: string): Promise<Recipe | null>;
     downloadRecipes(userId: string): Promise<Recipe[]>;
     syncUserRecipes(userId: string, recipes: Recipe[]): Promise<compareResult[]>;
+}
+
+export interface FilesStorageServer {
     getImageUrl(userId: string, imageName: string): Promise<string>;
     saveImage(userId: string, imageName: string, data: Blob | ArrayBuffer, contentType?: string): Promise<void>;
 }
@@ -14,7 +17,7 @@ export interface ImageContext {
     shareToken?: string;
 }
 
-export interface EntityStorageUI {
+export interface FilesStorageUI {
     getImageUrl(userId: string, imageName: string, ctx?: ImageContext): Promise<string>;
     downloadImage(userId: string, imageName: string, ctx?: ImageContext): Promise<Blob>;
     saveImage(user: { id: string }, imageName: string, blob: Blob): Promise<void>;

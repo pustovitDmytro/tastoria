@@ -1,7 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { EntityStorageServer } from '../types';
-import { getSupabaseConfig } from '~/config';
+import { createSupabaseClient } from './supabaseClient';
 import { dumpRecipe } from '~/utils/dumpUtils';
 import { planRecipesSync } from '~/utils/sync';
 import type { compareResult, dbResult } from '~/utils/sync';
@@ -9,18 +8,12 @@ import type { Recipe } from '~/types';
 import logger from '~/logger';
 
 const RECIPES_TABLE = 'recipes';
-const IMAGES_BUCKET = 'recipe-images';
-const SIGNED_URL_TTL_SECONDS = 3600;
 
 export default class SupabaseEntityStorage implements EntityStorageServer {
     private _client: SupabaseClient;
 
     constructor({ env }) {
-        const { url, serviceKey } = getSupabaseConfig(env);
-
-        this._client = createClient(url, serviceKey, {
-            auth : { persistSession: false, autoRefreshToken: false }
-        });
+        this._client = createSupabaseClient(env);
     }
 
     // Auth stays on Firebase; supabase driver is data-only, so there is no user to resolve here
@@ -95,23 +88,5 @@ export default class SupabaseEntityStorage implements EntityStorageServer {
 
             return [];
         }
-    }
-
-    async getImageUrl(userId: string, imageName: string): Promise<string> {
-        const { data, error } = await this._client.storage
-            .from(IMAGES_BUCKET)
-            .createSignedUrl(`${userId}/${imageName}`, SIGNED_URL_TTL_SECONDS);
-
-        if (error) throw new Error(error.message);
-
-        return data.signedUrl;
-    }
-
-    async saveImage(userId: string, imageName: string, data: Blob | ArrayBuffer, contentType?: string): Promise<void> {
-        const { error } = await this._client.storage
-            .from(IMAGES_BUCKET)
-            .upload(`${userId}/${imageName}`, data, { upsert: true, contentType });
-
-        if (error) throw new Error(error.message);
     }
 }

@@ -1,7 +1,7 @@
-import type { EntityStorageUI } from '../types';
+import type { FilesStorageUI } from '../types';
 import firebaseUI from '~/firebase/ui';
 
-const firebaseDriver: EntityStorageUI = {
+const firebaseDriver: FilesStorageUI = {
     getImageUrl(userId, imageName) {
         return firebaseUI.getImageUrl(userId, imageName);
     },
