@@ -1,6 +1,6 @@
 import { $, component$, useContext, useSignal, useStore, useVisibleTask$  } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { routeLoader$ } from '@builder.io/qwik-city';
+import { routeLoader$, useLocation } from '@builder.io/qwik-city';
 import uaparser from 'ua-parser-js';
 import { format } from 'date-fns';
 import { isFunction } from 'myrmidon';
@@ -17,8 +17,7 @@ import { appContext } from '~/stores';
 import Button from '~/components/Button';
 import Page from '~/components/Page';
 import Header from '~/components/Header/header';
-
-const version = TASTORIA_BUILD.VERSION;
+import { buildFields, buildWithEnv, formatBuildCopyText } from '~/utils/buildInfo';
 
 export const useUserAgentDetails = routeLoader$(async (requestEvent) => {
     const userAgent = requestEvent.request.headers.get('user-agent');
@@ -63,6 +62,13 @@ export default component$(() => {
     const changeLog = useChangeLogDetails();
     const app = useContext(appContext);
     const canBeCopied = useSignal(true);
+    const build = buildFields(useLocation().url.host);
+    const buildRows = [
+        build.version && { name: $localize `pages.about.versionLabel`, value: build.version },
+        { name: $localize `pages.about.buildLabel`, value: buildWithEnv(build.build, build.env) },
+        build.commit && { name: $localize `pages.about.commitLabel`, value: build.commit },
+        build.date && { name: $localize `pages.about.builtLabel`, value: build.date }
+    ].filter(Boolean) as BoxProps[];
 
     const deviceSize = useStore({
         availWidth  : 0,
@@ -105,7 +111,7 @@ export default component$(() => {
 
                 return line.join(': ');
             }),
-            `Version: ${version}`
+            formatBuildCopyText(build)
         ].join('\n');
 
         navigator.clipboard.writeText(message);
@@ -151,7 +157,9 @@ export default component$(() => {
                             </Button>
                             : <div></div>
                     }
-                    <span>v.{version}</span>
+                    <div class={styles.build}>
+                        {buildRows.map(row => <span key={row.name}>{row.name}: {row.value}</span>)}
+                    </div>
                 </div>
             </div>
             <Image class={[ styles.image, { [styles.isMenuOpened]: isMenuOpened } ]}/>

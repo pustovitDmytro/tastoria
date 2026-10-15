@@ -43,6 +43,8 @@ declare global {
     const TASTORIA_BUILD: {
         VERSION: string;
         DATE: string;
+        NUMBER: string;
+        COMMIT: string;
     };
 }
 
