@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/pustovitDmytro/tastoria/compare/v1.32.3...v1.33.0) (2026-10-16)
+
+
+### Update
+
+* Show build number, commit and date on the About page, in the console and at /api/version ([f635107](https://github.com/pustovitDmytro/tastoria/commit/f6351070481a06c2488ffdf0cd1252b87fa0d1e2))
+
 ## [1.32.3](https://github.com/pustovitDmytro/tastoria/compare/v1.32.2...v1.32.3) (2026-10-13)
 
 
