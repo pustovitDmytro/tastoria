@@ -12,6 +12,7 @@ import Toasts from '~/components/Toasts';
 import cookiesManager from '~/cookiesManager';
 import config from '~/config';
 import type { ReceiptFilter, Recipe } from '~/types';
+import { buildFields } from '~/utils/buildInfo';
 
 // export const onGet: RequestHandler = async ({ cacheControl, cookie }) => {
 //     cacheControl({ // https://qwik.builder.io/docs/caching/
@@ -157,6 +158,14 @@ export default component$(() => {
     useContextProvider(sessionContext, sessionStore);
     useContextProvider(appContext, appStore);
     useContextProvider(recipesContext, recipesStore);
+
+    useVisibleTask$(() => {
+        const build = buildFields(window.location.host);
+        const line = [ `Tastoria ${build.label}`, build.date && `built ${build.date}` ].filter(Boolean).join(' · ');
+
+        // eslint-disable-next-line no-console
+        console.info(line, build);
+    });
 
     useVisibleTask$(({ track }) => {
         const changeTime = track(() => recipesStore.lastChanged.value);
